@@ -30,7 +30,7 @@ function Logout() {
     localStorage.clear();
 }
 
-function Register(registerInfo) {
+async function Register(registerInfo) {
     const options = {
         url: 'http://localhost:5000/api/auth/register',
         method: 'POST',

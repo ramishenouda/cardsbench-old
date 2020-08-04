@@ -44,10 +44,8 @@ class Navbar extends Component {
 
   logout = (event) => {
     event.preventDefault();
-
+    Notify.info('Logged out. Redirecting to the Homepage.')
     Logout();
-
-    Notify.info('Redirecting to the Homepage', 'Logged out')
   }
 
   handleChange = (event) => {
