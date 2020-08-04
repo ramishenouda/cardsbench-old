@@ -18,19 +18,12 @@ async function Login(loginInfo) {
 
     return axios(options)
         .then((response) => {
-            setLocalStorage(response.data);
+            localStorage.clear();
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
           }).catch((err) => {
-              console.log('error');
+              console.log(err);
           })
-}
-
-function setLocalStorage(data) {
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
-}
-
-function DecodedJWTToken() {
-    console.log('decoded is here');
 }
 
 function Logout() {
@@ -57,12 +50,14 @@ function Register(registerInfo) {
 
     return axios(options)
         .then((response) => {
-            setLocalStorage(response.data);
-            console.log(response);
+            localStorage.setItem('registerResponse', 'success')
           }).catch((err) => {
-            console.log(err.response);
-            console.log(err);
+            if (err.response !== undefined) {
+                localStorage.setItem('registerResponse', JSON.stringify(err.response.data))
+            } else {
+                localStorage.setItem('registerResponse', 'Server may be offline, try again later.')
+            }
         });
 }
 
-export { DecodedJWTToken, Login, Logout, Register };
+export { Login, Logout, Register };

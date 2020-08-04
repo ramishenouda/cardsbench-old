@@ -1,37 +1,24 @@
-import swal from 'sweetalert';
+import Swal from 'sweetalert2'
 
 class Notify {
-    static info = (message, title = '') => {
-        if (title === '') {
-            swal(message);
-        } else {
-            swal(title, message);
-        }
+    static info = (message, timer = 1500, showConfirmButton = false, position = 'bottom-end') => {
+        Swal.fire({
+            text: message,
+            timer: timer,
+            showConfirmButton: showConfirmButton,
+            position: position
+        });
     }
 
     static success = (title, message) => {
-        swal(title, message, 'success');
-    }
-
-    static confirm = (message, title, dangerMode, icon) => {
-        swal({
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
             title: title,
             text: message,
-            icon: icon,
-            buttons: true,
-            dangerMode: dangerMode,
-        })
-        .then((willDo) => {
-            if (willDo) {
-              swal('Done', {
-                icon: 'success',
-              });
-            } else {
-              swal('Canceled', {
-                  icon: 'info'
-              });
-            }
-          });
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 }
 

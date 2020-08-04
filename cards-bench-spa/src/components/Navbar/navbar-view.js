@@ -29,36 +29,37 @@ function LoginNavbar(props) {
   return (
     <nav className="navbar navbar-primary bg-light">
       <Link to="/" className="navbar-brand"> CardsBench </Link>
-      {
-        props.loginInfo.loggingIn === false ?
-          <form onSubmit={props.login} className="form-inline my-2 my-lg-0">
-            <input
-              onChange={props.handleChange}
-              style={props.loginInfo.validEmail === 'false' ? unvalidInputStyle : null}
-              className="form-control mr-sm-2"
-              value={props.loginInfo.email}
-              type="email"
-              name="email"
-              autoComplete="off"
-              placeholder="Email"
-            />
-            <input type="password" name="password" autoComplete="off" placeholder="Password"
-              className="form-control mr-sm-2" 
-              value={props.loginInfo.password}
-              onChange={props.handleChange}
-              style={props.loginInfo.validPassword === 'false' ? unvalidInputStyle : null}
-            />
-            <button className="btn btn-success mr-2 my-2 my-sm-0"
-              disabled={props.loginInfo.validForm === false ? true : false }
-            >
-              Login
-            </button>
-          <span onClick={props.toggleLogin} className="btn btn-outline-warning my-2 my-sm-0">
+        <form onSubmit={props.login} className="form-inline my-2 my-lg-0">
+          <input name="email" type="email" autoComplete="off" placeholder="Email"
+            className="form-control mr-sm-2"
+            value={props.loginInfo.email}
+            onChange={props.handleChange}
+            style={props.loginInfo.validEmail === 'false' ? unvalidInputStyle : null}
+            disabled={props.loginInfo.loggingIn}
+          />
+          <input type="password" name="password" autoComplete="off" placeholder="Password"
+            className="form-control mr-sm-2" 
+            value={props.loginInfo.password}
+            onChange={props.handleChange}
+            style={props.loginInfo.validPassword === 'false' ? unvalidInputStyle : null}
+            disabled={props.loginInfo.loggingIn}
+          />
+
+          {
+            props.loginInfo.loggingIn === false ? 
+              <button className="btn btn-success mr-2 my-2 my-sm-0"
+                disabled={props.loginInfo.validForm === false ? true : false }
+              >
+                Login
+              </button> :
+              <span className="mr-2 my-2 my-sm-0">
+                <LoaderView width={20} height={20} borderWidth={8} borderStyle={'solid'} borderColor={'f3f3f3'} />
+              </span>
+          }
+          <span onClick={props.toggleLogin} className="btn btn-outline-warning my-2 my-sm-0" disabled={props.loginInfo.loggingIn}>
             Cancel
           </span>
-          </form>
-        : <LoaderView width={20} height={20} borderWidth={8} borderStyle={'solid'} borderColor={'f3f3f3'} />
-      }
+        </form>
     </nav>
   );
 }

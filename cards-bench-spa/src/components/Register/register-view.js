@@ -1,9 +1,23 @@
 import React from 'react';
+
 import './register-styles.css';
 
+import LoaderView from '../Loader/loader-view'
+
 function RegisterView(props) {
+  const style={
+    width: props.screenWidth < 769 ? '90%' : '60%',
+    padding: '50px 25px 80px 25px',
+    margin: '50px auto',
+    background: '#efefef',
+    textAlign: 'center',
+    WebkitBoxShadow: '2px 2px 3px rgba(0,0,0,0.1)',
+    boxShadow: '2px 2px 3px rgba(0,0,0,0.1)',
+    verticalAlign: 'middle'
+  }
+
   return (
-    <div className="register">
+    <div className="register" style={style}>
       <form onSubmit={props.register}>
         <div className="form-check form-check-inline">
           <label className="form-check-label pr-1" htmlFor="inlineRadio1">
@@ -88,11 +102,14 @@ function RegisterView(props) {
               placeholder="KnownAs (Nickname)"
               value={props.registerInfo.knownAs}
               onChange={props.handleChange}
+              
             />
           </div>
         </center>
-
-        <button className="btn btn-primary">Sign sup</button>
+        {
+          props.registerInfo.registering === false ? <button className="btn btn-primary">Sign up</button> :
+            <center><LoaderView width={48} height={48} borderWidth={8} borderStyle={'solid'} borderColor={'f3f3f3'} /></center>
+        }
       </form>
     </div>
   );

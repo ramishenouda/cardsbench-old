@@ -11,10 +11,6 @@ class App extends Component {
     loggedIn: localStorage.getItem('token') === null ? false : true,
   }
 
-  changeLoginState = () => {
-    this.setState({loggedIn: localStorage.getItem('token') === null ? false : true});
-  }
-
   render() {
     return (
       <BrowserRouter>

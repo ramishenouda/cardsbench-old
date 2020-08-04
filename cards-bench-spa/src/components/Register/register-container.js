@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 
-import { Register as register } from '../../services/auth-service' 
+import { Register as register, Login } from '../../services/auth-service' 
 
 import RegisterView from './register-view'
+import Notify from '../../services/sweetalert-service';
 
 
 class Register extends Component {
     state = {
-        email: '',
-        confirmEmail: '',
-        password: '',
-        confirmPassword: '',
+        email: 'ramishenouda@yahoo.com',
+        confirmEmail: 'ramishenouda@yahoo.com',
+        password: 'ramishenouda@yahoo.com',
+        confirmPassword: 'ramishenouda@yahoo.com',
         gender: 'Male',
-        knownAs: ''
+        knownAs: 'ramishenouda@yahoo.com',
+        registering: false
     }
 
     handleChange = (event) => {
@@ -24,7 +26,22 @@ class Register extends Component {
 
     register = (event) => {
         event.preventDefault();
-        register(this.state);
+        this.setState({registering: true})
+        register(this.state).finally(() => {
+            const registerResponse = localStorage.getItem('registerResponse');
+
+            if (registerResponse === 'success') {
+                const loginInfo = {
+                    email: this.state.email,
+                    password: this.state.password
+                };
+
+                Notify.success('Registration Successful')
+                Login(loginInfo);
+            }
+
+            this.setState({registering: false})
+        });
     }
 
     render() {
@@ -32,7 +49,7 @@ class Register extends Component {
             return <Redirect to="/" />
         }
 
-        return <RegisterView handleChange={this.handleChange} registerInfo={this.state} register={this.register} />
+        return <RegisterView screenWidth={window.innerWidth} handleChange={this.handleChange} registerInfo={this.state} register={this.register} />
     }
 }
 

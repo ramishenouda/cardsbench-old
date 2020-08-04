@@ -5,6 +5,7 @@ import { LoginOrRegisterNavbarView, LoginNavbar, LoggedInNavbarView } from './na
 import { Login, Logout } from '../../services/auth-service'
 import Notify  from '../../services/sweetalert-service'
 
+
 class Navbar extends Component {
   state = {
     showLoginBar: false,
@@ -32,9 +33,8 @@ class Navbar extends Component {
     Login(loginInfo).finally(() => {
       if (localStorage.getItem('token') !== null) {
         Notify.success('Welcome ' + JSON.parse(localStorage.getItem('user')).knownAs, 'Have a nice day.');
-        this.props.changeLoginState();
       } else {
-        Notify.info('Wrong Email or Password', 'Login failed');
+        Notify.info('Wrong Email or Password');
       }
 
       this.setState({loggingIn: false});
@@ -45,10 +45,8 @@ class Navbar extends Component {
   logout = (event) => {
     event.preventDefault();
 
-    // Calling the auth service to logout the user
     Logout();
 
-    this.props.changeLoginState();
     Notify.info('Redirecting to the Homepage', 'Logged out')
   }
 
