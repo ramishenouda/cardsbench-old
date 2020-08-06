@@ -22,7 +22,7 @@ async function Login(loginInfo) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
           }).catch((err) => {
-              console.log(err);
+            console.log(err);
           })
 }
 

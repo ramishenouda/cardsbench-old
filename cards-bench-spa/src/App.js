@@ -7,14 +7,21 @@ import Register from './components/Register/register-container'
 
 
 class App extends Component {
+
   state = {
     loggedIn: localStorage.getItem('token') === null ? false : true,
+  }
+
+  changeLoginState () {
+    const loggedIn = localStorage.getItem('token') === null ? false : true;
+    console.log(loggedIn);
+    this.setState({loggedIn : loggedIn});
   }
 
   render() {
     return (
       <BrowserRouter>
-        <Navbar changeLoginState={this.changeLoginState} loggedIn={this.state.loggedIn} />
+        <Navbar changeLoginState={this.changeLoginState.bind(this)} loggedIn={this.state.loggedIn} />
         <Switch className="container">
           <Route exact path='/' component={Home} />
           <Route path='/register' component={Register} />

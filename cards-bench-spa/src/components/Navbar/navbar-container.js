@@ -32,6 +32,7 @@ class Navbar extends Component {
     
     Login(loginInfo).finally(() => {
       if (localStorage.getItem('token') !== null) {
+        this.props.changeLoginState();
         Notify.success('Welcome ' + JSON.parse(localStorage.getItem('user')).knownAs, 'Have a nice day.');
       } else {
         Notify.info('Wrong Email or Password');
@@ -44,8 +45,9 @@ class Navbar extends Component {
 
   logout = (event) => {
     event.preventDefault();
-    Notify.info('Logged out. Redirecting to the Homepage.')
     Logout();
+    this.props.changeLoginState();
+    Notify.info('Logged out. Redirecting to the Homepage.')
   }
 
   handleChange = (event) => {
