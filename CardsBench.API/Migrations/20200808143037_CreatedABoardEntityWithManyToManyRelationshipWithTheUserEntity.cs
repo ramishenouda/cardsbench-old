@@ -20,7 +20,7 @@ namespace CardsBench.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserBoards",
+                name: "UserBorads",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -28,15 +28,15 @@ namespace CardsBench.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBoards", x => new { x.UserId, x.BoardId });
+                    table.PrimaryKey("PK_UserBorads", x => new { x.UserId, x.BoardId });
                     table.ForeignKey(
-                        name: "FK_UserBoards_Boards_BoardId",
+                        name: "FK_UserBorads_Boards_BoardId",
                         column: x => x.BoardId,
                         principalTable: "Boards",
                         principalColumn: "BoardId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserBoards_AspNetUsers_UserId",
+                        name: "FK_UserBorads_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -44,15 +44,15 @@ namespace CardsBench.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserBoards_BoardId",
-                table: "UserBoards",
+                name: "IX_UserBorads_BoardId",
+                table: "UserBorads",
                 column: "BoardId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserBoards");
+                name: "UserBorads");
 
             migrationBuilder.DropTable(
                 name: "Boards");

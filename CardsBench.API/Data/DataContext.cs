@@ -9,6 +9,7 @@ namespace CardsBench.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Board> Boards { get; set; }
+        public DbSet<UserBoards> UserBorads { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

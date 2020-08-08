@@ -37,6 +37,9 @@ namespace CardsBench.API.Controllers
         [HttpPost("update/{id}")]
         public async Task<IActionResult> Update(string id, UserForUpdateDto userForUpdateDto)
         {
+            if(id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                return Unauthorized();
+
             User user = await _userManager.FindByIdAsync(id);
 
             if (user == null)

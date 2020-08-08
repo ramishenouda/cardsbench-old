@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsBench.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200808102856_CreatedABoardEntityWithManyToManyRelationshipWithTheUserEntity")]
+    [Migration("20200808143037_CreatedABoardEntityWithManyToManyRelationshipWithTheUserEntity")]
     partial class CreatedABoardEntityWithManyToManyRelationshipWithTheUserEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,7 +122,7 @@ namespace CardsBench.API.Migrations
 
                     b.HasIndex("BoardId");
 
-                    b.ToTable("UserBoards");
+                    b.ToTable("UserBorads");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

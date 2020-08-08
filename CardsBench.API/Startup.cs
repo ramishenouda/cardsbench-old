@@ -46,7 +46,7 @@ namespace CardsBench.API
             .AddSignInManager<SignInManager<User>>();
 
             services.AddCors();
-
+            services.AddScoped<ICardsBenchRepository, CardsBenchRepository>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = ".AspNetCore.Identity.Application";

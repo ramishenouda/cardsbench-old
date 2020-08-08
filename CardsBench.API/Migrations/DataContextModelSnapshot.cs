@@ -120,7 +120,7 @@ namespace CardsBench.API.Migrations
 
                     b.HasIndex("BoardId");
 
-                    b.ToTable("UserBoards");
+                    b.ToTable("UserBorads");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
