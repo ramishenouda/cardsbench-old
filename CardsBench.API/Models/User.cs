@@ -10,5 +10,6 @@ namespace CardsBench.API.Models
         public string Introduction { get; set; }
         public string Gender { get; set; }
         public DateTime LastActive { get; set; }
+        public ICollection<UserBoards> UserBoards { get; set; }
     }
 }
