@@ -148,6 +148,26 @@ namespace CardsBench.API.Controllers
             return BadRequest("Board not found or You don't have access to that board.");
         }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateBoard(string userId, BoardForUpdateDto boardForUpdate)
+        {
+            if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                return Unauthorized();
+
+            var board = await _repo.GetBoard(boardForUpdate.BoardId);
+
+            if(board == null)
+                return BadRequest("Board not found or You don't have access to that board.");
+
+            if(await _repo.UserInBoard(userId, boardForUpdate.BoardId))
+                _mapper.Map(boardForUpdate, board);
+            
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating board {boardForUpdate.BoardId} failed on save");
+        }
+
         [HttpGet("user")]
         public async Task<IActionResult> GetUserBoards(string userId)
         {

@@ -13,6 +13,7 @@ namespace CardsBench.API.Helpers
             CreateMap<UserForRegistrationDto, UserToReturnDto>().ReverseMap();
 
             CreateMap<Board, BoardToReturnDto>();
+            CreateMap<BoardForUpdateDto, Board>();
         }
     }
 }
