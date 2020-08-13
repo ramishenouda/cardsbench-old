@@ -71,6 +71,7 @@ namespace CardsBench.API.Controllers
                 return Unauthorized();
 
             Board board = await _repo.GetBoard(userToBeAddedToBoard.BoardId);
+
             if (board == null)
                 return BadRequest("Board not found");
             
@@ -79,9 +80,8 @@ namespace CardsBench.API.Controllers
             if (currentLoggedInUser == null)
                 return Unauthorized();
 
-
             if(board.OwnerId != userId)
-                return BadRequest("You must be the board owner to add users");
+                return Unauthorized();
 
             var userToAdd = await _userManager.FindByEmailAsync(userToBeAddedToBoard.UserEmail);
 
@@ -155,9 +155,12 @@ namespace CardsBench.API.Controllers
                 return Unauthorized();
 
             var board = await _repo.GetBoard(boardForUpdate.BoardId);
-
+            
             if(board == null)
                 return BadRequest("Board not found or You don't have access to that board.");
+
+            if(board.OwnerId != userId)
+                return Unauthorized();
 
             if(await _repo.UserInBoard(userId, boardForUpdate.BoardId))
                 _mapper.Map(boardForUpdate, board);
