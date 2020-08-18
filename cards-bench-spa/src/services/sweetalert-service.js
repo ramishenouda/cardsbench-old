@@ -10,14 +10,55 @@ class Notify {
         });
     }
 
-    static success = (title, message) => {
+    static mixin = (info, progressSteps) => {
+        return Swal.mixin({
+            input: 'text',
+            confirmButtonText: 'Next &rarr;',
+            showCancelButton: true,
+            progressSteps: progressSteps
+        }).queue(
+            info.map(x => {
+                return {
+                    title: x[0] === undefined ? '' : x[0],
+                    text: x[1] === undefined ? '' : x[1]
+                }
+            })
+        );
+    }
+
+    static success = (title, text, showConfirmButton=false, confirmButtonText='', position='top-end') => {
         Swal.fire({
-            position: 'top-end',
+            position: position,
             icon: 'success',
             title: title,
-            text: message,
-            showConfirmButton: false,
-            timer: 1500
+            text: text,
+            showConfirmButton: showConfirmButton,
+            confirmButtonText: confirmButtonText
+        });
+    }
+
+    static warning = (title, text, confirmButtonText="Yes, Delete it!", cancelButtonText="Cancel",
+            confirmButtonColor="#d33",
+            cancelButtonColor="5fd980"
+        ) => {
+        return Swal.fire({
+            title: title,
+            text: text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: confirmButtonColor,
+            cancelButtonColor: cancelButtonColor,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText
+        })
+    }
+
+    static error = (title, text, confirmButtonText) => {
+        Swal.fire({
+            icon: 'error',
+            title: title,
+            text: text,
+            confirmButtonText: confirmButtonText
         });
     }
 }

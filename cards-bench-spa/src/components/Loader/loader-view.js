@@ -12,6 +12,7 @@ class LoaderView extends Component {
             borderStyle: this.props.borderStyle,
             borderColor: this.props.borderColor,
         }
+
         return (    
             <div style={style} className="loader"></div>
         );

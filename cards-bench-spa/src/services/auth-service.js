@@ -6,9 +6,7 @@ async function Login(loginInfo) {
         method: 'POST',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': 'http://localhost:5000',
-            'Access-Control-Allow-Credentials': 'true'
+            'Content-Type': 'application/json;charset=UTF-8'
         },
         data: {
             email: loginInfo.email,
@@ -36,9 +34,7 @@ async function Register(registerInfo) {
         method: 'POST',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': 'http://localhost:5000',
-            'Access-Control-Allow-Credentials': 'true'
+            'Content-Type': 'application/json;charset=UTF-8'
         },
         data: {
             email: registerInfo.email,

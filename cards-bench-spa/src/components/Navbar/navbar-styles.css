@@ -1,13 +1,13 @@
 .logout-link {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 .logout-link:hover {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 nav {
-  height: 60px;
+    height: 60px;
 }

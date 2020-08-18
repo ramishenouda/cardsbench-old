@@ -10,18 +10,18 @@ import Notify from '../../services/sweetalert-service';
 
 class Register extends Component {
     state = {
-        email: 'ramishenouda@yahoo.com',
-        confirmEmail: 'ramishenouda@yahoo.com',
-        password: 'ramishenouda@yahoo.com',
-        confirmPassword: 'ramishenouda@yahoo.com',
+        email: '',
+        confirmEmail: '',
+        password: '',
+        confirmPassword: '',
         gender: 'Male',
-        knownAs: 'ramishenouda@yahoo.com',
+        knownAs: '',
         registering: false
     }
 
     handleChange = (event) => {
         const { name, value } = event.target;
-        this.setState({ [name]: value }, this.checkFormValidation);
+        this.setState({ [name]: value });
     };
 
     register = (event) => {
@@ -37,7 +37,11 @@ class Register extends Component {
                 };
 
                 Notify.success('Registration Successful')
-                Login(loginInfo);
+                Login(loginInfo).finally(() => {
+                    if (localStorage.getItem('token') !== null) {
+                      this.props.changeLoginState();
+                    }
+                  });
             }
 
             this.setState({registering: false})

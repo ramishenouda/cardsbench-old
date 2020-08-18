@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect  } from 'react-router-dom';
 import Navbar from './components/Navbar/navbar-container'
 import Home from './components/Home/home-container'
 import Register from './components/Register/register-container'
-
+import Boards from './components/Boards/boards-container'
 
 class App extends Component {
 
@@ -14,7 +14,6 @@ class App extends Component {
 
   changeLoginState () {
     const loggedIn = localStorage.getItem('token') === null ? false : true;
-    console.log(loggedIn);
     this.setState({loggedIn : loggedIn});
   }
 
@@ -24,8 +23,9 @@ class App extends Component {
         <Navbar changeLoginState={this.changeLoginState.bind(this)} loggedIn={this.state.loggedIn} />
         <Switch className="container">
           <Route exact path='/' component={Home} />
-          <Route path='/register' component={Register} />
-          <Route render={() => <Redirect to={{pathname: "/"}} />} />
+          <Route exact path='/boards' component={Boards} />
+          <Route exact path='/register' render={()=> <Register changeLoginState={this.changeLoginState.bind(this)} />} />
+          <Route render={()=> <Redirect to={{pathname: "/"}} />} />
         </Switch>
       </BrowserRouter>
     );

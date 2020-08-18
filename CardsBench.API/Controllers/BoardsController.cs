@@ -59,7 +59,10 @@ namespace CardsBench.API.Controllers
 
             _repo.Add(board);
             if (await _repo.SaveAll())
-                return Ok();
+            {
+                var boardToReturn = _mapper.Map<BoardToReturnDto>(board);
+                return Ok(new {board = boardToReturn});
+            }
 
             return BadRequest("Something is wrong, please try again.");
         }
@@ -120,7 +123,7 @@ namespace CardsBench.API.Controllers
             _repo.Remove(board);
 
             if (await _repo.SaveAll())
-                return Ok("Board has been deleted successfully");
+                return NoContent();
 
             return BadRequest("An error occurred during deletion. Please try again.");
         }

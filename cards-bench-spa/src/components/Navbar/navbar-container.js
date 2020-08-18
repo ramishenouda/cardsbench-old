@@ -33,7 +33,7 @@ class Navbar extends Component {
     Login(loginInfo).finally(() => {
       if (localStorage.getItem('token') !== null) {
         this.props.changeLoginState();
-        Notify.success('Welcome ' + JSON.parse(localStorage.getItem('user')).knownAs, 'Have a nice day.');
+        Notify.success('Welcome ' + JSON.parse(localStorage.getItem('user')).knownAs, 'Have a nice day.', false, '');
       } else {
         Notify.info('Wrong Email or Password');
       }

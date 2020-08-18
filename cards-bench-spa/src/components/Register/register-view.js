@@ -99,10 +99,9 @@ function RegisterView(props) {
               type="text"
               className="form-control w-50"
               name="knownAs"
-              placeholder="KnownAs (Nickname)"
+              placeholder="Nickname"
               value={props.registerInfo.knownAs}
               onChange={props.handleChange}
-              
             />
           </div>
         </center>
