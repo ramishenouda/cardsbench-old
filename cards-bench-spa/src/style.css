@@ -2,5 +2,11 @@
 @import '../node_modules/bootswatch/dist/journal/bootstrap.css';
 
 body {
-    background: #C5E1A5;
+    background: #0f0f0f;
+    color: white;
+}
+
+::placeholder {
+    color:#333333;
+    font-weight: 500;
 }

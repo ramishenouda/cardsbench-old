@@ -17,6 +17,26 @@ export async function createBoard(boardInfo, userId) {
     return (await axios(options));
 }
 
+export async function addUsersToBoard(userId, boardId, usersEmail) {
+    console.log(userId);
+    console.log(boardId);
+
+    // const options = {
+    //     url: `http://localhost:5000/api/${userId}/boards/addusers`,
+    //     method: 'POST',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json;charset=UTF-8',
+    //         'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    //     },
+    //     data: {
+    //         emails
+    //     }
+    // };
+
+    // return (await axios(options));
+}
+
 export async function deleteBoard(boardId, userId) {
     const options = {
         url: `http://localhost:5000/api/${userId}/boards/delete`,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './register-styles.css';
 
-import LoaderView from '../Loader/loader-view'
+import LoaderView from '../loader/loader-view'
 
 function RegisterView(props) {
   const style={

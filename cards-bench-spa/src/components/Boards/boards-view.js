@@ -3,7 +3,7 @@ import React from 'react';
 import './boards-style.css'
 
 import Board from './board'
-import LoaderView from '../Loader/loader-view'
+import LoaderView from '../loader/loader-view'
 
 
 function BoardsView(props) {
@@ -22,9 +22,15 @@ function BoardsView(props) {
         );
     }
 
-    const boardsToShow = props.boards.map((board) => 
-        <Board key={board.boardId} deleteBoard={() => props.deleteBoard(board.boardId)} className='board' boardName={board.boardName} />
-    );
+    const boardsToShow = props.boards.map((board) => (
+      <Board
+        key={board.boardId}
+        addUsers={() => props.addUsers(board.boardId)}
+        deleteBoard={() => props.deleteBoard(board.boardId)}
+        className="board"
+        boardName={board.boardName}
+      />
+    ));
 
     return (
         <div>

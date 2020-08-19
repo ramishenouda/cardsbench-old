@@ -3,11 +3,21 @@
     color: white;
 }
 
-.logout-link:hover {
+.navbar .item {
     text-decoration: none;
     color: white;
+    cursor: pointer;
+}
+
+.navbar .item:hover {
+    color: rgb(175, 102, 102);
+}
+
+.navbar .navbar-brand:hover {
+    color: rgb(175, 102, 102);
 }
 
 nav {
     height: 60px;
+    background: #C5E1A5;
 }

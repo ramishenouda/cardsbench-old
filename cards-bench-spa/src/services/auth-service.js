@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode'
 
 async function Login(loginInfo) {
     const options = {
@@ -56,4 +57,11 @@ async function Register(registerInfo) {
         });
 }
 
-export { Login, Logout, Register };
+function decodedToken() {
+    if (localStorage.getItem('token') !== undefined)
+        return jwt_decode(localStorage.getItem('token'));
+    
+    return '';
+}
+
+export { Login, Logout, Register, decodedToken };

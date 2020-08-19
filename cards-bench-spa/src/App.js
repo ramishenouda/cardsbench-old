@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect  } from 'react-router-dom';
 
-import Navbar from './components/Navbar/navbar-container'
-import Home from './components/Home/home-container'
-import Register from './components/Register/register-container'
-import Boards from './components/Boards/boards-container'
+import Navbar from './components/navbar/navbar-container'
+import Home from './components/home/home-container'
+import Register from './components/register/register-container'
+import Boards from './components/boards/boards-container'
 
 class App extends Component {
 

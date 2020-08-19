@@ -38,7 +38,7 @@ namespace CardsBench.API.Controllers
 
             var currentLoggedInUser = await _userManager.FindByIdAsync(userId);
 
-            if (currentLoggedInUser == null)
+            if(currentLoggedInUser == null)
                 return Unauthorized();
 
             Board board = new Board
@@ -58,6 +58,7 @@ namespace CardsBench.API.Controllers
             };
 
             _repo.Add(board);
+
             if (await _repo.SaveAll())
             {
                 var boardToReturn = _mapper.Map<BoardToReturnDto>(board);
@@ -67,40 +68,44 @@ namespace CardsBench.API.Controllers
             return BadRequest("Something is wrong, please try again.");
         }
 
-        [HttpPost("adduser")]
-        public async Task<IActionResult> AddUserToBoard(string userId, UserToBeAddedToBoardDto userToBeAddedToBoard)
+        [HttpPost("addusers")]
+        public async Task<IActionResult> AddUsersToBoard(string userId, UsersToBeAddedToBoardDto usersToBeAddedToBoard)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 return Unauthorized();
 
-            Board board = await _repo.GetBoard(userToBeAddedToBoard.BoardId);
+            Board board = await _repo.GetBoard(usersToBeAddedToBoard.BoardId);
 
-            if (board == null)
+            if(board == null)
                 return BadRequest("Board not found");
             
             var currentLoggedInUser = await _userManager.FindByIdAsync(userId);
 
-            if (currentLoggedInUser == null)
+            if(currentLoggedInUser == null)
                 return Unauthorized();
 
             if(board.OwnerId != userId)
                 return Unauthorized();
 
-            var userToAdd = await _userManager.FindByEmailAsync(userToBeAddedToBoard.UserEmail);
-
-            if (userToAdd == null)
-                return BadRequest("User not found");
-
-            userToAdd.UserBoards = new List<UserBoards>
+            foreach (var userEmail in usersToBeAddedToBoard.UsersEmail)
             {
-                new UserBoards
-                {
-                    User = userToAdd,
-                    Board = board
-                }
-            };
+                var userToAdd = await _userManager.FindByEmailAsync(userEmail);       
+         
+                if (userToAdd == null)
+                    return BadRequest(userToAdd.Email + " is not found.");
 
-            if (await _repo.SaveAll())
+                userToAdd.UserBoards = new List<UserBoards>
+                {
+                    new UserBoards
+                    {
+                        User = userToAdd,
+                        Board = board
+                    }
+                };
+            }
+
+
+            if(await _repo.SaveAll())
                 return Ok();
 
             return BadRequest();
@@ -114,15 +119,15 @@ namespace CardsBench.API.Controllers
 
             var board = await _repo.GetBoard(boardForDeletion.BoardId);
 
-            if (board == null)
+            if(board == null)
                 return BadRequest("Board not found");
 
-            if (userId != board.OwnerId)
+            if(userId != board.OwnerId)
                 return Unauthorized("Only board owner can delete the board");
 
             _repo.Remove(board);
 
-            if (await _repo.SaveAll())
+            if(await _repo.SaveAll())
                 return NoContent();
 
             return BadRequest("An error occurred during deletion. Please try again.");
@@ -136,10 +141,10 @@ namespace CardsBench.API.Controllers
 
             var board = await _repo.GetBoard(id);
 
-            if (board == null)
+            if(board == null)
                 return BadRequest("Board not found or You don't have access to that board.");
 
-            if (await _repo.UserInBoard(userId, id))
+            if(await _repo.UserInBoard(userId, id))
             {
                 var boardToReturn = _mapper.Map<BoardToReturnDto>(board);
                 return Ok(new 
@@ -182,7 +187,7 @@ namespace CardsBench.API.Controllers
 
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user == null)
+            if(user == null)
                 return BadRequest("Please logout and login again.");
 
             var boardsFromRepo = await _repo.GetUserBoards(userId);

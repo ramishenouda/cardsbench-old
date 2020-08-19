@@ -2,6 +2,8 @@
     display: block;
     position: relative;
     margin: 40px 0px;
+    color: #333333;
+    font-weight: 600;
 }
 
 .register .label-txt {
@@ -26,9 +28,10 @@
     border-radius: 3px;
     cursor: pointer;
     transition: ease .3s;
+    
 }
 
 .register button:hover {
-    background: #8BC34A;
+    background: #222222;
     color: #ffffff;
 }

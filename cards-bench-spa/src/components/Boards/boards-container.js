@@ -39,7 +39,8 @@ class Boards extends Component {
         ],
         [
             'Add users?',
-            'boyer@g.com, rami@ol.com'
+            'boyer@g.com, rami@ol.com',
+            'Create'
         ]]
         
         const progressSteps = info.length === 1 ? ['1'] : ['1', '2'];
@@ -50,7 +51,7 @@ class Boards extends Component {
                     return;
 
                 if (result.value[0] === '') {
-                    this.createBoard('Board name can not be empty.');
+                    this.createBoard('Board name cannot be empty.');
                     this.setState({boardInfo: 
                         {
                             usersToAdd: result.value[1],
@@ -100,7 +101,7 @@ class Boards extends Component {
                                 Notify.success('Board has been deleted!', '', false, '', 'center');
                             })
                         }).catch((err) => {
-                            Notify.error('Error', '', 'true');
+                            Notify.error('Error', '', true);
                             console.log(err);
                         });
                 }

@@ -15,15 +15,34 @@ class Notify {
             input: 'text',
             confirmButtonText: 'Next &rarr;',
             showCancelButton: true,
-            progressSteps: progressSteps
+            progressSteps: progressSteps,
+            confirmButtonColor: '#333333',
+            background: '#141414',
         }).queue(
             info.map(x => {
                 return {
                     title: x[0] === undefined ? '' : x[0],
-                    text: x[1] === undefined ? '' : x[1]
+                    text: x[1] === undefined ? '' : x[1],
+                    confirmButtonText: x[2] === undefined ? 'Next &rarr;' : x[2]
                 }
             })
         );
+    }
+
+    static preConfirm = (title, text, confirmButtonText='done', preConfirm) => {
+        return Swal.fire({
+            title: title,
+            text: text,
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: confirmButtonText,
+            showLoaderOnConfirm: true,
+            preConfirm: preConfirm,
+            allowOutsideClick: () => !Swal.isLoading()
+        })
     }
 
     static success = (title, text, showConfirmButton=false, confirmButtonText='', position='top-end') => {

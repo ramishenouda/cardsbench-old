@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { LoginOrRegisterNavbarView, LoginNavbar, LoggedInNavbarView } from './navbar-view';
+import NavbarView from './navbar-view';
 
-import { Login, Logout } from '../../services/auth-service'
+import { Login, Logout, decodedToken } from '../../services/auth-service'
 import Notify  from '../../services/sweetalert-service'
 
 
@@ -87,20 +87,18 @@ class Navbar extends Component {
   }
 
   render() {
-    if (this.props.loggedIn) {
-      return <LoggedInNavbarView logout={this.logout}/>;
-    } else if (this.state.showLoginBar) {
-      return (
-        <LoginNavbar
-          loginInfo={this.state}
-          handleChange={this.handleChange}
-          login={this.login}
-          toggleLogin={this.toggleLogin}
-        />
-      );
-    } else {
-      return <LoginOrRegisterNavbarView toggleLogin={this.toggleLogin} />;
-    }
+    return (
+      <NavbarView
+        loggedIn={this.props.loggedIn}
+        showLoginBar={this.state.showLoginBar}
+        logout={this.logout}
+        loginInfo={this.state}
+        handleChange={this.handleChange}
+        login={this.login}
+        toggleLogin={this.toggleLogin}
+        decodedToken={() => decodedToken()}
+      />
+    );
   }
 }
 

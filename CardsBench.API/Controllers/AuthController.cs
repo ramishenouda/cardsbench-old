@@ -92,6 +92,7 @@ namespace CardsBench.API.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Surname, user.KnownAs)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
