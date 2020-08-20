@@ -9,34 +9,49 @@ import './navbar-styles.css';
 
 function NavbarView(props) {
   let form;
-  const dropDownMenuItems = [
-    <Link style={{textDecoration: 'none'}} className="drop-down-menu-item" to="/profile">
-      Profile
-    </Link>,
-    <Link style={{textDecoration: 'none'}} className="drop-down-menu-item" onClick={props.logout} to="/">
-      Logout
-    </Link>
-  ]
 
   if (props.loggedIn) {
     const decodedToken = props.decodedToken();
 
-    form = (
-      <form className="form-inline">
-        <Link
-          to="/boards"
-          className="item"
-        >
-          Boards
+    if (props.isSmallScreen === false) {
+      const dropDownMenuItems = [
+        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" to="/profile">
+          Profile
+        </Link>,
+        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" onClick={props.logout} to="/">
+          Logout
         </Link>
+      ]
 
-        <Link to="/" className="ml-3 item"> Home </Link>
-      
-        <div className="ml-3 item">
-          <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
-        </div>
-      </form>
-    );
+      form = (
+        <form className="form-inline">
+          <Link to="/" className="ml-3 item"> Home </Link>
+          <Link to="/boards" className="ml-3 item"> Boards </Link>
+          <div className="ml-3 item">
+            <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
+          </div>
+        </form>
+      );
+    } else {
+      const dropDownMenuItems = [
+        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" to="/profile">
+          Profile
+        </Link>,
+        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" onClick={props.logout} to="/">
+          Logout
+        </Link>
+      ]
+
+      form = (
+        <form className="form-inline">
+          <Link to="/boards" className="item"> Boards </Link>
+          <div className="ml-3 item">
+            <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
+          </div>
+        </form>
+      );
+    }
+
   } else if (props.showLoginBar) {
     form = (
       <form onSubmit={props.login} className="form-inline my-2 my-lg-0">

@@ -36,23 +36,27 @@ namespace CardsBench.API.Controllers
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 return Unauthorized();
 
-            var currentLoggedInUser = await _userManager.FindByIdAsync(userId);
+            var currentUser = await _userManager.FindByIdAsync(userId);
 
-            if(currentLoggedInUser == null)
+            if(currentUser == null)
                 return Unauthorized();
+
+            string boardId = DateTime.Now.ToFileTime().ToString();
+
+            boardId = boardId.Substring(boardId.Length / 2, boardId.Length / 4) + userId.Substring(2, 4);
 
             Board board = new Board
             {
                 OwnerId = userId,
                 BoardName = boardForCreation.Name,
-                BoardId = userId + boardForCreation.Name + DateTime.Now.Millisecond + DateTime.Now.Minute
+                BoardId = boardId
             };
 
-            currentLoggedInUser.UserBoards = new List<UserBoards>
+            currentUser.UserBoards = new List<UserBoards>
             {
                 new UserBoards
                 {
-                    User = currentLoggedInUser,
+                    User = currentUser,
                     Board = board
                 }
             };

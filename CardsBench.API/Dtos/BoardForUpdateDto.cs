@@ -4,5 +4,6 @@ namespace CardsBench.API.Dtos
     {
         public string BoardId { get; set; }
         public string BoardName { get; set; }
+        public string BoardBackground { get; set; }
     }
 }

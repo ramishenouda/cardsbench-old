@@ -53,7 +53,14 @@ class Register extends Component {
             return <Redirect to="/" />
         }
 
-        return <RegisterView screenWidth={window.innerWidth} handleChange={this.handleChange} registerInfo={this.state} register={this.register} />
+        return (
+          <RegisterView
+            isSmallScreen={this.props.isSmallScreen}
+            handleChange={this.handleChange}
+            registerInfo={this.state}
+            register={this.register}
+          />
+        );
     }
 }
 

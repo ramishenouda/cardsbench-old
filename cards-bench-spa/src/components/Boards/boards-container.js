@@ -12,7 +12,7 @@ class Boards extends Component {
             boardName: 'test',
             usersToAdd: '',
         },
-        userId: JSON.parse(localStorage.getItem('user')).id,
+        userId: this.props.loggedIn === true ? JSON.parse(localStorage.getItem('user')).id : '',
         boards: {},
         loadingBoards: true,
         errorLoadingBoards: false,
@@ -21,6 +21,10 @@ class Boards extends Component {
     }
 
     componentDidMount() {
+        if (!this.props.loggedIn) {
+            return;
+        }
+
         BoardsService.getUserBoards(this.state.userId)
             .then((result) => {
                 this.setState({boards: result.data.boards})
@@ -114,8 +118,11 @@ class Boards extends Component {
     };
     
     render() {
-        if (localStorage.getItem('token') === null) {
-            return <Redirect to="/" />
+        if (this.props.loggedIn === false) {
+            return <Redirect to={{
+                pathname: '/error',
+                state: {text: 'Login First', code:'401'}
+            }} />
         }
 
         if (this.state.errorLoadingBoards) {

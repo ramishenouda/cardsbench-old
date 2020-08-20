@@ -97,6 +97,7 @@ class Navbar extends Component {
         login={this.login}
         toggleLogin={this.toggleLogin}
         decodedToken={() => decodedToken()}
+        isSmallScreen={this.props.isSmallScreen}
       />
     );
   }

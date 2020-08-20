@@ -24,3 +24,8 @@
     width: max-content;
     z-index: 1;
 }
+
+.dropdown .dropdown-items .dropdown-item:hover {
+    background: rgb(175, 102, 102);
+    color: white;
+}

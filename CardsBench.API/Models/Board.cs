@@ -7,6 +7,7 @@ namespace CardsBench.API.Models
         public string BoardId { get; set; }
         public string BoardName { get; set; }
         public string OwnerId { get; set; }
+        public string Background { get; set; }
         public ICollection<UserBoards> UserBoards { get; set; }
     }
 }

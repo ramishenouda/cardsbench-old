@@ -8,7 +8,7 @@ function DropDownMenuView(props) {
     }
 
     const menuItems = props.dropDownMenuItems.map((item, index) =>
-      <span key={index} onClick={() => props.toggleDropDownMenu('dropdown')} className="list-group-item dropdown-item"> { item } </span>
+      <span key={index} onClick={() => props.toggleDropDownMenu('dropdown')}> { item } </span>
     );
 
     return (

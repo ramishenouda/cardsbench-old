@@ -6,7 +6,7 @@ import LoaderView from '../loader/loader-view'
 
 function RegisterView(props) {
   const style={
-    width: props.screenWidth < 769 ? '90%' : '60%',
+    width: props.isSmallScreen ? '90%' : '60%',
     padding: '50px 25px 80px 25px',
     margin: '50px auto',
     background: '#efefef',

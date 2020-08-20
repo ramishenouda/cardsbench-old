@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Board(props) {
+function BoardItem(props) {
     return (
         <div className="col-12 col-sm-4 col-md-6 col-lg-4 mb-2">
             <div className="card">
@@ -14,7 +15,7 @@ function Board(props) {
                             <button onClick={props.deleteBoard} className="btn">DELETE</button>
                         </li>
                         <li className="list-inline-item">
-                            <button onClick={props.boardSettings} className="btn">SETTING</button>
+                            <Link className="btn" to={"boards/" + props.boardId}>VIEW</Link>
                         </li>
                     </ul>
                 </div>
@@ -23,4 +24,4 @@ function Board(props) {
     );
 }
 
-export default Board
+export default BoardItem
