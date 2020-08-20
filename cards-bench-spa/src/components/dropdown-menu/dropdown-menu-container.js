@@ -8,20 +8,24 @@ class DropDownMenu extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('mousedown', this.toggleDropDownMenu);
+        window.onclick = (event) => {
+           if (!event.target.matches('.dropdown')) {
+               this.toggleDropDownMenu(false);
+           }
+        } 
     }
 
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
+        window.onclick = null;
     }
 
     toggleDropDownMenu = (event) => {
-        if(event === 'dropdown') {
+        if (event === false || this.state.toggle === true) {
+            this.setState({toggle: false});
+        }
+
+        else if (event === 'dropdown') {
             this.setState({toggle: true});
-        } else if (event.target.className !== 'dropdown') {
-            setTimeout(() => {
-                this.setState({toggle: false});
-            }, 250);
         }
     }
 

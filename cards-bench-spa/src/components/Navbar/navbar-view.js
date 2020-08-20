@@ -10,7 +10,7 @@ import './navbar-styles.css';
 function NavbarView(props) {
   let form;
   const dropDownMenuItems = [
-    <Link style={{textDecoration: 'none'}} className="drop-down-menu-item" onClick={props.logout} to="/">
+    <Link style={{textDecoration: 'none'}} className="drop-down-menu-item" to="/profile">
       Profile
     </Link>,
     <Link style={{textDecoration: 'none'}} className="drop-down-menu-item" onClick={props.logout} to="/">
@@ -32,13 +32,9 @@ function NavbarView(props) {
 
         <Link to="/" className="ml-3 item"> Home </Link>
       
-        <div className="ml-3 item" to="/profile">
+        <div className="ml-3 item">
           <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
         </div>
-
-        <Link onClick={props.logout} className="ml-3 item" to="/">
-          Logout
-        </Link>
       </form>
     );
   } else if (props.showLoginBar) {

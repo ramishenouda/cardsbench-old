@@ -14,7 +14,7 @@ function DropDownMenuView(props) {
     return (
         <div className="dropdown">
             <span onClick={() => props.toggleDropDownMenu('dropdown')} className="dropdown">
-                { props.text } <i className="dropdown-arrow mb-1"></i> 
+                { props.text } <i className="dropdown dropdown-arrow mb-1"></i> 
             </span>
 
             <div style={style} className="dropdown-items text-center list-group mt-3">
