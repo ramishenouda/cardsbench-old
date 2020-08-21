@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-
 
 import { Register as register, Login } from '../../services/auth-service' 
 
@@ -39,7 +37,7 @@ class Register extends Component {
                 Notify.success('Registration Successful')
                 Login(loginInfo).finally(() => {
                     if (localStorage.getItem('token') !== null) {
-                      this.props.changeLoginState();
+                      this.props.changeAuthenticationState();
                     }
                   });
             }
@@ -49,10 +47,6 @@ class Register extends Component {
     }
 
     render() {
-        if(localStorage.getItem('token') !== null) {
-            return <Redirect to="/" />
-        }
-
         return (
           <RegisterView
             isSmallScreen={this.props.isSmallScreen}

@@ -32,7 +32,7 @@ class Navbar extends Component {
     
     Login(loginInfo).finally(() => {
       if (localStorage.getItem('token') !== null) {
-        this.props.changeLoginState();
+        this.props.changeAuthenticationState();
         Notify.success('Welcome ' + JSON.parse(localStorage.getItem('user')).knownAs, 'Have a nice day.', false, '');
       } else {
         Notify.info('Wrong Email or Password');
@@ -46,7 +46,7 @@ class Navbar extends Component {
   logout = (event) => {
     event.preventDefault();
     Logout();
-    this.props.changeLoginState();
+    this.props.changeAuthenticationState();
     Notify.info('Logged out. Redirecting to the Homepage.')
   }
 
@@ -89,7 +89,7 @@ class Navbar extends Component {
   render() {
     return (
       <NavbarView
-        loggedIn={this.props.loggedIn}
+        authenticated={this.props.authenticated}
         showLoginBar={this.state.showLoginBar}
         logout={this.logout}
         loginInfo={this.state}

@@ -10,7 +10,7 @@ import './navbar-styles.css';
 function NavbarView(props) {
   let form;
 
-  if (props.loggedIn) {
+  if (props.authenticated) {
     const decodedToken = props.decodedToken();
 
     if (props.isSmallScreen === false) {
