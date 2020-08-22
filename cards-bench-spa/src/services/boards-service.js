@@ -17,6 +17,19 @@ export async function createBoard(boardInfo, userId) {
     return (await axios(options));
 }
 
+export async function getBoard(userId, boardId) {
+    const options = {
+        url: `http://localhost:5000/api/${userId}/boards/${boardId}`,
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        }
+    };
+
+    return (await axios(options));
+}
+
 // export async function addUsersToBoard(userId, boardId, usersEmail) {
 //     const options = {
 //         url: `http://localhost:5000/api/${userId}/boards/addusers`,
@@ -55,9 +68,9 @@ export async function getUserBoards(userId) {
         method: 'GET',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
         }
     };
+
     return (await axios(options));
 }

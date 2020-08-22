@@ -48,3 +48,53 @@
 .card .btn:hover {
     color: rgb(211, 146, 146);
 }
+
+.noboards-text {
+    font-size: x-large;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0px #af3f45;
+    letter-spacing: 2px;
+    margin: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
+}
+
+.newboard-button {
+    display: inline-block;
+    text-transform: uppercase;
+    color: #ff005a;
+    text-decoration: none;
+    border: 2px solid;
+    background: transparent;
+    padding: 10px 40px;
+    font-size: 14px;
+    font-weight: 700;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+
+.create-board-window {
+    z-index: 1;
+    position: absolute;
+    width: 300px;
+    border-radius: 10px;
+    background: #fbfbfb;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    vertical-align: middle;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.newboard-button:hover {
+    color: rgb(63, 63, 63);
+}

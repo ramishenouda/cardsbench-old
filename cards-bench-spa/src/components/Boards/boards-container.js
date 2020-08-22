@@ -7,22 +7,28 @@ import BoardsView from './boards-view'
 
 class Boards extends Component {
     state = {
-        boardInfo: {
-            boardName: 'test',
-            usersToAdd: '',
-        },
+        boardName: '',
+        usersToAdd: '',
         userId: JSON.parse(localStorage.getItem('user')).id,
         boards: {},
         loadingBoards: true,
         errorLoadingBoards: false,
         creatingBoard: false,
-        deletingBoard: false
+        deletingBoard: false,
+        toggleCreatingBoard: false
     }
 
     componentDidMount() {
+        this.loadBoards();
+    }
+
+    loadBoards = () => {
+        this.setState({loadingBoards: true});
+
         BoardsService.getUserBoards(this.state.userId)
             .then((result) => {
                 this.setState({boards: result.data.boards})
+                this.setState({errorLoadingBoards: false})
             }).catch((err) => {
                 this.setState({errorLoadingBoards: true})
                 console.log(err);
@@ -31,56 +37,38 @@ class Boards extends Component {
             })
     }
 
-    createBoard = (questions) => {
-        const info = questions !== undefined ? [[questions]] :
-        [[
-            'Board name:'
-        ],
-        [
-            'Add users?',
-            'boyer@g.com, rami@ol.com',
-            'Create'
-        ]]
-        
-        const progressSteps = info.length === 1 ? ['1'] : ['1', '2'];
+    toggleCreatingBoardWindow = () => {
+        this.setState({toggleCreatingBoard: !this.state.toggleCreatingBoard})
+    }
 
-        Notify.mixin(info, progressSteps)
-            .then(result => {
-                if(result.value === undefined)
-                    return;
+    createBoard = () => {
+        const boardInfo = {
+            boardName: this.state.boardName
+        }
 
-                if (result.value[0] === '') {
-                    this.createBoard('Board name cannot be empty.');
-                    this.setState({boardInfo: 
-                        {
-                            usersToAdd: result.value[1],
-                            boardName: ''
-                        }
-                    });
-                    return;
-                } 
-                
-                else if (result.value[0] !== '') {
-                    this.setState({boardInfo: { usersToAdd: result.value[1], boardName: result.value[0] },
-                        creatingBoard: true
-                    }, () => {
-                        BoardsService.createBoard(this.state.boardInfo, this.state.userId)
-                            .then((result) => {
-                                this.setState(prevState => {
-                                    prevState.boards.push(result.data.board);
-                                    return {
-                                        boards: prevState.boards,
-                                        creatingBoard: false
-                                    }
-                                })
+        if (boardInfo.boardName === '') {
+            Notify.info('Board name can not be empty.');
+            return;
+        }
 
-                                Notify.success('Board has been created', '', false);
-                            }).catch((err) => {
-                                console.log(err);
-                            });
-                    });
-                }
-        })
+        this.setState({creatingBoard: true})
+        this.toggleCreatingBoardWindow();
+
+        BoardsService.createBoard(boardInfo, this.state.userId)
+            .then((result) => {
+                this.setState(prevState => {
+                    prevState.boards.splice(0, 0, result.data.board);
+                    return {
+                        boards: prevState.boards,
+                        creatingBoard: false
+                    }
+                })
+                Notify.success('Board has been created', '', false);
+            }).catch((err) => {
+                console.log(err);
+            }).finally(() => {
+                this.setState({creatingBoard: false})
+            });
     }
 
     deleteBoard = (boardId) => {
@@ -113,19 +101,20 @@ class Boards extends Component {
     };
     
     render() {
-        if (this.state.errorLoadingBoards) {
-            return <div> Error </div>
-        }
-
         return (
           <BoardsView
             className="boards"
+            handleChange={this.handleChange}
             createBoard={this.createBoard}
             deleteBoard={this.deleteBoard}
             boards={this.state.boards}
             loadingBoards={this.state.loadingBoards}
             creatingBoard={this.state.creatingBoard}
             deletingBoard={this.state.deletingBoard}
+            errorLoadingBoards={this.state.errorLoadingBoards}
+            toggleCreatingBoard={this.state.toggleCreatingBoard}
+            toggleCreatingBoardWindow={this.toggleCreatingBoardWindow}
+            loadBoards={this.loadBoards}
           />
         );
     }

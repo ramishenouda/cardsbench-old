@@ -13,6 +13,10 @@
     color: rgb(175, 102, 102);
 }
 
+.navbar .user-knownas {
+    color: #d9534f;
+}
+
 .navbar .navbar-brand:hover {
     color: rgb(175, 102, 102);
 }

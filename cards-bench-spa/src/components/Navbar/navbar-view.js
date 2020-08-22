@@ -27,7 +27,7 @@ function NavbarView(props) {
         <form className="form-inline">
           <Link to="/" className="ml-3 item"> Home </Link>
           <Link to="/boards" className="ml-3 item"> Boards </Link>
-          <div className="ml-3 item">
+          <div className="user-knownas ml-3 item">
             <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
           </div>
         </form>
@@ -98,10 +98,12 @@ function NavbarView(props) {
   }
 
   return (
-    <nav className="navbar navbar-primary bg-dark">
-      <Link to="/" className="navbar-brand"> CardsBench </Link>
-      { form }
-    </nav>
+    <div className="navbar-wrapper">
+      <nav className="navbar navbar-primary bg-dark w-100">
+        <Link to="/" className="navbar-brand"> CardsBench </Link>
+        { form }
+      </nav>
+    </div>
   );
 }
 

@@ -1,0 +1,14 @@
+.board-details {
+    color: black;
+}
+
+.board-contents {
+    overflow: auto;
+    white-space: nowrap;    
+}
+
+.board-details .board-title {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+}

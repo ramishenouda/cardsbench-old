@@ -26,6 +26,7 @@
     text-shadow: -1px -1px 0px #8400ff, 1px 1px 0px #ff005a;
     letter-spacing: -20px;
 }
+
 .error-page .error-text {
     font-size: xx-large;
     font-weight: 700;
@@ -35,7 +36,7 @@
     margin: 0;
 }
 
-.error-page .home-button {
+.error-page .error-page-button {
     display: inline-block;
     text-transform: uppercase;
     color: #ff005a;
@@ -49,7 +50,7 @@
     transition: 0.2s all;
 }
 
-.error-page .home-button:hover {
+.error-page .error-page-button:hover {
     color: #8400ff;
 }
 

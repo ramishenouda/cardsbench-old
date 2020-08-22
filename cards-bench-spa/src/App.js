@@ -33,7 +33,7 @@ class App extends Component {
         <Switch className="container">
           <Route exact path="/" component={Home} />
           <ProtectedRoute exact path="/boards" component={Boards} />
-          <ProtectedRoute exact path="/boards/:boardId/:boardName" component={BoardDetails} />
+          <ProtectedRoute exact path="/boards/:boardId/:boardName" component={BoardDetails} {...this.props}/>
           <ProtectedRoute exact path="/profile" component={MemberProfile} />
           <Route exact path="/error" component={ErrorPage} />
           <AnonymousRoute exact path="/register" component={Register}
