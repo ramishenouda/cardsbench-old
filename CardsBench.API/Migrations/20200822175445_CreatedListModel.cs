@@ -10,9 +10,10 @@ namespace CardsBench.API.Migrations
                 name: "Lists",
                 columns: table => new
                 {
-                    ListId = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(nullable: false),
-                    BoardId = table.Column<string>(nullable: false)
+                    ListId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(nullable: true),
+                    BoardId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -22,7 +23,7 @@ namespace CardsBench.API.Migrations
                         column: x => x.BoardId,
                         principalTable: "Boards",
                         principalColumn: "BoardId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

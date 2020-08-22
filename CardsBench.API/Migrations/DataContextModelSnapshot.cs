@@ -37,8 +37,9 @@ namespace CardsBench.API.Migrations
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>
                 {
-                    b.Property<string>("ListId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ListId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("BoardId")
                         .HasColumnType("TEXT");
