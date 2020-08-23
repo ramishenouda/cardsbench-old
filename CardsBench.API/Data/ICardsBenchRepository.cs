@@ -11,6 +11,7 @@ namespace CardsBench.API.Data
         Task<Board> GetBoard(string id);
         Task<List<Board>> GetUserBoards(string id);
         Task<bool> UserInBoard(string userId, string boardId);
+        Task<List> GetList(string boardId, int listId);
         Task<bool> SaveAll();
     }
 }

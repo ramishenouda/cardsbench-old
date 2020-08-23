@@ -17,7 +17,7 @@ namespace CardsBench.API.Data
 
         public async Task<Board> GetBoard(string id)
         {
-            return await _context.Boards.FirstOrDefaultAsync(x => x.BoardId == id);
+            return await _context.Boards.Include(l => l.Lists).FirstOrDefaultAsync(x => x.BoardId == id);
         }
 
         public async Task<List<Board>> GetUserBoards(string userId)
@@ -37,6 +37,11 @@ namespace CardsBench.API.Data
                 return true;
             
             return false;
+        }
+
+        public async Task<List> GetList(string boardId, int listId)
+        {
+            return await _context.Lists.FirstOrDefaultAsync(x => x.BoardId == boardId && x.ListId == listId);
         }
 
         public void Add<T>(T entity) where T : class

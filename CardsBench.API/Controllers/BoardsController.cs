@@ -115,13 +115,13 @@ namespace CardsBench.API.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteBoard(string userId, BoardForDeletionDto boardForDeletion)
+        [HttpDelete("{boardId}")]
+        public async Task<IActionResult> DeleteBoard(string userId, string boardId)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 return Unauthorized();
 
-            var board = await _repo.GetBoard(boardForDeletion.BoardId);
+            var board = await _repo.GetBoard(boardId);
 
             if(board == null)
                 return BadRequest("Board not found");
@@ -146,18 +146,19 @@ namespace CardsBench.API.Controllers
             var board = await _repo.GetBoard(id);
 
             if(board == null)
-                return BadRequest("Board not found or You don't have access to that board.");
+                return BadRequest();
 
             if(await _repo.UserInBoard(userId, id))
             {
                 var boardToReturn = _mapper.Map<BoardToReturnDto>(board);
+
                 return Ok(new 
                 {
                     board = boardToReturn
                 });
             }
 
-            return BadRequest("Board not found or You don't have access to that board.");
+            return Unauthorized();
         }
 
         [HttpPut("update")]

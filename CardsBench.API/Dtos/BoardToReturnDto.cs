@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CardsBench.API.Dtos
 {
     public class BoardToReturnDto
@@ -6,5 +8,6 @@ namespace CardsBench.API.Dtos
         public string BoardName { get; set; }
         public string OwnerId { get; set; }
         public string BoardBackground { get; set; }
+        public ICollection<ListsForBoardDto> Lists { get; set; }
     }
 }
