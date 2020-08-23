@@ -39,7 +39,7 @@ namespace CardsBench.API.Data
             return false;
         }
 
-        public async Task<List> GetList(string boardId, int listId)
+        public async Task<List> GetList(string boardId, string listId)
         {
             return await _context.Lists.FirstOrDefaultAsync(x => x.BoardId == boardId && x.ListId == listId);
         }

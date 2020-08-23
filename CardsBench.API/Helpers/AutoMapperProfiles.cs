@@ -16,9 +16,8 @@ namespace CardsBench.API.Helpers
             CreateMap<BoardForUpdateDto, Board>();
 
             CreateMap<ListForCreationDto, List>();
-            CreateMap<List, ListsForBoardDto>();
-            CreateMap<ListForUpdateDto, List>();
             CreateMap<List, ListToReturnDto>();
+            CreateMap<ListForUpdateDto, List>();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace CardsBench.API.Dtos
         public string BoardId { get; set; }
         public string BoardName { get; set; }
         public string OwnerId { get; set; }
-        public string BoardBackground { get; set; }
-        public ICollection<ListsForBoardDto> Lists { get; set; }
+        public string Background { get; set; }
+        public ICollection<ListToReturnDto> Lists { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -30,7 +31,7 @@ namespace CardsBench.API.Controllers
 
         
         [HttpGet("{listId}")]
-        public async Task<IActionResult> GetList(string userId, string boardId, int listId)
+        public async Task<IActionResult> GetList(string userId, string boardId, string listId)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 return Unauthorized();
@@ -71,7 +72,13 @@ namespace CardsBench.API.Controllers
                 return Unauthorized();
 
             List list = _mapper.Map<List>(listForCreationDto);
-            
+
+            string listId = DateTime.Now.ToFileTime().ToString();
+            listId = listId.Substring(listId.Length / 2, listId.Length / 4);
+
+            list.Order = board.Lists.Count;
+            list.ListId = boardId + listId;
+
             board.Lists.Add(list);
 
             if(await _repo.SaveAll())
@@ -81,7 +88,7 @@ namespace CardsBench.API.Controllers
         }
 
         [HttpDelete("{listId}")]
-        public async Task<IActionResult> DeleteList(string userId, string boardId, int listId)
+        public async Task<IActionResult> DeleteList(string userId, string boardId, string listId)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 return Unauthorized();
@@ -105,6 +112,12 @@ namespace CardsBench.API.Controllers
                 return BadRequest("List not found or you can't delete that list.");
 
             _repo.Remove(list);
+
+            foreach (var l in board.Lists)
+            {
+                if(l.Order > list.Order)
+                    l.Order--;
+            }
 
             if(await _repo.SaveAll())
                 return Ok();
@@ -133,13 +146,43 @@ namespace CardsBench.API.Controllers
 
             var list = await _repo.GetList(boardId, listForUpdateDto.ListId);
 
+            if(listForUpdateDto.Order > board.Lists.Count)
+                return BadRequest();
+
+            if(list.Order != listForUpdateDto.Order)
+            {
+                int newOrder = listForUpdateDto.Order;
+
+                // Moving the list to the right.
+                if(list.Order < newOrder)
+                {
+                    newOrder++;
+                    foreach (var listInBored in board.Lists)
+                    {
+                        if(listInBored.Order < newOrder)
+                            listInBored.Order--;
+                    }
+                }
+
+                // Moving the list to the left.
+                if(list.Order > newOrder)
+                {
+                    newOrder--;
+                    int currentOrder = list.Order;
+                    foreach (var listInBored in board.Lists)
+                    {
+                        if(listInBored.Order > newOrder && listInBored.Order < currentOrder)
+                            listInBored.Order++;
+                    }
+                }
+            }
+
             _mapper.Map(listForUpdateDto, list);
 
             if(await _repo.SaveAll())
                 return Ok();
 
-            return BadRequest("Couldn't add the list. try refreshing the page.");
+            return BadRequest("Couldn't add the list. Try refreshing the page.");
         }
-
     }
 }

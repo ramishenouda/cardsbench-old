@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsBench.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200822175445_CreatedListModel")]
-    partial class CreatedListModel
+    [Migration("20200823151214_AddedListsTable")]
+    partial class AddedListsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,12 +39,14 @@ namespace CardsBench.API.Migrations
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>
                 {
-                    b.Property<int>("ListId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ListId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BoardId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
