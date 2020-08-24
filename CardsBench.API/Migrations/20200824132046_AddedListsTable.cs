@@ -11,13 +11,13 @@ namespace CardsBench.API.Migrations
                 columns: table => new
                 {
                     ListId = table.Column<string>(nullable: false),
+                    BoardId = table.Column<string>(nullable: false),
                     Order = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: false),
-                    BoardId = table.Column<string>(nullable: false)
+                    Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lists", x => x.ListId);
+                    table.PrimaryKey("PK_Lists", x => new { x.BoardId, x.ListId });
                     table.ForeignKey(
                         name: "FK_Lists_Boards_BoardId",
                         column: x => x.BoardId,
@@ -25,11 +25,6 @@ namespace CardsBench.API.Migrations
                         principalColumn: "BoardId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lists_BoardId",
-                table: "Lists",
-                column: "BoardId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

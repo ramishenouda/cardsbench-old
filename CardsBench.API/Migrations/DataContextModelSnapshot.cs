@@ -37,10 +37,10 @@ namespace CardsBench.API.Migrations
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>
                 {
-                    b.Property<string>("ListId")
+                    b.Property<string>("BoardId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BoardId")
+                    b.Property<string>("ListId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Order")
@@ -49,9 +49,7 @@ namespace CardsBench.API.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ListId");
-
-                    b.HasIndex("BoardId");
+                    b.HasKey("BoardId", "ListId");
 
                     b.ToTable("Lists");
                 });
@@ -279,7 +277,9 @@ namespace CardsBench.API.Migrations
                 {
                     b.HasOne("CardsBench.API.Models.Board", "Board")
                         .WithMany("Lists")
-                        .HasForeignKey("BoardId");
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CardsBench.API.Models.UserBoards", b =>

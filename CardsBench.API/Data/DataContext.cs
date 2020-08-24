@@ -15,6 +15,7 @@ namespace CardsBench.API.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<UserBoards>()             
                 .HasKey(x => new {x.UserId, x.BoardId});
             
