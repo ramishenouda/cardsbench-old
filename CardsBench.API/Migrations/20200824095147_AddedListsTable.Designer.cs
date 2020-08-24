@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsBench.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200823151214_AddedListsTable")]
+    [Migration("20200824095147_AddedListsTable")]
     partial class AddedListsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

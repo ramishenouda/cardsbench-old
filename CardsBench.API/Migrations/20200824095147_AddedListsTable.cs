@@ -23,7 +23,7 @@ namespace CardsBench.API.Migrations
                         column: x => x.BoardId,
                         principalTable: "Boards",
                         principalColumn: "BoardId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
