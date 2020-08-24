@@ -11,7 +11,7 @@ namespace CardsBench.API.Data
         public DbSet<Board> Boards { get; set; }
         public DbSet<UserBoards> UserBorads { get; set; }
         public DbSet<List> Lists { get; set; }
-
+        public DbSet<Card> Cards { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -21,6 +21,9 @@ namespace CardsBench.API.Data
             
             builder.Entity<List>()
                 .HasKey(l => new { l.BoardId, l.ListId });
+
+            builder.Entity<Card>()
+                .HasKey(c => new { c.ListId, c.CardId });
         }
     }
 }

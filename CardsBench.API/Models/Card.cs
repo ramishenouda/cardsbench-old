@@ -1,13 +1,12 @@
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CardsBench.API.Models
 {
-    public class List
+    public class Card
     {
+        public string CardId { get; set; }
         public string ListId { get; set; }
         public string Title { get; set; }
         public int Order { get; set; }
-        public string BoardId { get; set; }
-        public ICollection<Card> Cards { get; set; }
     }
 }

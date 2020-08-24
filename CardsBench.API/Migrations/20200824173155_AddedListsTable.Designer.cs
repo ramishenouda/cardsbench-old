@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsBench.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200824132046_AddedListsTable")]
+    [Migration("20200824173155_AddedListsTable")]
     partial class AddedListsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -277,7 +277,7 @@ namespace CardsBench.API.Migrations
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>
                 {
-                    b.HasOne("CardsBench.API.Models.Board", "Board")
+                    b.HasOne("CardsBench.API.Models.Board", null)
                         .WithMany("Lists")
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)

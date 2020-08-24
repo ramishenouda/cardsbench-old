@@ -30,7 +30,7 @@ namespace CardsBench.API.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> Create(string userId, BoardForCreationDto boardForCreation)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
@@ -161,7 +161,7 @@ namespace CardsBench.API.Controllers
             return Unauthorized();
         }
 
-        [HttpPut("update")]
+        [HttpPut]
         public async Task<IActionResult> UpdateBoard(string userId, BoardForUpdateDto boardForUpdate)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
@@ -184,7 +184,7 @@ namespace CardsBench.API.Controllers
             throw new Exception($"Updating board {boardForUpdate.BoardId} failed on save");
         }
 
-        [HttpGet("user")]
+        [HttpGet("userboards")]
         public async Task<IActionResult> GetUserBoards(string userId)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
