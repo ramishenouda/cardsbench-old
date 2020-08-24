@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using System.Security.Claims;
+using CardsBench.API.Data;
 
 namespace CardsBench.API.Controllers
 {
@@ -15,6 +16,7 @@ namespace CardsBench.API.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
+        private readonly ICardsBenchRepository _repo;
         private readonly IConfiguration _config;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -22,6 +24,7 @@ namespace CardsBench.API.Controllers
         private readonly IMapper _mapper;
 
         public UsersController(IConfiguration config,
+            ICardsBenchRepository repo,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IPasswordHasher<User> passwordHash,
@@ -32,6 +35,7 @@ namespace CardsBench.API.Controllers
             _passwordHash = passwordHash;
             _mapper = mapper;
             _config = config;
+            _repo = repo;
         }
 
         [HttpPost("update/{id}")]
@@ -101,10 +105,13 @@ namespace CardsBench.API.Controllers
             if (user == null)
                 return BadRequest("user not found");
 
+            await _repo.RemoveUserBoards(id);
+            
             IdentityResult result = await _userManager.DeleteAsync(user);
 
             if (result.Succeeded)
                 return Ok("We're sorry to see you go...");
+
             else
                 return BadRequest(result.Errors);
         }

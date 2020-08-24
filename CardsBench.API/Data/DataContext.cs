@@ -17,6 +17,9 @@ namespace CardsBench.API.Data
             base.OnModelCreating(builder);
             builder.Entity<UserBoards>()             
                 .HasKey(x => new {x.UserId, x.BoardId});
+            
+            builder.Entity<List>()
+                .HasKey(l => new { l.BoardId, l.ListId });
         }
     }
 }

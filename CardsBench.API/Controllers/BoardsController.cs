@@ -128,7 +128,7 @@ namespace CardsBench.API.Controllers
 
             if(userId != board.OwnerId)
                 return Unauthorized("Only board owner can delete the board");
-
+            
             _repo.Remove(board);
 
             if(await _repo.SaveAll())

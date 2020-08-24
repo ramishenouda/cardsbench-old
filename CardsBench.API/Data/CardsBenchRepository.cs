@@ -29,6 +29,12 @@ namespace CardsBench.API.Data
             return boardsToReturn;
         }
 
+        public async Task RemoveUserBoards(string userId)
+        {
+            var userBoards = await _context.Boards.Where(x => x.OwnerId == userId).ToListAsync();
+            _context.RemoveRange(userBoards);
+        }
+
         public async Task<bool> UserInBoard(string userId, string boardId)
         {
             var board = await _context.UserBorads.FirstOrDefaultAsync(x => x.UserId == userId && x.BoardId == boardId);
