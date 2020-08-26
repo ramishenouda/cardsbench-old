@@ -41,7 +41,9 @@ class Boards extends Component {
         this.setState({toggleCreatingBoard: !this.state.toggleCreatingBoard})
     }
 
-    createBoard = () => {
+    createBoard = (e) => {
+        e.preventDefault();
+
         const boardInfo = {
             boardName: this.state.boardName
         }

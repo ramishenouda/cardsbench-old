@@ -31,14 +31,36 @@ function BoardDetails(props) {
     const lists = props.board.lists.map(list => <List key={list.id} list={list} />)
 
     return (
-        <div className="board-details container">
-            <div className="board-head">
-                <span className="board-title">{ props.board.boardName } </span>
+        <div className="board-details mt-2">
+            <div className="container text-right">
+                <button
+                    onClick={() => props.addList()}
+                    className="newboard-button"
+                >
+                    Add List
+                </button>
             </div>
-            <div className="board-contents">
-                <ul className="list-group list-group-horizontal">
-                    { lists }
-                </ul>
+            <div className="container">
+                <div className="board-head">
+                    <span className="board-title">{ props.board.boardName } </span>
+                </div>
+                <div className="board-contents">
+                    <ul className="list-group list-group-horizontal">
+                        { lists }
+                        {props.creatingList ? (
+                            <li className="list-group-item ml-2">
+                                <h4>hello </h4>
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        hey
+                                    </li>
+                                </ul>
+                            </li>
+                        ) : (
+                            ''
+                        )}
+                    </ul>
+                </div>
             </div>
         </div>
     );

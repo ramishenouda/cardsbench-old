@@ -9,11 +9,16 @@ class BoardDetails extends Component {
         userId: JSON.parse(localStorage.getItem('user')).id,
         board: {},
         loadingBoard: true,
-        errorWhileLoadingBoard: false
+        errorWhileLoadingBoard: false,
+        creatingList: true
     }
 
     componentDidMount() {
         this.loadBoard();
+    }
+
+    addList = () => {
+        this.setState({creatingList: true});
     }
 
     loadBoard = () => {
@@ -34,13 +39,14 @@ class BoardDetails extends Component {
             {
                 id: 2,
                 title: "On Progress",
-                cards: [{title: "take out the trash", id: 0}, {title: "feed potato", id: 1}]
+                cards: [{title: "take out the trash", id: 0}]
             },
         ]
 
         BoardsService.getBoard(this.state.userId, boardId)
             .then((result) => {
-                result.data.board.lists = lists;
+                console.log(result.data.board);
+                //result.data.board.lists = lists;
                 this.setState({board: result.data.board, errorWhileLoadingBoard: false})
             }).catch((err) => {
                 this.setState({errorWhileLoadingBoard: true})
@@ -56,6 +62,8 @@ class BoardDetails extends Component {
             errorWhileLoadingBoard={this.state.errorWhileLoadingBoard}
             loadingBoard={this.state.loadingBoard}
             loadBoard={this.loadBoard}
+            addList={this.addList}
+            creatingList={this.state.creatingList}
           />
         );
     }

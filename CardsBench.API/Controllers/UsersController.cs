@@ -105,7 +105,7 @@ namespace CardsBench.API.Controllers
             if (user == null)
                 return BadRequest("user not found");
 
-            await _repo.RemoveUserBoards(id);
+            await _repo.RemoveUserBoard(id);
             
             IdentityResult result = await _userManager.DeleteAsync(user);
 

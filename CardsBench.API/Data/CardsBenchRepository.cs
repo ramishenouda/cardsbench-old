@@ -18,19 +18,18 @@ namespace CardsBench.API.Data
 
         public async Task<Board> GetBoard(string id)
         {
-            return await _context.Boards.Include(l => l.Lists).FirstOrDefaultAsync(x => x.BoardId == id);
+            return await _context.Boards.Include(l => l.Lists).ThenInclude(c => c.Cards).FirstOrDefaultAsync(x => x.BoardId == id);
         }
 
         public async Task<List<Board>> GetUserBoards(string userId)
         {
-            var boardsId = await _context.UserBorads.Where(x => x.UserId == userId).Select(x => x.BoardId).ToListAsync();
-
+            var boardsId = _context.UserBorads.Where(x => x.UserId == userId).Select(x => x.BoardId);
             var boardsToReturn = await _context.Boards.Where(x => boardsId.Contains(x.BoardId)).ToListAsync();
 
             return boardsToReturn;
         }
 
-        public async Task RemoveUserBoards(string userId)
+        public async Task RemoveUserBoard(string userId)
         {
             var userBoards = await _context.Boards.Where(x => x.OwnerId == userId).ToListAsync();
             _context.RemoveRange(userBoards);

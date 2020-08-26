@@ -113,13 +113,15 @@ function BoardsView(props) {
             </div>
             {props.toggleCreatingBoard === true ? (
                 <div className="text-center create-board-window">
-                    <div>
-                        <input type="text" name="boardName" onChange={props.handleChange} placeholder="Board Name" />
-                    </div>
-                    <div>
-                        <button className="newboard-button mt-2 mr-1" onClick={() => props.createBoard()}> Create </button>
-                        <button className="newboard-button mt-2" onClick={() => props.toggleCreatingBoardWindow()} > Cancel </button>
-                    </div>
+                    <form className="my-2 my-lg-0" onSubmit={props.createBoard}>
+                        <div>
+                            <input type="text" name="boardName" onChange={props.handleChange} placeholder="Board Name" />
+                        </div>
+                        <div className="mt-2">
+                            <button className="newboard-button ml-1"> Create </button>
+                            <button className="newboard-button" onClick={() => props.toggleCreatingBoardWindow()} > Cancel </button>
+                        </div>
+                    </form>
                 </div>
             ) : (''
             )}

@@ -10,3 +10,8 @@ body {
     color:#333333;
     font-weight: 500;
 }
+
+ /* this is now acting on behalf of new buttons */
+.newboard-button:hover {
+    color: rgb(238, 238, 238);
+}

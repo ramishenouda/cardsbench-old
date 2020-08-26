@@ -61,7 +61,7 @@ export async function deleteBoard(boardId, userId) {
 
 export async function getUserBoards(userId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/user`,
+        url: `http://localhost:5000/api/${userId}/boards/userboards`,
         method: 'GET',
         headers: {
             Accept: 'application/json',
