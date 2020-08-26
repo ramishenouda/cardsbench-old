@@ -25,31 +25,12 @@ class BoardDetails extends Component {
         const boardId = window.location.pathname.slice(8, 16);
         this.setState({loadingBoard: true, errorWhileLoadingBoard: false});
 
-        const lists = [
-            {
-                id: 0,
-                title: "Todo",
-                cards: [{title: "take out the trash", id: 0}, {title: "feed potato", id: 1}, {title:'hello there', id: 2}]
-            },
-            {
-                id: 1,
-                title: "On Progress",
-                cards: [{title: "take out the trash", id: 0}, {title: "feed potato", id: 1}]
-            },
-            {
-                id: 2,
-                title: "On Progress",
-                cards: [{title: "take out the trash", id: 0}]
-            },
-        ]
-
         BoardsService.getBoard(this.state.userId, boardId)
             .then((result) => {
-                console.log(result.data.board);
-                //result.data.board.lists = lists;
                 this.setState({board: result.data.board, errorWhileLoadingBoard: false})
             }).catch((err) => {
                 this.setState({errorWhileLoadingBoard: true})
+                console.log(err);
             }).finally(() => {
                 this.setState({loadingBoard: false});
             });
