@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +48,19 @@ namespace CardsBench.API.Data
 
         public async Task<List> GetList(string boardId, string listId)
         {
-            return await _context.Lists.FirstOrDefaultAsync(x => x.BoardId == boardId && x.ListId == listId);
+            return await _context.Lists.Include(x => x.Cards)
+                .FirstOrDefaultAsync(x => x.BoardId == boardId && x.ListId == listId);
+        }
+
+        public async Task<Card> GetCard(string boardId, string listId, string cardId)
+        {
+            try {
+                var board = await _context.Boards.Include(x => x.Lists).FirstOrDefaultAsync(x => x.BoardId == boardId);
+                return board.Lists.FirstOrDefault(x => x.ListId == listId)
+                    .Cards.FirstOrDefault(x => x.CardId == cardId);
+            }catch(NullReferenceException){
+                return null;
+            }
         }
 
         public void Add<T>(T entity) where T : class

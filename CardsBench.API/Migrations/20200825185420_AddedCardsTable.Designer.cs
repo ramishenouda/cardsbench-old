@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsBench.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200824173155_AddedListsTable")]
-    partial class AddedListsTable
+    [Migration("20200825185420_AddedCardsTable")]
+    partial class AddedCardsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,30 @@ namespace CardsBench.API.Migrations
                     b.HasKey("BoardId");
 
                     b.ToTable("Boards");
+                });
+
+            modelBuilder.Entity("CardsBench.API.Models.Card", b =>
+                {
+                    b.Property<string>("CardId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ListBoardId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ListId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CardId");
+
+                    b.HasIndex("ListBoardId", "ListId");
+
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>
@@ -273,6 +297,13 @@ namespace CardsBench.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CardsBench.API.Models.Card", b =>
+                {
+                    b.HasOne("CardsBench.API.Models.List", null)
+                        .WithMany("Cards")
+                        .HasForeignKey("ListBoardId", "ListId");
                 });
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>

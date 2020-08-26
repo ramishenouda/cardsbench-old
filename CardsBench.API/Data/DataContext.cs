@@ -21,9 +21,6 @@ namespace CardsBench.API.Data
             
             builder.Entity<List>()
                 .HasKey(l => new { l.BoardId, l.ListId });
-
-            builder.Entity<Card>()
-                .HasKey(c => new { c.ListId, c.CardId });
         }
     }
 }

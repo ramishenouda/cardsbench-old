@@ -12,7 +12,7 @@ namespace CardsBench.API.Migrations
                 {
                     ListId = table.Column<string>(nullable: false),
                     BoardId = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     Order = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

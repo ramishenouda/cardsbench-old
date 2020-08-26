@@ -18,6 +18,10 @@ namespace CardsBench.API.Helpers
             CreateMap<ListForCreationDto, List>();
             CreateMap<List, ListToReturnDto>();
             CreateMap<ListForUpdateDto, List>();
+
+            CreateMap<CardToAddDto, Card>();
+            CreateMap<Card, CardToReturnDto>();
+            CreateMap<CardForUpdateDto, Card>();
         }
     }
 }

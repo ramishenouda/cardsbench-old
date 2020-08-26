@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsBench.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200824173537_AddedCardsTable")]
-    partial class AddedCardsTable
+    [Migration("20200825182806_AddedListsTable")]
+    partial class AddedListsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,33 +35,6 @@ namespace CardsBench.API.Migrations
                     b.HasKey("BoardId");
 
                     b.ToTable("Boards");
-                });
-
-            modelBuilder.Entity("CardsBench.API.Models.Card", b =>
-                {
-                    b.Property<string>("ListId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CardId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ListBoardId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ListId1")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ListId", "CardId");
-
-                    b.HasIndex("ListBoardId", "ListId1");
-
-                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>
@@ -300,13 +273,6 @@ namespace CardsBench.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CardsBench.API.Models.Card", b =>
-                {
-                    b.HasOne("CardsBench.API.Models.List", null)
-                        .WithMany("Cards")
-                        .HasForeignKey("ListBoardId", "ListId1");
                 });
 
             modelBuilder.Entity("CardsBench.API.Models.List", b =>

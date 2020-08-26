@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function createBoard(boardInfo, userId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/create`,
+        url: `http://localhost:5000/api/${userId}/boards/`,
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -49,13 +49,10 @@ export async function getBoard(userId, boardId) {
 
 export async function deleteBoard(boardId, userId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/delete`,
+        url: `http://localhost:5000/api/${userId}/boards/${boardId}`,
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        },
-        data: {
-            boardId: boardId
         }
     };
 

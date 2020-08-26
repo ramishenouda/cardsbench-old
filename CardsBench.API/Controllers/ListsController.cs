@@ -13,7 +13,7 @@ namespace CardsBench.API.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/{userid}/boards/{boardid}/[controller]")]
+    [Route("api/{userid}/{boardid}/[controller]")]
     public class ListsController : ControllerBase
     {
         private readonly ICardsBenchRepository _repo;
@@ -53,7 +53,7 @@ namespace CardsBench.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateList(string userId, string boardId, ListForCreationDto listForCreationDto)
+        public async Task<IActionResult> AddList(string userId, string boardId, ListForCreationDto listForCreationDto)
         {
             if(userId != User.FindFirst(ClaimTypes.NameIdentifier).Value)
                 return Unauthorized();
@@ -78,11 +78,12 @@ namespace CardsBench.API.Controllers
 
             list.Order = board.Lists.Count;
             list.ListId = boardId + listId;
-
+            
+            var listToReturn = _mapper.Map<ListToReturnDto>(list);
             board.Lists.Add(list);
 
             if(await _repo.SaveAll())
-                return Ok();
+                return Ok(new {list = listToReturn});
 
             return BadRequest("Couldn't add the list. try refreshing the page.");
         }

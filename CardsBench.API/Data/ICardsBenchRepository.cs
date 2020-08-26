@@ -13,6 +13,7 @@ namespace CardsBench.API.Data
         Task RemoveUserBoards(string userId);
         Task<bool> UserInBoard(string userId, string boardId);
         Task<List> GetList(string boardId, string listId);
+        Task<Card> GetCard(string boardId, string listId, string cardId);
         Task<bool> SaveAll();
     }
 }
