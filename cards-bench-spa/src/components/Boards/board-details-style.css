@@ -2,13 +2,23 @@
     color: black;
 }
 
-.board-contents {
-    overflow: auto;
-    white-space: nowrap;    
+.board-wrapper {
+    overflow-x: scroll;
+    height: 85vh;
 }
 
 .board-details .board-title {
-    color: white;
     font-weight: 600;
     font-size: large;
+}
+
+::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+    background: rgb(211, 211, 211);
+}
+
+::-webkit-scrollbar-thumb:horizontal, ::-webkit-scrollbar-thumb:vertical{
+    background: rgb(148, 66, 66);
+    border-radius: 10px;
 }

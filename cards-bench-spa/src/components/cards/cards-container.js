@@ -4,7 +4,9 @@ import CardView from './cards-view'
 class Card extends Component {
     render() {
         return (
-            <CardView card={this.props.card} />
+            <div className="card-container">
+                <CardView card={this.props.card} />
+            </div>
         );
     }
 }

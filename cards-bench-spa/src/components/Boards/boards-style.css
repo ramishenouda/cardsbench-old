@@ -8,18 +8,18 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
-.card .card-content .card-title {
+.boards .card .card-content .card-title {
     padding-left: 10px;
     font-family: "Open Sans Condensed", sans-serif;
     font-size: x-large;
     color: #333333;
 }
 
-.card .card-img-wrapper .card-img {
+.boards .card .card-img-wrapper .card-img {
     max-height: 180px;
 }
 
-.card .board-options {
+.boards .card .board-options {
     position: absolute;
     bottom: 40%;
     left: 0;
@@ -29,15 +29,15 @@
     opacity: 0;
 }
 
-.card .card-img-wrapper:hover .board-options {
+.boards .card .card-img-wrapper:hover .board-options {
     opacity: 1;
 }
 
-.card .animate {
+.boards .card .animate {
     transition: all 0.2s ease-in-out;
 }
 
-.card .btn {
+.boards .card .btn {
     font-family: "Open Sans Condensed", sans-serif;
     font-size: x-large;
     font-weight: bold;
@@ -45,7 +45,7 @@
     text-shadow: 0 0 3px #FF0000, 0 0 5px #dddddd;
 }
 
-.card .btn:hover {
+.boards .card .btn:hover {
     color: rgb(211, 146, 146);
 }
 

@@ -9,7 +9,7 @@ import List from '../lists/lists-container';
 function BoardDetails(props) {
     if (props.loadingBoard) {
         return (
-            <div>
+            <div className="board-details">
                 <div className="boards-loader">
                     <div className="loader-view pb-5 mb-5 d-flex justify-content-center">
                         <LoaderView width={100} height={100} />
@@ -28,41 +28,22 @@ function BoardDetails(props) {
         } />
     }
 
-    const lists = props.board.lists.map(list => <List key={list.id} list={list} />)
-
     return (
-        <div className="board-details mt-2">
-            <div className="container text-right">
-                <button
-                    onClick={() => props.addList()}
-                    className="newboard-button"
-                >
-                    Add List
-                </button>
+      <div className="board-details ml-1 mr-1">
+          <span className="board-title"> {props.board.boardName} </span>
+          <div className="board-wrapper">
+            <div className="board-contents">
+              <ul className="list-group w-75 list-group-horizontal">
+                {props.lists}
+                {props.addingList ? (
+                  <List boardId={props.boardId} sendListToParent={props.sendListToParent} toggleListCreation={props.toggleListCreation} listToAdd={true} />
+                ) : (
+                  ''
+                )}
+              </ul>
             </div>
-            <div className="container">
-                <div className="board-head">
-                    <span className="board-title">{ props.board.boardName } </span>
-                </div>
-                <div className="board-contents">
-                    <ul className="list-group list-group-horizontal">
-                        { lists }
-                        {props.creatingList ? (
-                            <li className="list-group-item ml-2">
-                                <h4>hello </h4>
-                                <ul className="list-group">
-                                    <li className="list-group-item">
-                                        hey
-                                    </li>
-                                </ul>
-                            </li>
-                        ) : (
-                            ''
-                        )}
-                    </ul>
-                </div>
-            </div>
-        </div>
+          </div>
+      </div>
     );
 }
 

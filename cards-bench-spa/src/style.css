@@ -1,17 +1,7 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-@import '../node_modules/bootswatch/dist/journal/bootstrap.css';
-
-body {
-    background: #0f0f0f;
-    color: white;
-}
-
-::placeholder {
-    color:#333333;
-    font-weight: 500;
-}
+@import '../node_modules/bootswatch/dist/minty/bootstrap.css';
 
  /* this is now acting on behalf of new buttons */
 .newboard-button:hover {
-    color: rgb(238, 238, 238);
+    color: rgb(228, 228, 228);
 }

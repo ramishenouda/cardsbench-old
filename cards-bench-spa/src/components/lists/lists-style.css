@@ -1,0 +1,25 @@
+.list-input-text {
+    border: transparent;
+    border-bottom: rgb(52, 63, 65);
+    border-width: 2px;
+    border-style: solid;
+}
+
+.list-input-text:focus {
+    outline: none;
+    border-bottom: rgb(131, 47, 47);
+    border-width: 2px;
+    border-style: solid;
+}
+
+.list-view {
+    padding: 10px 15px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
+    width: 240px;
+}
+
+.list-view .list-title {
+    font-weight: 600;
+    color: #252525;
+}

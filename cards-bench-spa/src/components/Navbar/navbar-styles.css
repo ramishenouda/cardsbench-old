@@ -9,6 +9,10 @@
     cursor: pointer;
 }
 
+.navbar-brand {
+    color: white;
+}
+
 .navbar .item:hover {
     color: rgb(175, 102, 102);
 }
@@ -18,10 +22,11 @@
 }
 
 .navbar .navbar-brand:hover {
-    color: rgb(175, 102, 102);
+    color: rgb(170, 90, 90);
 }
 
 nav {
     height: 60px;
+    width: 100%;
     background: #C5E1A5;
 }

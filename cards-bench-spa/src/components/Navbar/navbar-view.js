@@ -99,7 +99,7 @@ function NavbarView(props) {
 
   return (
     <div className="navbar-wrapper">
-      <nav className="navbar navbar-primary bg-dark w-100">
+      <nav className="navbar navbar-primary bg-primary w-100">
         <Link to="/" className="navbar-brand"> CardsBench </Link>
         { form }
       </nav>

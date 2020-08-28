@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
+import List from '../lists/lists-container'
+
 import * as BoardsService from '../../services/boards-service'
 import BoardDetailsView from './board-details-view'
-
 
 class BoardDetails extends Component {
     state = {
@@ -10,15 +11,32 @@ class BoardDetails extends Component {
         board: {},
         loadingBoard: true,
         errorWhileLoadingBoard: false,
-        creatingList: true
+        addingList: false,
     }
 
     componentDidMount() {
         this.loadBoard();
     }
 
-    addList = () => {
-        this.setState({creatingList: true});
+    toggleListCreation = () => {
+        this.setState({addingList: !this.state.addingList});
+    }
+
+    sendListToParent(list) {
+        if(list === 'LISTS-CONTAINER-TO-BOARDS-CONTAINER-:-SHOW-THE-LOADING-BAR-HEHE-@LUFFY') {
+            console.log('show the loading bar');
+            return;
+        }
+
+        else if(list === 'LISTS-CONTAINER-TO-BOARDS-CONTAINER-:-DISABLE-THE-LOADING-BAR-HEHE-@LUFFY') {
+            console.log('disable the loading bar');
+            return;
+        }
+
+        this.setState(prevState => { 
+            prevState.board.lists.push(list);  
+            return {board: prevState.board}
+        });
     }
 
     loadBoard = () => {
@@ -37,14 +55,20 @@ class BoardDetails extends Component {
     }
 
     render() {
+        let lists;
+        if(!this.state.loadingBoard && !this.state.errorWhileLoadingBoard)
+            lists = this.state.board.lists.map(list => <List key={list.listId} listToAdd={false} list={list} />)
         return (
           <BoardDetailsView
             board={this.state.board}
             errorWhileLoadingBoard={this.state.errorWhileLoadingBoard}
             loadingBoard={this.state.loadingBoard}
             loadBoard={this.loadBoard}
-            addList={this.addList}
-            creatingList={this.state.creatingList}
+            toggleListCreation={this.toggleListCreation}
+            addingList={this.state.addingList}
+            sendListToParent={this.sendListToParent.bind(this)}
+            lists={lists}
+            boardId={this.state.board.boardId}
           />
         );
     }
