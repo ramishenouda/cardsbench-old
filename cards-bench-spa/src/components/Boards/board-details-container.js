@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import List from '../lists/lists-container'
-
 import * as BoardsService from '../../services/boards-service'
 import BoardDetailsView from './board-details-view'
 
@@ -11,7 +9,6 @@ class BoardDetails extends Component {
         board: {},
         loadingBoard: true,
         errorWhileLoadingBoard: false,
-        addingList: false,
     }
 
     componentDidMount() {
@@ -22,7 +19,7 @@ class BoardDetails extends Component {
         this.setState({addingList: !this.state.addingList});
     }
 
-    sendListToParent(list) {
+    getListFromChild(list) {
         if(list === 'LISTS-CONTAINER-TO-BOARDS-CONTAINER-:-SHOW-THE-LOADING-BAR-HEHE-@LUFFY') {
             console.log('show the loading bar');
             return;
@@ -55,20 +52,13 @@ class BoardDetails extends Component {
     }
 
     render() {
-        let lists;
-        if(!this.state.loadingBoard && !this.state.errorWhileLoadingBoard)
-            lists = this.state.board.lists.map(list => <List key={list.listId} listToAdd={false} list={list} />)
         return (
           <BoardDetailsView
             board={this.state.board}
             errorWhileLoadingBoard={this.state.errorWhileLoadingBoard}
             loadingBoard={this.state.loadingBoard}
             loadBoard={this.loadBoard}
-            toggleListCreation={this.toggleListCreation}
-            addingList={this.state.addingList}
-            sendListToParent={this.sendListToParent.bind(this)}
-            lists={lists}
-            boardId={this.state.board.boardId}
+            sendListToParent={this.getListFromChild.bind(this)}
           />
         );
     }

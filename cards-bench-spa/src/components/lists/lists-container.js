@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 
 import * as ListsService from '../../services/lists-service' 
 
-import ListView from './lists-view';
-import { ListToAdd } from './lists-view'
-import Card from '../cards/cards-container';
+import ListView, { ListToAdd } from './lists-view';
 
 class List extends Component {
     state = {
@@ -18,6 +16,10 @@ class List extends Component {
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
+    }
+
+    changeTitle = () => {
+        console.log('Change List Title');
     }
 
     addList = (event) => {
@@ -38,16 +40,21 @@ class List extends Component {
     }
 
     render() {
-        if(this.props.listToAdd === false) {
-            const cards = this.props.list.cards.map(card => <Card key={card.cardId} card={card} />);
-            return (
-                <ListView listTitle={this.props.list.title} cards={cards} />
-            );
-        } else {
-            return (
-                <ListToAdd listTitle={this.state.listTitle} addList={this.addList} toggleListCreation={this.props.toggleListCreation} handleChange={this.handleChange} />
-            );
-        }
+        const lists = this.props.lists.map((list) => (
+          <ListView
+            key={list.listId}
+            listTitle={list.title}
+            cards={list.cards}
+          />
+        ));
+    
+        return (
+            <ul className="lists list-group list-group-horizontal">
+                { lists }
+                <ListToAdd />
+            </ul>
+        );
+
     }
 }
 

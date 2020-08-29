@@ -33,14 +33,7 @@ function BoardDetails(props) {
           <span className="board-title"> {props.board.boardName} </span>
           <div className="board-wrapper">
             <div className="board-contents">
-              <ul className="list-group w-75 list-group-horizontal">
-                {props.lists}
-                {props.addingList ? (
-                  <List boardId={props.boardId} sendListToParent={props.sendListToParent} toggleListCreation={props.toggleListCreation} listToAdd={true} />
-                ) : (
-                  ''
-                )}
-              </ul>
+                <List lists={props.board.lists} />
             </div>
           </div>
       </div>

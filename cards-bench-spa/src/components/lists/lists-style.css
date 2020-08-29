@@ -1,25 +1,27 @@
-.list-input-text {
-    border: transparent;
-    border-bottom: rgb(52, 63, 65);
-    border-width: 2px;
-    border-style: solid;
+.lists .list-group-item {
+    height: fit-content;
+    border: none;
 }
 
-.list-input-text:focus {
-    outline: none;
-    border-bottom: rgb(131, 47, 47);
-    border-width: 2px;
-    border-style: solid;
+.list-view, .add-list-button {
+    background-color: rgba(230, 230, 230, 0.329);
 }
 
 .list-view {
-    padding: 10px 15px;
-    background-color: rgb(230, 230, 230);
-    border-radius: 5px;
-    width: 240px;
+    width: 262px;
+}
+
+.add-list-button {
+    width: 230px;
+    font-size: large;
+    
 }
 
 .list-view .list-title {
     font-weight: 600;
     color: #252525;
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
 }
+

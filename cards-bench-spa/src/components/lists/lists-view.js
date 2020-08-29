@@ -1,31 +1,30 @@
 import React from 'react'
 
+import Card from '../cards/cards-container';
 import './lists-style.css'
 
 function ListView(props) {
     return (
-        <div>
-            <div className="list-view p-1 ml-1">
-                <span className="list-title"> { props.listTitle } </span>
+        <li className="list-group-item p-0 ml-2">
+            <div className="list-view p-2">
+                <span onClick={props.changeTitle} className="list-title mb-1"> { props.listTitle } </span>
                 <ul className="list-group">
-                    {props.cards}
+                    <Card cards={props.cards} />
                 </ul>
-                <div className="">
-                    <li className="card list-group-item ml-2">
-                        <span>
-                            <span> + </span> Add another card
-                        </span>
-                    </li>
-                </div>
             </div>
-        </div>
+        </li>
     )
 }
 
 function ListToAdd(props) {
     return (
         <div>
-            <li className="list-view list-group-item ml-2">
+            <li className="list-group-item p-0 ml-2">
+                <div className="add-list-button p-2">
+                    +  Add list 
+                </div>
+            </li>
+            {/* <li className="list-view list-group-item ml-2">
                 <form onSubmit={props.addList} className="list-to-add list-group-item ml-2">
                     <input
                       autoFocus={true}
@@ -42,10 +41,10 @@ function ListToAdd(props) {
                         <button onClick={props.toggleListCreation} className="ml-1 btn btn-danger"> Cancel </button>
                     </div>
                 </form>
-            </li>
+            </li> */}
         </div>
     )
 }
 
 export default ListView;
-export {ListToAdd};
+export { ListToAdd };

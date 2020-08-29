@@ -4,7 +4,7 @@ import DropDownMenuView from './dropdown-menu-view'
 
 class DropDownMenu extends Component {
     state = {
-        toggle: false,
+        toggle: false
     }
 
     componentDidMount() {
@@ -12,7 +12,7 @@ class DropDownMenu extends Component {
            if (!event.target.matches('.dropdown')) {
                this.toggleDropDownMenu(false);
            }
-        } 
+        }
     }
 
     componentWillUnmount() {

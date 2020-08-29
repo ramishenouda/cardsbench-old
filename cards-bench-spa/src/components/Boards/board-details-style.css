@@ -13,9 +13,9 @@
 }
 
 ::-webkit-scrollbar {
-    height: 7px;
-    width: 7px;
-    background: rgb(211, 211, 211);
+    height: 8px;
+    width: 5px;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb:horizontal, ::-webkit-scrollbar-thumb:vertical{
