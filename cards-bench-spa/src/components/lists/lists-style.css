@@ -16,8 +16,11 @@
     width: 262px;
 }
 
-.toggle-adding-list-button {
+.toggle-adding-list-button, .list-to-add {
     width: 230px;
+}
+
+.toggle-adding-list-button {
     font-size: large;
     background: rgba(255, 255, 255, 0.164);
     cursor: pointer;

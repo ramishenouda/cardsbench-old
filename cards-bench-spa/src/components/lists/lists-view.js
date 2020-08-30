@@ -18,35 +18,31 @@ function ListView(props) {
 
 function ListToAdd(props) {
     return (
-        <div>
+        <li className="list-group-item p-0 ml-2">
             { props.addingList === false ? (
-                    <li onClick={props.toggleListAddition} className="list-group-item p-0 ml-2">
-                        <div className="toggle-adding-list-button p-2">
-                            +  Add list 
-                        </div>
-                    </li>
+                    <div onClick={props.toggleListAddition} className="toggle-adding-list-button p-2">
+                        +  Add list 
+                    </div>
                 ): (
-                    <li className="list-group-item p-0 ml-2">
-                        <form onSubmit={props.addList} className="list-to-add">
-                            <input
-                              autoFocus={true}
-                              type="text"
-                              value={props.listTitle}
-                              onChange={props.handleChange}
-                              className="form-control list-input-text"
-                              placeholder="List Title"
-                              name="listTitle"
-                              autoComplete="off"
-                            />
-                            <div className="mt-1">
-                                <button disabled={props.listTitle === ''} className="btn btn-success"> Add </button>
-                                <button onClick={props.toggleListAddition} className="ml-1 btn btn-danger"> Cancel </button>
-                            </div>
-                        </form>
-                    </li>
+                    <form onSubmit={props.addList} className="list-to-add">
+                        <input
+                            autoFocus={true}
+                            type="text"
+                            value={props.listTitle}
+                            onChange={props.handleChange}
+                            className="form-control list-input-text"
+                            placeholder="List Title"
+                            name="listTitle"
+                            autoComplete="off"
+                        />
+                        <div className="mt-1">
+                            <button disabled={props.listTitle === ''} className="btn btn-success"> Add </button>
+                            <button onClick={props.toggleListAddition} className="ml-1 btn btn-danger"> Cancel </button>
+                        </div>
+                    </form>
                 )
             }
-        </div>
+        </li>
     )
 }
 

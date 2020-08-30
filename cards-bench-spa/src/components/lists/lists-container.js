@@ -41,6 +41,8 @@ class List extends Component {
             }).catch((err) => {
                 this.props.sendListToParent('', 'ERROR-LIST-ADDITION');
                 console.log(err);
+            }).finally(() => {
+                this.setState({ listTitle: '' })
             })
     }
 
@@ -55,7 +57,7 @@ class List extends Component {
     
         return (
           <ul className="lists list-group list-group-horizontal">
-            {lists}
+            { lists }
             <ListToAdd
               toggleListAddition={this.toggleListAddition} // toggles the adding list property
               addingList={this.state.addingList} // used to trigger the adding list menu
