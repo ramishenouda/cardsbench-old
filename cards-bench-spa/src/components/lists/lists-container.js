@@ -7,6 +7,7 @@ import ListView, { ListToAdd } from './lists-view';
 class List extends Component {
     state = {
         listTitle: '',
+        addingList: false,
         listsControllerParams: {
             userId: JSON.parse(localStorage.getItem('user')).id,
             boardId: this.props.boardId
@@ -18,25 +19,29 @@ class List extends Component {
         this.setState({ [name]: value });
     }
 
+    toggleListAddition = () => {
+        this.setState({ addingList: !this.state.addingList });
+    }
+
     changeTitle = () => {
         console.log('Change List Title');
     }
 
     addList = (event) => {
         event.preventDefault();
-        if(this.state.listTitle === '')
-            return;
 
-        this.props.sendListToParent('LISTS-CONTAINER-TO-BOARDS-CONTAINER-:-SHOW-THE-LOADING-BAR-HEHE-@LUFFY');
+        if (this.state.listTitle === '')
+            return;
+        
+        this.props.sendListToParent('', 'SHOW-THE-LOADING-BAR');
+
         ListsService.addList(this.state.listTitle, this.state.listsControllerParams)
             .then((result) => {
-                console.log('show notification');
                 this.props.sendListToParent(result.data.list);
             }).catch((err) => {
+                this.props.sendListToParent('', 'ERROR-LIST-ADDITION');
                 console.log(err);
-            }).finally(() => {
-                this.props.sendListToParent('LISTS-CONTAINER-TO-BOARDS-CONTAINER-:-DISABLE-THE-LOADING-BAR-HEHE-@LUFFY');
-            });
+            })
     }
 
     render() {
@@ -49,10 +54,17 @@ class List extends Component {
         ));
     
         return (
-            <ul className="lists list-group list-group-horizontal">
-                { lists }
-                <ListToAdd />
-            </ul>
+          <ul className="lists list-group list-group-horizontal">
+            {lists}
+            <ListToAdd
+              toggleListAddition={this.toggleListAddition} // toggles the adding list property
+              addingList={this.state.addingList} // used to trigger the adding list menu
+              listTitle={this.state.listTitle}
+              addList={this.addList}
+              handleChange={this.handleChange}
+              sendListToParent={this.props.sendListToParent}
+            />
+          </ul>
         );
 
     }

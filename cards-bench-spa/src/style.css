@@ -1,11 +1,32 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-@import '../node_modules/bootswatch/dist/minty/bootstrap.css';
+@import '../node_modules/bootswatch/dist/journal/bootstrap.css';
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
 
  /* this is now acting on behalf of new buttons */
+ .newboard-button {
+    display: inline-block;
+    text-transform: uppercase;
+    color: #ff005a;
+    text-decoration: none;
+    border: 2px solid;
+    background: transparent;
+    padding: 10px 40px;
+    font-size: 14px;
+    font-weight: 700;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+
 .newboard-button:hover {
     color: rgb(228, 228, 228);
 }
 
 body {
-    color: black;
+    color: rgb(216, 216, 216);
+    background: rgb(190,16,16);
+    background: -moz-linear-gradient(90deg, rgba(190,16,16,1) 0%, rgba(78,3,3,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(190,16,16,1) 0%, rgba(78,3,3,1) 100%);
+    background: linear-gradient(90deg, rgba(190,16,16,1) 0%, rgba(78,3,3,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#be1010",endColorstr="#4e0303",GradientType=1);
 }

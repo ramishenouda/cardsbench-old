@@ -13,15 +13,16 @@ function NavbarView(props) {
   if (props.authenticated) {
     const decodedToken = props.decodedToken();
 
+    const dropDownMenuItems = [
+      <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" to="/profile">
+        Profile
+      </Link>,
+      <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" onClick={props.logout} to="/">
+        Logout
+      </Link>
+    ]
+  
     if (props.isSmallScreen === false) {
-      const dropDownMenuItems = [
-        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" to="/profile">
-          Profile
-        </Link>,
-        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" onClick={props.logout} to="/">
-          Logout
-        </Link>
-      ]
 
       form = (
         <form className="form-inline">
@@ -33,15 +34,6 @@ function NavbarView(props) {
         </form>
       );
     } else {
-      const dropDownMenuItems = [
-        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" to="/profile">
-          Profile
-        </Link>,
-        <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" onClick={props.logout} to="/">
-          Logout
-        </Link>
-      ]
-
       form = (
         <form className="form-inline">
           <Link to="/boards" className="item"> Boards </Link>
@@ -99,7 +91,7 @@ function NavbarView(props) {
 
   return (
     <div className="navbar-wrapper">
-      <nav className="navbar navbar-primary bg-primary w-100">
+      <nav className="navbar navbar-primary bg-dark w-100">
         <Link to="/" className="navbar-brand"> CardsBench </Link>
         { form }
       </nav>

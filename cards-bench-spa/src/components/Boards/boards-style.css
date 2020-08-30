@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
 
 .boards-loader .loader-view {
     position: absolute;
@@ -59,21 +58,6 @@
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
-}
-
-.newboard-button {
-    display: inline-block;
-    text-transform: uppercase;
-    color: #ff005a;
-    text-decoration: none;
-    border: 2px solid;
-    background: transparent;
-    padding: 10px 40px;
-    font-size: 14px;
-    font-weight: 700;
-    -webkit-transition: 0.5s all;
-    transition: 0.5s all;
-    cursor: pointer;
 }
 
 .create-board-window {

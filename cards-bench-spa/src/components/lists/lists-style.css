@@ -1,20 +1,31 @@
 .lists .list-group-item {
     height: fit-content;
     border: none;
+    background: transparent;
 }
 
 .list-view, .add-list-button {
     background-color: rgba(230, 230, 230, 0.329);
 }
 
+.list-input-text {
+    outline: none;
+}
+
 .list-view {
     width: 262px;
 }
 
-.add-list-button {
+.toggle-adding-list-button {
     width: 230px;
     font-size: large;
-    
+    background: rgba(255, 255, 255, 0.164);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.toggle-adding-list-button:hover {
+    background: rgba(255, 255, 255, 0.397);
 }
 
 .list-view .list-title {
@@ -24,4 +35,3 @@
     width: 100%;
     display: inline-block;
 }
-

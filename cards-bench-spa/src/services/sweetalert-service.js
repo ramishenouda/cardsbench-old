@@ -77,7 +77,7 @@ class Notify {
             icon: 'error',
             title: title,
             text: text,
-            confirmButtonText: confirmButtonText
+            confirmButtonText: confirmButtonText === undefined ? 'OK' : confirmButtonText
         });
     }
 }
