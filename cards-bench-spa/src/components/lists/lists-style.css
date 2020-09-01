@@ -32,9 +32,14 @@
 }
 
 .list-view .list-title {
-    font-weight: 600;
-    color: #252525;
+    font-weight: 650;
+    color: #181818dc;
     cursor: pointer;
-    width: 100%;
-    display: inline-block;
+}
+
+.list-dropdown-menu {
+    float: right;
+}
+
+.list-dropdown-item {
 }

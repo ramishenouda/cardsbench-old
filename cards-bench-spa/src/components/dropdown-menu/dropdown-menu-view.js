@@ -7,18 +7,13 @@ function DropDownMenuView(props) {
         display: props.toggle === true ? 'block' : 'none'
     }
 
-    const menuItems = props.dropDownMenuItems.map((item, index) =>
-      <span key={index} onClick={() => props.toggleDropDownMenu('dropdown')}> { item } </span>
-    );
-
     return (
-        <div className="dropdown">
-            <span onClick={() => props.toggleDropDownMenu('dropdown')} className="dropdown">
-                { props.text } <i className="dropdown dropdown-arrow mb-1"></i> 
+        <div className="react-dropdown-menu">
+            <span onClick={() => props.toggleDropDownMenu('dropdown-toggle')} className="dropdown-toggle-botton">
+                { props.text } <i className="dropdown-toggle-symbol mb-1"></i>
             </span>
-
             <div style={style} className="dropdown-items text-center list-group mt-3">
-                { menuItems }
+                { props.dropDownMenuItems }
             </div>
         </div>
     );

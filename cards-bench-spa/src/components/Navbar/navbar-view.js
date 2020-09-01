@@ -14,10 +14,10 @@ function NavbarView(props) {
     const decodedToken = props.decodedToken();
 
     const dropDownMenuItems = [
-      <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" to="/profile">
+      <Link style={{textDecoration: 'none'}} className="btn btn-success d-block mb-1" to="/profile">
         Profile
       </Link>,
-      <Link style={{textDecoration: 'none'}} className="list-group-item dropdown-item" onClick={props.logout} to="/">
+      <Link style={{textDecoration: 'none'}} className="btn btn-danger d-block mb-1" onClick={props.logout} to="/">
         Logout
       </Link>
     ]

@@ -26,9 +26,11 @@
     margin-right: auto;
     margin-left: auto;
     opacity: 0;
+    display: none;
 }
 
 .boards .card .card-img-wrapper:hover .board-options {
+    display: block;
     opacity: 1;
 }
 

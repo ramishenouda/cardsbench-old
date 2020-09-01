@@ -1,4 +1,4 @@
-.dropdown .dropdown-arrow {
+.react-dropdown-menu .dropdown-toggle-symbol {
     border: solid;
     border-width: 0 2px 2px 0;
     display: inline-block;
@@ -7,16 +7,18 @@
     -webkit-transform: rotate(45deg);
 }
 
-.dropdown {
+.react-dropdown-menu {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
+    display: inline;
+    cursor: pointer;
 }
 
-.dropdown .dropdown-items {
+.react-dropdown-menu .dropdown-items {
     position: absolute;
     right: 0;
     margin-right: auto;
@@ -25,7 +27,3 @@
     z-index: 1;
 }
 
-.dropdown .dropdown-items .dropdown-item:hover {
-    background: rgb(175, 102, 102);
-    color: white;
-}
