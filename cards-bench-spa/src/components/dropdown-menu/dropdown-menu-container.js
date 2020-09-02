@@ -7,18 +7,20 @@ class DropDownMenu extends Component {
         toggle: false
     }
 
+    EventListenerFunction = (event) => {
+        if (!event.target.matches('.dropdown-toggle')) {
+            this.toggleDropDownMenu(false);
+        } else {
+            this.setState({ toggle:false })
+        }
+    }
+
     componentDidMount() {
-        window.addEventListener('click', event => {
-            if (!event.target.matches('.dropdown-toggle')) {
-                this.toggleDropDownMenu(false);
-            } else {
-                this.setState({ toggle:false })
-            }
-        })
+        window.addEventListener('click', this.EventListenerFunction, false)
     }
 
     componentWillUnmount() {
-        window.onclick = null;
+        window.removeEventListener('click', this.EventListenerFunction, false);
     }
 
     toggleDropDownMenu = (event) => {

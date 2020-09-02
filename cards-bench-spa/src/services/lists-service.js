@@ -55,7 +55,8 @@ export async function updateList(listInfo, listControllerParams) {
         },
         data: {
             title: listInfo.title,
-            listId: listInfo.listId
+            listId: listInfo.listId,
+            order: listInfo.order
         }
     };
 

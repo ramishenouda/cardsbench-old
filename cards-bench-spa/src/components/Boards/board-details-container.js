@@ -27,8 +27,19 @@ class BoardDetails extends Component {
             this.setState({ showSavingLoader: false });
             return;
         }
-    
-        if (list !== '') {
+
+        if (list.listId !== '' && options === 'DELETE-LIST') {
+            this.setState(prevState => {
+                prevState.board.lists = prevState.board.lists.filter(x => x.listId !== list.listId)
+                    .map(l => {
+                        if (l.order > list.listOrder)
+                            l.order--;
+                        
+                        return l;
+                    })
+                return { board: prevState.board, showSavingLoader: false }
+            })
+        } else if (list !== '') {
             this.setState(prevState => { 
                 prevState.board.lists.push(list);  
                 return { board: prevState.board, showSavingLoader: false }
@@ -44,7 +55,12 @@ class BoardDetails extends Component {
 
         BoardsService.getBoard(this.state.userId, boardId)
             .then((result) => {
-                this.setState({board: result.data.board, errorWhileLoadingBoard: false})
+                this.setState({board: result.data.board, errorWhileLoadingBoard: false}, () => {
+                    this.setState((prevState) => {
+                        prevState.board.lists.sort((a, b) => a.order - b.order);
+                        return { board: prevState.board }
+                    })
+                })
             }).catch((err) => {
                 this.setState({errorWhileLoadingBoard: true})
                 console.log(err);

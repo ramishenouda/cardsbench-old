@@ -5,7 +5,7 @@ import './register-styles.css';
 import LoaderView from '../loader/loader-view'
 
 function RegisterView(props) {
-  const style={
+  const style = {
     width: props.isSmallScreen ? '90%' : '60%',
     padding: '50px 25px 80px 25px',
     margin: '50px auto',
@@ -97,7 +97,7 @@ function RegisterView(props) {
           <div className="form-group">
             <input
               type="text"
-              className="form-control w-50"
+              className="form-control w-100"
               name="knownAs"
               placeholder="Nickname"
               value={props.registerInfo.knownAs}

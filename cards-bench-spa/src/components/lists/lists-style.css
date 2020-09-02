@@ -14,6 +14,16 @@
 
 .list-view {
     width: 262px;
+    max-width: 262px;
+}
+
+.list-view .title-change-input {
+    background: rgba(255, 255, 255, 0.205);
+    border: none;
+    outline: none;
+    height: 20px;
+    font-weight: 600;
+    max-width: 230px;
 }
 
 .toggle-adding-list-button, .list-to-add {
@@ -32,14 +42,18 @@
 }
 
 .list-view .list-title {
-    font-weight: 650;
-    color: #181818dc;
+    max-width: 230px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
     cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
 }
 
 .list-dropdown-menu {
     float: right;
-}
-
-.list-dropdown-item {
 }

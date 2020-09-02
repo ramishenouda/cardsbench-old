@@ -7,23 +7,31 @@ import './lists-style.css'
 
 function ListView(props) {
     const dropDownMenuItems = [
-            <span className="btn btn-info d-block mb-1" >
-            Move List
-            </span>,
-            <span className="btn btn-danger d-block" onClick={props.logout}>
-            Delete
-            </span>
+        <span className="btn btn-info d-block mb-1" >
+            MOVE LIST
+        </span>,
+        <span onClick={() => props.deleteList(props.listId, props.listOrder)} className="btn btn-danger d-block">
+            DELETE
+        </span>
     ]
 
     return (
         <li className="list-group-item p-0 ml-2">
             <div className="list-view p-2">
-                <div>
-                    <span onClick={props.changeTitle} className="list-title mb-1"> { props.listTitle } </span>
-                    <span className="list-dropdown-menu">
-                        <DropDownMenu  dropDownMenuItems={dropDownMenuItems} />
-                    </span>
-                </div>
+                    {
+                        props.listUpdateId === props.listId ? (
+                            <input type="text" name="listTitleToUpdate" className="title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                        ) : (
+                            <div>
+                                <span onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)} className="list-title mb-1">
+                                    { props.listTitle } 
+                                </span>
+                                <span className="list-dropdown-menu">
+                                    <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
+                                </span>
+                            </div>
+                        )
+                    }
                 <div>
                     <ul className="list-group">
                         <Card cards={props.cards} />
