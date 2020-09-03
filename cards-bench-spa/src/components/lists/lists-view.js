@@ -1,13 +1,15 @@
 import React from 'react'
 
 import DropDownMenu from '../dropdown-menu/dropdown-menu-container'
+import PopUpBox from '../pop-up-box/pop-up-box-view'
 
 import Card from '../cards/cards-container';
 import './lists-style.css'
+import { FormGroup, Form } from 'react-bootstrap';
 
 function ListView(props) {
     const dropDownMenuItems = [
-        <span className="btn btn-info d-block mb-1" >
+        <span onClick={() => props.toggleChangeOrder(props.listId, props.listOrder, props.listTitle)} className="btn btn-info d-block mb-1" >
             MOVE LIST
         </span>,
         <span onClick={() => props.deleteList(props.listId, props.listOrder)} className="btn btn-danger d-block">
@@ -15,23 +17,47 @@ function ListView(props) {
         </span>
     ]
 
+    let options = [];
+
+    for (let index = 0; index < props.numberOfLists; index++) {
+        if (index === props.listOrder)
+            continue;
+
+        const option = <option key={index}> { index + 1 } </option>
+        options.push(option);
+    }
+
+    const PopUpBoxContent = (
+        <FormGroup>
+        <Form.Label>Order</Form.Label>
+            <Form.Control onChange={props.handleChange} name="newListOrder" as="select">
+                { options }
+            </Form.Control>
+        </FormGroup>
+    )
+
     return (
         <li className="list-group-item p-0 ml-2">
             <div className="list-view p-2">
-                    {
-                        props.listUpdateId === props.listId ? (
-                            <input type="text" name="listTitleToUpdate" className="title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
-                        ) : (
-                            <div>
-                                <span onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)} className="list-title mb-1">
-                                    { props.listTitle } 
-                                </span>
-                                <span className="list-dropdown-menu">
-                                    <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
-                                </span>
-                            </div>
-                        )
-                    }
+                {
+                    props.listToUpdateId === props.listId && !props.changingOrder ? (
+                        <input type="text" name="listTitleToUpdate" className="title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                    ) : (
+                        <div>
+                            <span onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)} className="list-title mb-1">
+                                { props.listTitle } 
+                            </span>
+                            <span className="list-dropdown-menu">
+                                <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
+                            </span>
+                        </div>
+                    )
+                }
+                {
+                    props.listToUpdateId === props.listId && props.changingOrder ? (
+                        <PopUpBox PopUpBoxContent={PopUpBoxContent} confirmButtonFunction={() => props.changeListOrder()} cancelButtonFunction={() => props.toggleChangeOrder('')} />
+                    ) : ('')
+                }
                 <div>
                     <ul className="list-group">
                         <Card cards={props.cards} />

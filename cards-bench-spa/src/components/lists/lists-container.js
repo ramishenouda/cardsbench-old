@@ -18,6 +18,9 @@ class List extends Component {
         listTitle: '',
         addingList: false,
         order: 0,
+        newListOrder: 0,
+        previousListOrder: 0,
+        changingOrder: false,
         showSavingLoader: false,
         listsControllerParams: {
             userId: JSON.parse(localStorage.getItem('user')).id,
@@ -44,42 +47,70 @@ class List extends Component {
         this.setState({ addingList: !this.state.addingList });
     }
 
-    unToggleListTitleUpdate = (event) => {
-        if (
-          this.state.listToUpdateId === '' ||
-          ((event.target.matches('.list-title') ||
-            event.target.matches('.title-change-input')) &&
-            event.key === undefined)
-        ) {
-            return;
-        }
-
-        if((event.key === 'Escape') || event.key === undefined)
-            this.setState({ listToUpdateId: '' });
-
-        if(event.key === 'Enter') {
-            if(this.state.listTitleToUpdate === this.state.currentListTitle) {
-                this.setState({ listToUpdateId: '' });
-                return;
-            }
-
-            this.updateList({ 
-                listId: this.state.listToUpdateId,
-                title: this.state.listTitleToUpdate,
-                currentTitle: this.state.currentListTitle,
-                order: this.state.order 
-            });
-            this.setState({ listToUpdateId: '' });
-        }
-    }
-
     toggleChangeTitle = (listId, currentListTitle, order) => {
         this.setState({
             listToUpdateId: listId,
             currentListTitle: currentListTitle,
             listTitleToUpdate: currentListTitle, 
-            order: order, 
+            order: order,
         });
+    }
+
+    unToggleListTitleUpdate = (event) => {
+        if (
+          this.state.listToUpdateId === '' ||
+          ((event.target.matches('.list-title') ||
+            event.target.matches('.title-change-input')) &&
+            event.key === undefined) || this.state.changingOrder
+        ) {
+            return;
+        }
+
+        if(event.key === 'Escape' || event.key === undefined)
+            this.setState({ listToUpdateId: '', listTitleToUpdate: '' });
+
+        if(event.key === 'Enter') {
+            if(this.state.listTitleToUpdate === this.state.currentListTitle) {
+                this.setState({ listToUpdateId: '', listTitleToUpdate: '' });
+                return;
+            }
+
+            this.updateListTitle({ 
+                listId: this.state.listToUpdateId,
+                title: this.state.listTitleToUpdate,
+                currentTitle: this.state.currentListTitle,
+                order: this.state.order 
+            });
+
+            this.setState({ listToUpdateId: '', listTitleToUpdate: '' });
+        }
+    }
+
+    toggleChangeOrder = (listId, listOrder, listTitle) => {
+        const changingOrder = listId === (undefined || '') ? false : true;
+
+        // Initial value for the newListOrder, just in case if the user clicked ok without choosing an order value.
+        const newListOrder = listOrder === 0 ? 2 : 1;
+
+        this.setState({
+          listToUpdateId: listId,
+          changingOrder: changingOrder,
+          previousListOrder: listOrder,
+          newListOrder: newListOrder,
+          listTitleToUpdate: listTitle,
+        });
+    }
+
+    changeListOrder = () => {
+        this.updateListOrder({ 
+            listId: this.state.listToUpdateId,
+            title: this.state.listTitleToUpdate,
+            newListOrder: this.state.newListOrder,
+            currentListOrder: this.state.previousListOrder,
+            order: this.state.newListOrder
+        });
+
+        this.toggleChangeOrder();
     }
 
     addList = (event) => {
@@ -135,14 +166,62 @@ class List extends Component {
             })
     }
 
-    updateList = (listToUpdate) => {
-        this.setState({ showSavingLoader: true })
-        this.props.lists.find(l => l.listId === listToUpdate.listId).title = listToUpdate.title;
+    updateListTitle = (listToUpdate) => {
+        this.setState((prevState) => { 
+            prevState.showSavingLoader = true
+            prevState.lists.find(l => l.listId === listToUpdate.listId).title = listToUpdate.title;
+
+            return prevState
+        })
+
         ListsService.updateList(listToUpdate, this.state.listsControllerParams)
-            .then((result) => {
-                
+            .then(() => {
             }).catch((err) => {
                 this.props.lists.find(l => l.listId === listToUpdate.listId).title = listToUpdate.currentTitle;
+                Notify.error('Error while saving changes.', 'Refresh and try again.');
+            }).finally(() => {
+                this.setState({ showSavingLoader: false });
+            })
+    }
+
+    modifyListsOrder = (currentOrder, newListOrder) => {
+        this.setState((prevState) => { 
+            prevState.lists = prevState.lists.map(list => {
+                if (list.order <= newListOrder && list.order > currentOrder)
+                    list.order--;
+                else if (list.order >= newListOrder && list.order < currentOrder)
+                    list.order++;
+                
+                return list;
+            })
+            
+            prevState.lists[currentOrder].order = newListOrder;
+
+            return {
+                lists: prevState.lists,
+                showSavingLoader: prevState.showSavingLoader
+            };
+        }, () => {
+            this.setState((prevState) => {
+                prevState.lists.sort((a, b) => a.order - b.order);
+                return {
+                    lists: prevState.lists
+                }
+            })
+        })
+    }
+
+    updateListOrder = (listToUpdate) => {
+        listToUpdate.newListOrder -= 1;
+        listToUpdate.order -= 1;
+
+        this.setState({ showSavingLoader: true });
+        this.modifyListsOrder(listToUpdate.currentListOrder, listToUpdate.newListOrder)
+
+        ListsService.updateList(listToUpdate, this.state.listsControllerParams)
+            .then(() => {
+            }).catch((err) => {
+                this.modifyListsOrder(listToUpdate.newListOrder, listToUpdate.currentListOrder)
                 Notify.error('Error while saving changes.', 'Refresh and try again.');
             }).finally(() => {
                 this.setState({ showSavingLoader: false })
@@ -156,13 +235,17 @@ class List extends Component {
             listId={list.listId}
             listTitle={list.title}
             listOrder={list.order}
+            changingOrder={this.state.changingOrder}
             cards={list.cards}
             deleteList={this.deleteList}
             toggleChangeTitle={this.toggleChangeTitle}
             listTitleToUpdate={this.state.listTitleToUpdate}
-            listUpdateId={this.state.listToUpdateId}
+            listToUpdateId={this.state.listToUpdateId}
+            toggleChangeOrder={this.toggleChangeOrder}
+            changeListOrder={this.changeListOrder}
             handleChange={this.handleChange}
             showSavingLoader={this.state.showSavingLoader}
+            numberOfLists={this.state.lists.length}
           />
         ));
 

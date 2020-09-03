@@ -14,10 +14,10 @@ function NavbarView(props) {
     const decodedToken = props.decodedToken();
 
     const dropDownMenuItems = [
-      <Link style={{textDecoration: 'none'}} className="btn btn-success d-block mb-1" to="/profile">
+      <Link style={{textDecoration: 'none'}} className="btn btn-success d-block mb-1 mr-2" to="/profile">
         Profile
       </Link>,
-      <Link style={{textDecoration: 'none'}} className="btn btn-danger d-block mb-1" onClick={props.logout} to="/">
+      <Link style={{textDecoration: 'none'}} className="btn btn-danger d-block mb-1 mr-2" onClick={props.logout} to="/">
         Logout
       </Link>
     ]
@@ -79,7 +79,7 @@ function NavbarView(props) {
   } else {
     form = (
       <form className="form-inline">
-        <span onClick={props.toggleLogin} className="btn btn-outline-dark mr-2 my-2 my-sm-0">
+        <span onClick={props.toggleLogin} className="btn btn-outline-dark text-light mr-2 my-2 my-sm-0">
           Login
         </span>
         <Link to="/register" className="btn btn-outline-light my-2 my-sm-0">

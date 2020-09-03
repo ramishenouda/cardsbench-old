@@ -183,7 +183,7 @@ namespace CardsBench.API.Controllers
             if(await _repo.SaveAll())
                 return Ok();
 
-            return BadRequest("Couldn't add the list. Try refreshing the page.");
+            return BadRequest("Couldn't save the list. Try refreshing the page.");
         }
     }
 }
