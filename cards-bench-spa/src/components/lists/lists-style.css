@@ -8,6 +8,19 @@
     background-color: rgba(230, 230, 230, 0.329);
 }
 
+.lists-container .lists-saving-changes-loader, .lists-container .loader-text  {
+    position: absolute;
+    right: 5px;
+    top: 59px;
+}
+
+.lists-container .loader-text {
+    top: 53px !important;
+    font-weight: 600;
+    font-family: "Open Sans Condensed", sans-serif, Arial;
+    font-size: larger;
+}
+
 .list-input-text {
     outline: none;
 }

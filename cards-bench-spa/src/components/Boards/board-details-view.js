@@ -29,28 +29,16 @@ function BoardDetails(props) {
     }
 
     return (
-      <div className="board-details">
-          <div className="ml-1 mr-1">
-            {
-                props.showSavingLoader? (
-                    <div>
-                        <div className="saving-list-loader mt-2 mr-1">
-                            <LoaderView width={10} height={10} />
-                        </div>
-                        <div className="loader-text mr-4">
-                            { props.savingLoaderText }
-                        </div>
+        <div className="board-details">
+            <div className="ml-1 mr-1">
+                <span className="board-title"> {props.board.boardName} </span>
+                <div className="board-wrapper">
+                    <div className="board-contents">
+                        <List boardId={props.board.boardId} lists={props.board.lists} />
                     </div>
-                ) : ('')
-            }
-            <span className="board-title"> {props.board.boardName} </span>
-            <div className="board-wrapper">
-                <div className="board-contents">
-                    <List sendListToParent={props.sendListToParent} boardId={props.board.boardId} lists={props.board.lists} />
                 </div>
             </div>
-          </div>
-      </div>
+        </div>
     );
 }
 

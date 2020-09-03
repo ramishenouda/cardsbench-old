@@ -8,14 +8,6 @@
     font-size: large;
 }
 
-.board-details .saving-list-loader, .board-details .loader-text {
-    position: absolute;
-    right: 0;
-    font-weight: 600;
-    font-family: "Open Sans Condensed", sans-serif;
-    font-size: larger;
-}
-
 ::-webkit-scrollbar {
     height: 8px;
     width: 5px;
