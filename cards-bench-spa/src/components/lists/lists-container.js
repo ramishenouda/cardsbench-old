@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 
 import LoaderView from './../loader/loader-view'
-
 import Notify from '../../services/sweetalert-service'
-import * as ListsService from '../../services/lists-service' 
 
+import * as ListsService from '../../services/lists-service' 
 import ListView, { ListToAdd } from './lists-view';
 
-import './lists-style.css'
 
 class List extends Component {
     state = {
@@ -232,6 +230,7 @@ class List extends Component {
         const lists = this.state.lists.map((list) => (
           <ListView
             key={list.listId}
+            listParams={this.state.listsControllerParams}
             listId={list.listId}
             listTitle={list.title}
             listOrder={list.order}
@@ -254,10 +253,10 @@ class List extends Component {
                 {
                     this.state.showSavingLoader ? (
                         <div>
-                            <div className="lists-saving-changes-loader">
+                            <div className="saving-changes-loader">
                                 <LoaderView width={10} height={10} />
                             </div>
-                            <div className="loader-text mr-4">
+                            <div className="saving-changes-loader-text mr-4">
                                 Saving Changes...
                             </div>
                         </div>

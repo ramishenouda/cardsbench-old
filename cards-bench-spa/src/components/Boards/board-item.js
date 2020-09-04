@@ -15,7 +15,7 @@ function BoardItem(props) {
                             <button onClick={props.deleteBoard} className="btn">DELETE</button>
                         </li>
                         <li className="list-inline-item">
-                            <Link className="btn" to={"boards/" + props.boardId + "/" + props.boardName}>VIEW</Link>
+                            <Link className="btn" to={"/boards/" + props.boardId + "/" + props.boardName}>VIEW</Link>
                         </li>
                     </ul>
                 </div>

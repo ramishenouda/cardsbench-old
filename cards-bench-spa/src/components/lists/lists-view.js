@@ -1,11 +1,11 @@
 import React from 'react'
+import { FormGroup, Form } from 'react-bootstrap';
 
 import DropDownMenu from '../dropdown-menu/dropdown-menu-container'
 import PopUpBox from '../pop-up-box/pop-up-box-view'
 
 import Card from '../cards/cards-container';
 import './lists-style.css'
-import { FormGroup, Form } from 'react-bootstrap';
 
 function ListView(props) {
     const dropDownMenuItems = [
@@ -41,7 +41,7 @@ function ListView(props) {
             <div className="list-view p-2">
                 {
                     props.listToUpdateId === props.listId && !props.changingOrder ? (
-                        <input type="text" name="listTitleToUpdate" className="title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                        <input type="text" name="listTitleToUpdate" autoComplete="off" className="title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
                     ) : (
                         <div>
                             <span onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)} className="list-title mb-1">
@@ -60,7 +60,7 @@ function ListView(props) {
                 }
                 <div>
                     <ul className="list-group">
-                        <Card cards={props.cards} />
+                        <Card cards={props.cards} listParams={props.listParams} listId={props.listId} />
                     </ul>
                 </div>
             </div>

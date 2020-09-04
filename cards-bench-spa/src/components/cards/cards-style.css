@@ -1,4 +1,4 @@
-.card-container .card, .list-view .card {
+.card-container .card {
     padding: 5px;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -8,4 +8,8 @@
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+
+.card-container .add-card-button {
+    cursor: pointer;
 }

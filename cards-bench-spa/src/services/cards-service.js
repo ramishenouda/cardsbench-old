@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export async function getList(listId, listControllerParams) {
+export async function getCard(cardId, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists/${listId}`,
+        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards/${cardId}`,
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -13,9 +13,9 @@ export async function getList(listId, listControllerParams) {
     return (await axios(options));
 }
 
-export async function addList(listTitle, listControllerParams) {
+export async function addCard(cardTitle, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists`,
+        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -23,19 +23,18 @@ export async function addList(listTitle, listControllerParams) {
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
         },
         data: {
-            title: listTitle
+            title: cardTitle
         }
     };
 
     return (await axios(options));
 }
 
-export async function deleteList(listId, listControllerParams) {
+export async function deleteCard(cardId, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists/${listId}`,
+        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards/${cardId}`,
         method: 'DELETE',
         headers: {
-            Accept: 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
         }
@@ -44,19 +43,19 @@ export async function deleteList(listId, listControllerParams) {
     return (await axios(options));
 }
 
-export async function updateList(listInfo, listControllerParams) {
+export async function updateCard(cardInfo, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists`,
-        method: 'PUT',
+        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
+        method: 'PU',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
         },
         data: {
-            listId: listInfo.listId,
-            title: listInfo.title,
-            order: listInfo.order
+            cardId: cardInfo.cardId,
+            title: cardInfo.title,
+            order: cardInfo.order
         }
     };
 
