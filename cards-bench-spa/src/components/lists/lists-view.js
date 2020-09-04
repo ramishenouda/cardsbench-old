@@ -41,13 +41,13 @@ function ListView(props) {
             <div className="list-view p-2">
                 {
                     props.listToUpdateId === props.listId && !props.changingOrder ? (
-                        <input type="text" name="listTitleToUpdate" autoComplete="off" className="title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                        <input type="text" name="listTitleToUpdate" autoComplete="off" className="list-title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
                     ) : (
                         <div>
                             <span onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)} className="list-title mb-1">
                                 { props.listTitle } 
                             </span>
-                            <span className="list-dropdown-menu">
+                            <span className="float-right">
                                 <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
                             </span>
                         </div>

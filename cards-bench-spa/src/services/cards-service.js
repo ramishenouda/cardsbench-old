@@ -46,7 +46,7 @@ export async function deleteCard(cardId, controllerParams) {
 export async function updateCard(cardInfo, controllerParams) {
     const options = {
         url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
-        method: 'PU',
+        method: 'PUT',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',

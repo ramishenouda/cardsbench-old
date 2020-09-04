@@ -58,7 +58,7 @@ class List extends Component {
         if (
           this.state.listToUpdateId === '' ||
           ((event.target.matches('.list-title') ||
-            event.target.matches('.title-change-input')) &&
+            event.target.matches('.list-title-change-input')) &&
             event.key === undefined) || this.state.changingOrder
         ) {
             return;
