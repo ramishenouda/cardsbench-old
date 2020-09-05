@@ -4,8 +4,24 @@
 }
 
 .board-details .board-title {
-    font-weight: 600;
-    font-size: large;
+    font-size: larger;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.board-details .board-title-input {
+    background: rgba(255, 255, 255, 0.185);
+    color: white;
+    border: none;
+    max-width: fit-content;
+    max-height: 20px;
+    font-size: larger;
+}
+
+.board-details .board-title-input:focus {
+    background: rgba(255, 255, 255, 0.185);
+    color: white;
+    outline: none;
 }
 
 ::-webkit-scrollbar {

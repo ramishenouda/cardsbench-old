@@ -6,7 +6,7 @@ import ErrorPage from '../error-page/error-page-view';
 import './board-details-style.css';
 import List from '../lists/lists-container';
 
-function BoardDetails(props) {
+function BoardDetailsView(props) {
     if (props.loadingBoard) {
         return (
             <div className="board-details">
@@ -29,17 +29,31 @@ function BoardDetails(props) {
     }
 
     return (
-        <div className="board-details">
-            <div className="ml-1 mr-1">
-                <span className="board-title"> {props.board.boardName} </span>
-                <div className="board-wrapper">
-                    <div className="board-contents">
-                        <List boardId={props.board.boardId} lists={props.board.lists} />
-                    </div>
-                </div>
+      <div className="board-details">
+        <div className="ml-1 mr-1">
+          {!props.updatingBoardTitle ? (
+            <span onClick={props.toggleUpdatingTitle} className="board-title"> {props.board.boardName} </span>
+          ) : (
+            <form onSubmit={props.unToggleUpdatingTitle}>
+              <input
+                onChange={props.handleChange}
+                className="board-title-input mt-1 mb-1"
+                type="text"
+                name="boardTitle"
+                value={props.boardTitle}
+                autoComplete="off"
+                autoFocus="on"
+              />
+            </form>
+          )}
+          <div className="board-wrapper">
+            <div className="board-contents">
+              <List boardId={props.board.boardId} lists={props.board.lists} />
             </div>
+          </div>
         </div>
+      </div>
     );
 }
 
-export default BoardDetails;
+export default BoardDetailsView;

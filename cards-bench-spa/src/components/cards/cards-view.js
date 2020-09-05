@@ -28,6 +28,9 @@ function CardView(props) {
       <div>
         {props.updatingCardId !== props.card.cardId ? (
           <li className="card list-group-item mb-2">
+            <span className="float-right">
+              <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
+            </span>
             <span
               className="card-title"
               onClick={() =>
@@ -39,9 +42,6 @@ function CardView(props) {
               }
             >
               {props.card.title}
-            </span>
-            <span className="float-right">
-              <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
             </span>
           </li>
         ) : (
@@ -76,6 +76,7 @@ function AddCardView(props) {
                             type="text"
                             autoComplete="off"
                             placeholder="Card Title"
+                            autoFocus="on"
                         />
                         <Form.Group className="mt-1">
                             <Button type="submit" variant="success mr-1"> Add </Button>

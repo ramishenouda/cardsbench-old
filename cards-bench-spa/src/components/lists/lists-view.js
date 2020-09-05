@@ -27,7 +27,7 @@ function ListView(props) {
         options.push(option);
     }
 
-    const PopUpBoxContent = (
+    const popUpBoxContent = (
         <FormGroup>
         <Form.Label>Order</Form.Label>
             <Form.Control onChange={props.handleChange} name="newListOrder" as="select">
@@ -55,7 +55,7 @@ function ListView(props) {
                 }
                 {
                     props.listToUpdateId === props.listId && props.changingOrder ? (
-                        <PopUpBox PopUpBoxContent={PopUpBoxContent} confirmButtonFunction={() => props.changeListOrder()} cancelButtonFunction={() => props.toggleChangeOrder('')} />
+                        <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.changeListOrder()} cancelButtonFunction={() => props.toggleChangeOrder('')} />
                     ) : ('')
                 }
                 <div>

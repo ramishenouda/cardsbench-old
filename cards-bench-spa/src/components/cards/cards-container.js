@@ -16,7 +16,6 @@ class Card extends Component {
         addingCard: false,
         showSavingLoader: false,
         savingLoaderText: 'Saving Changes...',
-        updatingCardTitle: false,
         cardOrder: 0,
         ControllerParams: {
             userId: this.props.listParams.userId,
@@ -53,8 +52,7 @@ class Card extends Component {
         if (this.state.cardTitle === '')
             return;
         
-        this.toggleAddingCard();
-        this.setState({ showSavingLoader: true, savingLoaderText: 'Adding Card...' })
+        this.setState({ showSavingLoader: true, savingLoaderText: 'Adding Card...', cardTitle: '' })
 
         CardsService.addCard(this.state.cardTitle, this.state.ControllerParams)
             .then((result) => {
@@ -102,7 +100,6 @@ class Card extends Component {
 
     toggleCardTitleUpdate = (currentCardTitle, cardId, cardOrder) => {
         this.setState({
-          updatingCardTitle: !this.state.updatingCardTitle,
           cardTitle: currentCardTitle,
           currentCardTitle: currentCardTitle,
           updatingCardId: cardId,
@@ -182,12 +179,12 @@ class Card extends Component {
                 key={card.cardId}
                 card={card}
                 toggleCardTitleUpdate={this.toggleCardTitleUpdate}
-                updatingCardTitle={this.state.updatingCardTitle}
                 cardTitle={this.state.cardTitle}
                 handleChange={this.handleChange}
                 updatingCardId={this.state.updatingCardId}
             />
         ));
+    
         return (
             <div className="card-container">
                 {

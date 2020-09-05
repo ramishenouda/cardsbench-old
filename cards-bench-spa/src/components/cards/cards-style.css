@@ -9,14 +9,7 @@
     -webkit-hyphens: auto;
     hyphens: auto;
     background: rgba(0, 0, 0, 0.335) !important;
-}
-
-.card-container .add-card-button {
     cursor: pointer;
-}
-
-.card-dropdown-menu {
-    float: right;
 }
 
 .card-container .card-title-change-input {

@@ -10,7 +10,7 @@ function PopUpBox(props) {
 
     return (
         <Form className="text-center pop-up-box">
-            { props.PopUpBoxContent }
+            { props.popUpBoxContent }
             <FormGroup className="mt-2">
                 <Button variant="primary" onClick={ props.cancelButtonFunction } > { cancelButtonText } </Button>
                 <Button variant="success" onClick={ props.confirmButtonFunction } className="ml-1"> { confirmButtonText } </Button>

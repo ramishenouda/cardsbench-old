@@ -59,6 +59,22 @@ export async function deleteBoard(boardId, userId) {
     return (await axios(options));
 }
 
+export async function updateBoard(userId, boardInfo) {
+    const options = {
+        url: `http://localhost:5000/api/${userId}/boards/`,
+        method: 'PUT',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        data: {
+            boardId: boardInfo.boardId,
+            boardName: boardInfo.boardName,
+        }
+    };
+
+    return (await axios(options));
+}
+
 export async function getUserBoards(userId) {
     const options = {
         url: `http://localhost:5000/api/${userId}/boards/userboards`,
