@@ -1,9 +1,10 @@
 import React from 'react';
 
-import './boards-style.css'
+import ErrorPage from '../error-page/error-page-view';
+import LoaderView from '../loader/loader-view'
 
 import Board from './board-item'
-import LoaderView from '../loader/loader-view'
+import './boards-style.css'
 
 
 function BoardsView(props) {
@@ -23,20 +24,9 @@ function BoardsView(props) {
     }
 
     if (props.errorLoadingBoards) {
-        return (
-            <div className="container text-center">
-                <div className="pt-5 mt-5 pb-5 noboards-text">
-                    Error while loading your boards.
-                </div>
-                <button
-                    disabled={props.creatingBoard}
-                    onClick={() => props.loadBoards()}
-                    className="newboard-button"
-                >
-                    Click To Try Again.
-                </button>
-            </div>
-        );
+        return <ErrorPage code={"500"} text={"Error while loading your boards."} buttonHTML = {
+            <button onClick={() => props.loadBoards()} className="error-page-button">CLICK TO TRY AGAIN</button>
+        } />
     }
 
     const boardsToShow = props.boards.map((board) => (

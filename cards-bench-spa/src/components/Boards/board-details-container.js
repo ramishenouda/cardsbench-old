@@ -52,7 +52,6 @@ class BoardDetails extends Component {
     }
 
     toggleUpdatingTitle = () => {
-        console.log('here');
         this.setState({
             updatingBoardTitle: !this.state.updatingBoardTitle,
             boardTitle: this.state.board.boardName,

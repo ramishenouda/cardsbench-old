@@ -197,7 +197,6 @@ class List extends Component {
 
             return {
                 lists: prevState.lists,
-                showSavingLoader: prevState.showSavingLoader
             };
         }, () => {
             this.setState((prevState) => {

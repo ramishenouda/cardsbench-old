@@ -160,7 +160,7 @@ namespace CardsBench.API.Controllers
                     newOrder++;
                     foreach (var listInBored in board.Lists)
                     {
-                        if(listInBored.Order < newOrder)
+                        if(listInBored.Order < newOrder && listInBored.Order > list.Order)
                             listInBored.Order--;
                     }
                 }

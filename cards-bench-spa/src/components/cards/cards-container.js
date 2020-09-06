@@ -14,9 +14,12 @@ class Card extends Component {
         currentCardTitle: '',
         updatingCardId: '',
         addingCard: false,
+        updatingCardTitle: false,
         showSavingLoader: false,
         savingLoaderText: 'Saving Changes...',
         cardOrder: 0,
+        newCardOrder: 0,
+        changingOrder: false,
         ControllerParams: {
             userId: this.props.listParams.userId,
             boardId: this.props.listParams.boardId,
@@ -43,7 +46,13 @@ class Card extends Component {
     }
 
     toggleAddingCard = () => {
-        this.setState({ addingCard: !this.state.addingCard });
+        this.setState({
+          addingCard: !this.state.addingCard,
+          changingOrder: false,
+          updatingCardId: '',
+          updateCardTitle: false,
+          cardTitle: '',
+        });
     }
 
     addCard = (event) => {
@@ -61,7 +70,7 @@ class Card extends Component {
                     return { cards: prevState.cards }
                 });
             }).catch((err) => {
-                Notify.error('Error while adding the list.', 'Try refreshing the page.');
+                Notify.error('Error while adding the card.', 'Try refreshing the page.');
                 console.log(err);
             }).finally(() => {
                 this.setState({ showSavingLoader: false })
@@ -75,7 +84,7 @@ class Card extends Component {
         Notify.warning('Are you sure?', 'You won\'t be able to revert this!')
             .then(result => {
                 if (result.value) {
-                    this.setState({ showSavingLoader: true, savingLoaderText: 'Delete Card...' })
+                    this.setState({ showSavingLoader: true, savingLoaderText: 'Deleting Card...' })
 
                     CardsService.deleteCard(cardId, this.state.ControllerParams)
                         .then(() => {
@@ -103,7 +112,10 @@ class Card extends Component {
           cardTitle: currentCardTitle,
           currentCardTitle: currentCardTitle,
           updatingCardId: cardId,
-          cardOrder: cardOrder
+          cardOrder: cardOrder,
+          updatingCardTitle: true,
+          addingCard: false,
+          changingOrder: false
         });
     }
 
@@ -112,13 +124,13 @@ class Card extends Component {
           this.state.updatingCardId === '' ||
           ((event.target.matches('.card-title') ||
             event.target.matches('.card-title-change-input')) &&
-            event.key === undefined)
+            event.key === undefined) || this.state.changingOrder || this.state.addingCard || !this.state.updatingCardTitle
         ) {
             return;
         }
-
+        
         if(event.key === 'Escape')
-            this.setState({ updatingCardId: '', cardTitle: '' });
+            this.setState({ updatingCardId: '', cardTitle: '', updatingCardTitle: false });
         
         if(event.key === 'Enter' || event.key === undefined) {
             this.setState((prevState) => {
@@ -129,7 +141,7 @@ class Card extends Component {
                 }
             }, () => {
                 if(this.state.cardTitle === this.state.currentCardTitle || this.state.cardTitle === '') {
-                    this.setState({ updatingCardId: '', cardTitle: '' });
+                    this.setState({ updatingCardId: '', cardTitle: '', updatingCardTitle: false });
                     return;
                 }
     
@@ -140,7 +152,7 @@ class Card extends Component {
                     order: this.state.cardOrder
                 });
     
-                this.setState({ updatingCardId: '', cardTitle: '' });
+                this.setState({ updatingCardId: '', cardTitle: '', updatingCardTitle: false });
             })
         }
     }
@@ -167,12 +179,91 @@ class Card extends Component {
             })
     }
 
+    toggleMoving = (cardId, cardOrder, cardTitle) => {
+        const changingOrder = cardId === (undefined || '') ? false : true;
+        
+        // Initial value, just in case if the user clicked ok without choosing an order value.
+        const newCardOrder = cardOrder === 0 ? 2 : 1;
+
+        this.setState({
+          updatingCardId: cardId,
+          cardOrder: cardOrder,
+          changingOrder: changingOrder,
+          newCardOrder: newCardOrder,
+          cardTitle: cardTitle,
+          addingCard: false,
+        });
+    }
+
+    moveCard = () => {
+        if (this.state.newCardOrder === this.state.cardOrder)
+            return;
+
+        const cardInfo = {
+            cardId: this.state.updatingCardId,
+            title: this.state.cardTitle,
+            newCardOrder: this.state.newCardOrder,
+            currentCardOrder: this.state.cardOrder,
+            order: this.state.newCardOrder
+        }
+
+        cardInfo.newCardOrder -= 1;
+        cardInfo.order -= 1;
+        
+
+        this.setState({ showSavingLoader: true, savingLoaderText: 'Moving Card...' });
+        this.modifyCardsOrder(cardInfo.currentCardOrder, cardInfo.newCardOrder)
+
+        CardsService.updateCard(cardInfo, this.state.ControllerParams)
+            .then(() => {
+            }).catch((err) => {
+                this.modifyCardsOrder(cardInfo.newCardOrder, cardInfo.currentCardOrder)
+                Notify.error('Error while moving the card.', 'Refresh and try again.');
+            }).finally(() => {
+                this.setState({ showSavingLoader: false })
+            })
+
+        this.toggleMoving();
+    }
+
+    modifyCardsOrder = (currentOrder, newCardOrder) => {
+        this.setState((prevState) => {
+            prevState.cards = prevState.cards.map(card => {
+                if (card.order <= newCardOrder && card.order > currentOrder)
+                    card.order--;
+                else if (card.order >= newCardOrder && card.order < currentOrder)
+                    card.order++;
+                
+                return card;
+            })
+            
+            prevState.cards[currentOrder].order = newCardOrder;
+
+            return {
+                cards: prevState.cards,
+            };
+        }, () => {
+            this.setState((prevState) => {
+                prevState.cards.sort((a, b) => a.order - b.order);
+                return {
+                    cards: prevState.cards
+                }
+            })
+        })
+    }
+
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     }
 
     render() {
+        let options = [];
+        for (let index = 0; index < this.state.cards.length; index++) {
+            const option = <option key={index}> { index + 1 } </option>
+            options.push(option);
+        }
+
         const cards = this.state.cards.map((card) => (
             <CardView
                 deleteCard={this.deleteCard}
@@ -182,6 +273,11 @@ class Card extends Component {
                 cardTitle={this.state.cardTitle}
                 handleChange={this.handleChange}
                 updatingCardId={this.state.updatingCardId}
+                toggleMoving={this.toggleMoving}
+                moveCard={this.moveCard}
+                changingOrder={this.state.changingOrder}
+                options={options}
+                addingCard={this.state.addingCard}
             />
         ));
     
@@ -200,7 +296,7 @@ class Card extends Component {
                     ) : ('')
                 }
 
-                {cards}
+                { cards }
                 
                 <AddCardView
                     handleChange={this.handleChange}

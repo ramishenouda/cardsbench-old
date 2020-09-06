@@ -1,32 +1,46 @@
 import React from 'react'
-import { Form, Button } from 'react-bootstrap';
+import { Form, FormGroup } from 'react-bootstrap';
 
 import DropDownMenu from '../dropdown-menu/dropdown-menu-container'
+import PopUpBox from '../pop-up-box/pop-up-box-view'
 
 import './cards-style.css';
 
 function CardView(props) {
     const dropDownMenuItems = [
-      <Button
-        variant="info"
-        size="sm"
-        className="mr-1"
+      <span
+        onClick={() => props.toggleMoving(props.card.cardId, props.card.order, props.card.title)}
+        className="btn btn-info d-block mb-1" 
       >
         MOVE CARD
-      </Button>,
-      <Button
+      </span>,
+      <span
         onClick={() => props.deleteCard(props.card.cardId, props.card.order)}
-        variant="danger"
-        size="sm"
-        className="mr-1"
+        className="btn btn-danger d-block"
       >
         DELETE
-      </Button>,
+      </span>,
     ];
+
+    let options = [];
+    for (let index = 0; index < props.options.length; index++) {
+      if (index === props.card.order)
+        continue;
+
+      options.push(props.options[index])
+    }
+    const popUpBoxContent = (
+      <FormGroup>
+      <Form.Label>Order</Form.Label>
+          <Form.Control onChange={props.handleChange} name="newCardOrder" as="select">
+              { options }
+          </Form.Control>
+      </FormGroup>
+    )
 
     return (
       <div>
-        {props.updatingCardId !== props.card.cardId ? (
+        {props.updatingCardId !== props.card.cardId || props.changingOrder || props.addingCard? (
           <li className="card list-group-item mb-2">
             <span className="float-right">
               <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
@@ -50,6 +64,12 @@ function CardView(props) {
               </textarea>
           </li>
         )}
+
+      {
+        props.updatingCardId === props.card.cardId && props.changingOrder ? (
+            <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.moveCard()} cancelButtonFunction={() => props.toggleMoving('')} />
+        ) : ('')
+      }
       </div>
     );
 }
@@ -68,21 +88,22 @@ function AddCardView(props) {
                 </li>
             ) : (
                 <li className="card list-group-item ml-2">
-                    <Form onSubmit={props.addCard}>
-                        <Form.Control
+                    <form onSubmit={props.addCard}>
+                        <input
                             name="cardTitle"
                             value={props.cardTitle}
                             onChange={props.handleChange}
                             type="text"
-                            autoComplete="off"
                             placeholder="Card Title"
                             autoFocus="on"
+                            autoComplete="off"
+                            className="form-control list-input-text"
                         />
-                        <Form.Group className="mt-1">
-                            <Button type="submit" variant="success mr-1"> Add </Button>
-                            <Button onClick={props.toggleAddingCard} variant="danger"> Cancel </Button>
-                        </Form.Group>
-                    </Form>
+                        <div className="mt-1">
+                            <button onClick={props.addCard} type="submit" className="btn btn-success mr-1"> Add </button>
+                            <button onClick={props.toggleAddingCard} className="btn btn-danger"> Cancel </button>
+                        </div>
+                    </form>
                 </li>
             )}
         </div>
