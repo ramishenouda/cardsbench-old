@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 .boards-loader .loader-view {
     position: absolute;
     top: 50%;
@@ -26,11 +24,9 @@
     margin-right: auto;
     margin-left: auto;
     opacity: 0;
-    display: none;
 }
 
 .boards .card .card-img-wrapper:hover .board-options {
-    display: block;
     opacity: 1;
 }
 
@@ -51,10 +47,10 @@
 }
 
 .noboards-text {
+    color: white;
     font-size: x-large;
     font-weight: 700;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 0px #af3f45;
+    text-shadow: 1px 1px 1px #af3f45;
     letter-spacing: 2px;
     margin: 0;
     -webkit-user-select: none; /* Safari */
@@ -67,7 +63,6 @@
     position: absolute;
     width: 300px;
     border-radius: 10px;
-    background: #fbfbfb;
     padding-top: 50px;
     padding-bottom: 50px;
     vertical-align: middle;

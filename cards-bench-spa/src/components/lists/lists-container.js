@@ -114,8 +114,10 @@ class List extends Component {
     addList = (event) => {
         event.preventDefault();
 
+        console.log('here');
         if (this.state.listTitle === '')
             return;
+            console.log('here');
         
         this.setState({ showSavingLoader: true });
 

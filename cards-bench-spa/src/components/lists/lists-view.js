@@ -76,7 +76,7 @@ function ListToAdd(props) {
                         +  Add list 
                     </div>
                 ): (
-                    <form onSubmit={props.addList} className="list-to-add">
+                    <form  className="list-to-add">
                         <input
                             autoFocus={true}
                             type="text"
@@ -88,7 +88,7 @@ function ListToAdd(props) {
                             autoComplete="off"
                         />
                         <div className="mt-1">
-                            <button disabled={props.listTitle === ''} className="btn btn-success"> Add </button>
+                            <button onClick={props.addList} disabled={props.listTitle === ''} className="btn btn-success"> Add </button>
                             <button onClick={props.toggleListAddition} className="ml-1 btn btn-danger"> Cancel </button>
                         </div>
                     </form>

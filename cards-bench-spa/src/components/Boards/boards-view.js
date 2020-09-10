@@ -5,7 +5,7 @@ import LoaderView from '../loader/loader-view'
 
 import Board from './board-item'
 import './boards-style.css'
-
+import PopUpBox from '../pop-up-box/pop-up-box-view';
 
 function BoardsView(props) {
     if (props.loadingBoards) {
@@ -41,6 +41,59 @@ function BoardsView(props) {
         />
     ));
 
+    const PopUpBoxHTML = (
+        <div className="mt-3">
+            <p>
+                <h3 style={{color: '#1c1e21'}} >
+                    Board Title
+                </h3>
+            </p>
+            <center>
+                <div className="mb-2">
+                    <input type="text" autoFocus="on" 
+                        onChange={props.handleChange}  
+                        name="boardName" 
+                        className="form-control" 
+                        placeholder="Board Title"
+                        style={{ width: window.innerWidth > 767 ? '300px' : ''}}
+                        value={props.boardname}
+                        autoComplete="off"
+                    />
+                </div>
+            </center>
+        </div>
+    );
+
+    const popUpBoxStyle = {
+        verticalAlign: 'middle',
+        background: 'rgba(255, 255, 255, 0.8)',
+        width: window.innerWidth > 767 ? '600px' : '',
+        height: '200px',
+        top: '35%',
+        position:'fixed'
+    }
+
+    const PopUpBoxHTML2 = (
+        <div className="mt-3">
+            <p>
+                <h3>
+                    Add People?
+                </h3>
+            </p>
+            <center>
+                <div className="mb-2">
+                    <input type="text" autoFocus="on" 
+                        onChange={props.handleChange}  
+                        name="boardName" 
+                        className="form-control" 
+                        placeholder="Board Title"
+                        style={{ width: window.innerWidth > 767 ? '300px' : ''}}
+                    />
+                </div>
+            </center>
+        </div>
+    );
+
     return (
         <div>
             <div className="boards-view">
@@ -49,9 +102,9 @@ function BoardsView(props) {
                         <button
                             disabled={props.creatingBoard}
                             onClick={() => props.toggleCreatingBoardWindow()}
-                            className="newboard-button"
+                            className="button button-purple"
                         >
-                            New board
+                            NEW BOARD
                         </button>
                     ) : (''
                     )}
@@ -81,37 +134,35 @@ function BoardsView(props) {
                     )}
                 </div>
                 <div className="boards">
-                    {boardsToShow.length > 0 ? (
+                    {boardsToShow.length > 0 || props.creatingBoard ? (
                         <div className="container">
                             <div className="row"> { boardsToShow } </div>
                         </div>
                     ) : (
                         <div className="container text-center">
                             <div className="pt-5 mt-5 pb-5 noboards-text">
-                                No boards to show. start creating by clicking on new board.
+                                NO BOARDS TO SHOW. START BY CLICKING ON NEW BOARD.
                             </div>
                             <button
                                 disabled={props.creatingBoard}
                                 onClick={() => props.toggleCreatingBoardWindow()}
-                                className="newboard-button"
+                                className="button button-purple"
                             >
-                                New board
+                                NEW BOARD
                             </button>
                         </div>
                     )}
                 </div>
             </div>
             {props.toggleCreatingBoard === true ? (
-                <div className="text-center create-board-window">
-                    <form className="my-2 my-lg-0" onSubmit={props.createBoard}>
-                        <div>
-                            <input type="text" name="boardName" onChange={props.handleChange} placeholder="Board Name" />
-                        </div>
-                        <div className="mt-2">
-                            <button className="newboard-button ml-1"> Create </button>
-                            <button className="newboard-button" onClick={() => props.toggleCreatingBoardWindow()} > Cancel </button>
-                        </div>
-                    </form>
+                <div>
+                    <PopUpBox
+                        style={popUpBoxStyle} 
+                        popUpBoxContent={PopUpBoxHTML}
+                        cancelButtonFunction={props.toggleCreatingBoardWindow} 
+                        confirmButtonFunction={props.createBoard}
+                        disableConfirmButton={props.boardName.length < 1}
+                    />
                 </div>
             ) : (''
             )}

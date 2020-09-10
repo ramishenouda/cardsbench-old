@@ -65,11 +65,11 @@ function CardView(props) {
           </li>
         )}
 
-      {
-        props.updatingCardId === props.card.cardId && props.changingOrder ? (
-            <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.moveCard()} cancelButtonFunction={() => props.toggleMoving('')} />
-        ) : ('')
-      }
+        {
+          props.updatingCardId === props.card.cardId && props.changingOrder ? (
+              <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.moveCard()} cancelButtonFunction={() => props.toggleMoving('')} />
+          ) : ('')
+        }
       </div>
     );
 }

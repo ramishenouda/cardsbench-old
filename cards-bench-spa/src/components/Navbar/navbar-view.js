@@ -14,20 +14,19 @@ function NavbarView(props) {
     const decodedToken = props.decodedToken();
 
     const dropDownMenuItems = [
-      <Link style={{textDecoration: 'none'}} className="btn btn-success d-block mb-1 mr-2" to="/profile">
+      <Link style={{textDecoration: 'none'}} className="button button-info button-small d-block mb-1 mr-2" to="/profile">
         Profile
       </Link>,
-      <Link style={{textDecoration: 'none'}} className="btn btn-danger d-block mb-1 mr-2" onClick={props.logout} to="/">
-        Logout
+      <Link style={{textDecoration: 'none'}} className="button button-yellow button-small d-block mb-1 mr-2" onClick={props.logout} to="/">
+        Log Out
       </Link>
     ]
   
     if (props.isSmallScreen === false) {
-
       form = (
         <form className="form-inline">
-          <Link to="/" className="ml-3 item"> Home </Link>
-          <Link to="/boards" className="ml-3 item"> Boards </Link>
+          <Link to="/" className="ml-3 item">Home</Link>
+          <Link to="/boards" className="ml-3 item">Boards</Link>
           <div className="user-knownas ml-3 item">
             <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
           </div>
@@ -36,7 +35,7 @@ function NavbarView(props) {
     } else {
       form = (
         <form className="form-inline">
-          <Link to="/boards" className="item"> Boards </Link>
+          <Link to="/boards" className="item">Boards</Link>
           <div className="ml-3 item">
             <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
           </div>
@@ -91,7 +90,7 @@ function NavbarView(props) {
 
   return (
     <div className="navbar-wrapper">
-      <nav className="navbar navbar-primary bg-dark w-100">
+      <nav className="navbar w-100">
         <Link to="/" className="navbar-brand"> CardsBench </Link>
         { form }
       </nav>

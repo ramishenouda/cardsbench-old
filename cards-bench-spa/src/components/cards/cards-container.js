@@ -196,7 +196,9 @@ class Card extends Component {
     }
 
     moveCard = () => {
-        if (this.state.newCardOrder === this.state.cardOrder)
+        const newCardOrder = this.state.newCardOrder - 1;
+
+        if (newCardOrder === this.state.cardOrder)
             return;
 
         const cardInfo = {
@@ -209,7 +211,6 @@ class Card extends Component {
 
         cardInfo.newCardOrder -= 1;
         cardInfo.order -= 1;
-        
 
         this.setState({ showSavingLoader: true, savingLoaderText: 'Moving Card...' });
         this.modifyCardsOrder(cardInfo.currentCardOrder, cardInfo.newCardOrder)
@@ -296,7 +297,9 @@ class Card extends Component {
                     ) : ('')
                 }
 
-                { cards }
+                <div className="cards-container">
+                    { cards }
+                </div>
                 
                 <AddCardView
                     handleChange={this.handleChange}

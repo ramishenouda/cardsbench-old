@@ -12,6 +12,12 @@
     cursor: pointer;
 }
 
+.cards-container {
+    height: 376px;
+    overflow-y: scroll;
+
+}
+
 .card-container .card-title-change-input {
     background: rgba(255, 255, 255, 0.205);
     color: white;

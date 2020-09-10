@@ -30,7 +30,7 @@ class App extends Component {
           authenticated={this.state.authenticated}
           isSmallScreen={this.state.isSmallScreen}
         />
-        <Switch className="container">
+        <Switch>
           <Route exact path="/" component={Home} />
           <ProtectedRoute exact path="/boards" component={Boards} />
           <ProtectedRoute exact path="/boards/:boardId/:boardName" component={BoardDetails} {...this.props}/>

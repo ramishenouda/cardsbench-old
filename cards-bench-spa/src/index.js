@@ -5,5 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import './style.css';
+import './buttons-style.css'
 
 ReactDOM.render(<App />, document.getElementById('root'));

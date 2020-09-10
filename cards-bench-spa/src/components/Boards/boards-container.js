@@ -117,6 +117,7 @@ class Boards extends Component {
             toggleCreatingBoard={this.state.toggleCreatingBoard}
             toggleCreatingBoardWindow={this.toggleCreatingBoardWindow}
             loadBoards={this.loadBoards}
+            boardName={this.state.boardName}
           />
         );
     }
