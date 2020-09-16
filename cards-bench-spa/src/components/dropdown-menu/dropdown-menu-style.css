@@ -2,7 +2,7 @@
     border: solid;
     border-width: 0 2px 2px 0;
     display: inline-block;
-    padding: 3px;
+    padding: 4px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
@@ -14,15 +14,12 @@
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
-    display: inline;
     cursor: pointer;
 }
 
 .react-dropdown-menu .dropdown-items {
     position: absolute;
     right: 0;
-    margin-right: auto;
-    margin-left: auto;
     width: max-content;
-    z-index: 1;
+    z-index: 3;
 }

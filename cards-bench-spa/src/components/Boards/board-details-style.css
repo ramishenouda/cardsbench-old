@@ -7,6 +7,7 @@
     font-size: larger;
     cursor: pointer;
     border-radius: 5px;
+    margin-top: 3px !important;
 }
 
 .board-details .board-title-input {
@@ -18,19 +19,18 @@
     font-size: larger;
 }
 
+.board-details .show-menu-button {
+    background-color: rgba(255, 255, 255, 0.418);
+    cursor: pointer;
+    padding: 3px;
+}
+
+.board-details .show-menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.568);
+}
+
 .board-details .board-title-input:focus {
     background: rgba(255, 255, 255, 0.185);
     color: white;
     outline: none;
-}
-
-::-webkit-scrollbar {
-    height: 8px;
-    width: 5px;
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb:horizontal, ::-webkit-scrollbar-thumb:vertical{
-    background: rgb(148, 66, 66);
-    border-radius: 10px;
 }

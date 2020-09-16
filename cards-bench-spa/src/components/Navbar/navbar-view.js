@@ -17,18 +17,22 @@ function NavbarView(props) {
       <Link style={{textDecoration: 'none'}} className="button button-info button-small d-block mb-1 mr-2" to="/profile">
         Profile
       </Link>,
-      <Link style={{textDecoration: 'none'}} className="button button-yellow button-small d-block mb-1 mr-2" onClick={props.logout} to="/">
+      <Link style={{textDecoration: 'none'}} className="button button-danger button-small d-block mb-1 mr-2" onClick={props.logout} to="/">
         Log Out
       </Link>
     ]
-  
+
+    const dropdownMenuStyle = {
+      marginTop: '15px'
+    }
+
     if (props.isSmallScreen === false) {
       form = (
         <form className="form-inline">
           <Link to="/" className="ml-3 item">Home</Link>
           <Link to="/boards" className="ml-3 item">Boards</Link>
           <div className="user-knownas ml-3 item">
-            <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
+            <DropDownMenu style={dropdownMenuStyle} text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
           </div>
         </form>
       );
@@ -37,7 +41,7 @@ function NavbarView(props) {
         <form className="form-inline">
           <Link to="/boards" className="item">Boards</Link>
           <div className="ml-3 item">
-            <DropDownMenu text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
+            <DropDownMenu style={dropdownMenuStyle} text={decodedToken.family_name} dropDownMenuItems={dropDownMenuItems} />
           </div>
         </form>
       );
@@ -70,7 +74,7 @@ function NavbarView(props) {
               <LoaderView width={20} height={20} borderWidth={8} borderStyle={'solid'} borderColor={'f3f3f3'} />
             </span>
         }
-        <span onClick={props.toggleLogin} className="btn btn-outline-warning my-2 my-sm-0" disabled={props.loginInfo.loggingIn}>
+        <span onClick={props.toggleLogin} className="btn btn-outline-danger my-2 my-sm-0" disabled={props.loginInfo.loggingIn}>
           Cancel
         </span>
       </form>

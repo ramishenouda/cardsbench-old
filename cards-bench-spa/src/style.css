@@ -3,21 +3,35 @@
 @import "https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap";
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
 
-
 body {
-    color: #eeeeee;
+    color: #F5F6F7;
     font-weight: 500;
-    background: rgb(66, 66, 66);
+    background: #1c1e21;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .saving-changes-loader, .saving-changes-loader-text  {
     position: fixed;
     right: 5px;
-    top: 59px;
+    bottom: 8px;
+}
+
+ul {
+    list-style-type: none;
 }
 
 .saving-changes-loader-text {
-    top: 53px !important;
+    bottom: 0 !important;
     font-size: larger;
+}
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 5px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb:horizontal, ::-webkit-scrollbar-thumb:vertical{
+    background: rgb(148, 66, 66);
+    border-radius: 10px;
 }

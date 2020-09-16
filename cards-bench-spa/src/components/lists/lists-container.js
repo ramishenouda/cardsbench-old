@@ -27,13 +27,34 @@ class List extends Component {
     }
 
     componentDidMount() {
+        window.addEventListener('click', this.cancelAddingList);
+        window.addEventListener('keyup', this.cancelAddingList);
+
         window.addEventListener('click', this.unToggleListTitleUpdate);
         window.addEventListener('keyup', this.unToggleListTitleUpdate);
+
+        this.updateMaxHeight();
+        
+        window.addEventListener('resize', this.updateMaxHeight);
     }
 
     componentWillUnmount() {
         window.removeEventListener('click', this.unToggleListTitleUpdate);
         window.removeEventListener('keyup', this.unToggleListTitleUpdate);
+
+        window.removeEventListener('click', this.CancelAddingList);
+        window.removeEventListener('keyup', this.CancelAddingList);
+    }
+
+    updateMaxHeight = () => {
+        let offSet = 197
+        if(window.screen.availHeight === 812 || window.screen.availHeight === 823 )
+            offSet = 202
+
+        const screenOffset = window.screen.availHeight - window.innerHeight;
+        const maxHeight = window.screen.availHeight - Math.abs(screenOffset + offSet);
+
+        this.setState({ maxHeight: maxHeight });
     }
 
     handleChange = (event) => {
@@ -42,7 +63,18 @@ class List extends Component {
     }
 
     toggleListAddition = () => {
-        this.setState({ addingList: !this.state.addingList });
+        setTimeout(() => {
+            this.setState({ addingList: !this.state.addingList });
+        }, 50);
+    }
+
+    cancelAddingList = (event) => {
+        if (event.target.matches('.list-to-add') 
+        || event.target.matches('.list-input-text') || event.target.matches('.button-add-list') 
+        || event.target.matches('.button-cancel-add-list') || !this.state.addingList )
+            return;
+        
+        this.setState({ addingList : false })
     }
 
     toggleChangeTitle = (listId, currentListTitle, order) => {
@@ -114,10 +146,8 @@ class List extends Component {
     addList = (event) => {
         event.preventDefault();
 
-        console.log('here');
         if (this.state.listTitle === '')
             return;
-            console.log('here');
         
         this.setState({ showSavingLoader: true });
 
@@ -246,6 +276,7 @@ class List extends Component {
             handleChange={this.handleChange}
             showSavingLoader={this.state.showSavingLoader}
             numberOfLists={this.state.lists.length}
+            maxHeight={this.state.maxHeight}
           />
         ));
 
@@ -266,11 +297,11 @@ class List extends Component {
                 <ul className="lists list-group list-group-horizontal">
                     { lists }
                     <ListToAdd
-                    toggleListAddition={this.toggleListAddition} // toggles the adding list property
-                    addingList={this.state.addingList} // used to trigger the adding list menu
-                    listTitle={this.state.listTitle}
-                    addList={this.addList}
-                    handleChange={this.handleChange}
+                        toggleListAddition={this.toggleListAddition} // toggles the adding list property
+                        addingList={this.state.addingList} // used to trigger the adding list menu
+                        listTitle={this.state.listTitle}
+                        addList={this.addList}
+                        handleChange={this.handleChange}
                     />
                 </ul>
             </div>

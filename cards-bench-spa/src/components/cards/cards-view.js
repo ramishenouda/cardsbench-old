@@ -7,20 +7,28 @@ import PopUpBox from '../pop-up-box/pop-up-box-view'
 import './cards-style.css';
 
 function CardView(props) {
+    const display = props.options.length > 2 ? 'd-block' : '';
     const dropDownMenuItems = [
       <span
         onClick={() => props.toggleMoving(props.card.cardId, props.card.order, props.card.title)}
-        className="btn btn-info d-block mb-1" 
+        className={`button button-info button-small ${display} mb-1`}
       >
-        MOVE CARD
+        Move
       </span>,
       <span
         onClick={() => props.deleteCard(props.card.cardId, props.card.order)}
-        className="btn btn-danger d-block"
+        className={`button button-danger button-small ${display} mb-1`}
       >
-        DELETE
+        Delete
       </span>,
     ];
+
+    const layoutBoolean = props.card.order > props.options.length - 2;
+
+    const dropdownMenuStyle = {
+      bottom: layoutBoolean ? 0 : '',
+      top: !layoutBoolean ? 0 : ''
+    }
 
     let options = [];
     for (let index = 0; index < props.options.length; index++) {
@@ -29,6 +37,7 @@ function CardView(props) {
 
       options.push(props.options[index])
     }
+  
     const popUpBoxContent = (
       <FormGroup>
       <Form.Label>Order</Form.Label>
@@ -43,7 +52,7 @@ function CardView(props) {
         {props.updatingCardId !== props.card.cardId || props.changingOrder || props.addingCard? (
           <li className="card list-group-item mb-2">
             <span className="float-right">
-              <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
+              <DropDownMenu style={dropdownMenuStyle} dropDownMenuItems={dropDownMenuItems} />
             </span>
             <span
               className="card-title"
@@ -76,18 +85,21 @@ function CardView(props) {
 
 function AddCardView(props) {
     return (
-        <div>
+        <>
             {props.addingCard === false ? (
-                <li
-                  onClick={props.toggleAddingCard}
-                  className="card add-card-button list-group-item ml-2"
-                >
+              <div className="add-card-view">
+                  <li 
+                    onClick={props.toggleAddingCard}
+                    className="add-card-button"
+                  >
                     <span>
                         + Add card
                     </span>
-                </li>
+                  </li>
+              </div>
             ) : (
-                <li className="card list-group-item ml-2">
+              <div className="add-card-menu mb-2">
+                <li>
                     <form onSubmit={props.addCard}>
                         <input
                             name="cardTitle"
@@ -97,16 +109,21 @@ function AddCardView(props) {
                             placeholder="Card Title"
                             autoFocus="on"
                             autoComplete="off"
-                            className="form-control list-input-text"
+                            className="card-input-text"
                         />
-                        <div className="mt-1">
-                            <button onClick={props.addCard} type="submit" className="btn btn-success mr-1"> Add </button>
-                            <button onClick={props.toggleAddingCard} className="btn btn-danger"> Cancel </button>
-                        </div>
+                        <span 
+                          disabled={props.cardTitle.trim() === ''} 
+                          onClick={props.addCard} 
+                          type="submit" 
+                          className="ml-2 add-button"
+                        > 
+                          +
+                        </span>
                     </form>
                 </li>
+              </div>
             )}
-        </div>
+        </>
     );
 }
 

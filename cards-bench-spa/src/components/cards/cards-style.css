@@ -12,10 +12,46 @@
     cursor: pointer;
 }
 
-.cards-container {
-    height: 376px;
-    overflow-y: scroll;
+.add-card-view .add-card-button {
+    position: absolute;
+    bottom: -35px;
+    background: rgba(255, 255, 255, 0.205);
+    font-weight: 500;
+    cursor: pointer;
+    padding: 3px 150px 3px 3px;
+    border-radius: 2px;
+}
 
+.add-card-view .add-card-button:hover {
+    background: rgba(255, 255, 255, 0.363);
+}
+
+.add-card-menu {
+    position: absolute;
+    bottom: -58px;
+    background: rgba(255, 255, 255, 0.205);
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 15px 8px 15px;
+}
+
+.add-card-menu .card-input-text {
+    width: 180px;
+    outline: none;
+}
+
+.add-card-menu .add-button {
+    color: rgb(28, 28, 28);
+    background: rgba(255, 255, 255, 0.562);
+    padding: 2px 8px 2px 8px;
+    border-radius: 2px;
+}
+
+.add-card-menu .add-button:hover {
+    color: rgb(28, 28, 28);
+    background: rgba(255, 255, 255, 0.37);
+    padding: 2px 8px 2px 8px;
+    border-radius: 2px;
 }
 
 .card-container .card-title-change-input {

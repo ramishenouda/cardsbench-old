@@ -7,7 +7,6 @@ import * as CardsService from '../../services/cards-service'
 import CardView, { AddCardView } from './cards-view'
 
 class Card extends Component {
-
     state = {
         cards: this.props.cards,
         cardTitle: '',
@@ -38,21 +37,29 @@ class Card extends Component {
 
         window.addEventListener('click', this.unToggleCardTitleUpdate);
         window.addEventListener('keyup', this.unToggleCardTitleUpdate);
+
+        window.addEventListener('click', this.cancelAddingCard);
+        window.addEventListener('keyup', this.cancelAddingCard);
     }
 
     componentWillUnmount() {
         window.removeEventListener('click', this.unToggleCardTitleUpdate);
         window.removeEventListener('keyup', this.unToggleCardTitleUpdate);
+
+        window.removeEventListener('click', this.cancelAddingCard);
+        window.removeEventListener('keyup', this.cancelAddingCard);
     }
 
     toggleAddingCard = () => {
-        this.setState({
-          addingCard: !this.state.addingCard,
-          changingOrder: false,
-          updatingCardId: '',
-          updateCardTitle: false,
-          cardTitle: '',
-        });
+        setTimeout(() => {
+            this.setState({
+              addingCard: !this.state.addingCard,
+              changingOrder: false,
+              updatingCardId: '',
+              updateCardTitle: false,
+              cardTitle: '',
+            });
+        }, 50);
     }
 
     addCard = (event) => {
@@ -65,13 +72,13 @@ class Card extends Component {
 
         CardsService.addCard(this.state.cardTitle, this.state.ControllerParams)
             .then((result) => {
-                this.setState(prevState => { 
-                    prevState.cards.push(result.data);  
-                    return { cards: prevState.cards }
-                });
+                this.props.addCardToList(result.data);
+                this.setState(prevState => {
+                    prevState.cards.push(result.data)
+                    return {cards: prevState.cards}
+                })
             }).catch((err) => {
                 Notify.error('Error while adding the card.', 'Try refreshing the page.');
-                console.log(err);
             }).finally(() => {
                 this.setState({ showSavingLoader: false })
             })
@@ -88,6 +95,7 @@ class Card extends Component {
 
                     CardsService.deleteCard(cardId, this.state.ControllerParams)
                         .then(() => {
+                            this.props.removeCardFromList(cardId);
                             this.setState(prevState => {
                                 prevState.cards = prevState.cards.filter(x => x.cardId !== cardId)
                                     .map(card => {
@@ -117,6 +125,22 @@ class Card extends Component {
           addingCard: false,
           changingOrder: false
         });
+    }
+
+    cancelAddingCard = (event) => {
+        if (!this.state.addingCard)
+            return;
+
+        if (event.key === 'Escape')
+            this.setState({ addingCard: false })
+
+        if(event.target.matches('.add-card-menu') || event.target.matches('.add-button') 
+            || event.target.matches('.card-input-text')
+        ) {
+            return;
+        }
+
+        this.setState({ addingCard: false })
     }
 
     unToggleCardTitleUpdate = (event) => {
@@ -283,24 +307,28 @@ class Card extends Component {
         ));
     
         return (
-            <div className="card-container">
-                {
-                    this.state.showSavingLoader ? (
-                        <div>
-                            <div className="saving-changes-loader">
-                                <LoaderView width={10} height={10} />
+            <>
+                <div className="card-container">
+                    {
+                        this.state.showSavingLoader ? (
+                            <div>
+                                <div className="saving-changes-loader">
+                                    <LoaderView width={10} height={10} />
+                                </div>
+                                <div className="saving-changes-loader-text mr-4">
+                                    {this.state.savingLoaderText}
+                                </div>
                             </div>
-                            <div className="saving-changes-loader-text mr-4">
-                                {this.state.savingLoaderText}
+                        ) : ('')
+                    }
+                    {
+                        cards.length > 0 ? (
+                            <div className="cards-container" >
+                                { cards }
                             </div>
-                        </div>
-                    ) : ('')
-                }
-
-                <div className="cards-container">
-                    { cards }
+                        ) : ('')
+                    }
                 </div>
-                
                 <AddCardView
                     handleChange={this.handleChange}
                     toggleAddingCard={this.toggleAddingCard}
@@ -308,7 +336,8 @@ class Card extends Component {
                     addCard={this.addCard}
                     cardTitle={this.state.cardTitle}
                 />
-            </div>
+            </>
+
         );
     }
 }

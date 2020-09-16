@@ -15,7 +15,8 @@ class BoardDetails extends Component {
         boardTitle: '',
         currentBoardTitle: '',
         showSavingLoader: false,
-        savingLoaderText: 'Updating title...'
+        savingLoaderText: 'Updating title...',
+        showMenu: false,
     }
 
     componentDidMount() {
@@ -57,6 +58,10 @@ class BoardDetails extends Component {
             boardTitle: this.state.board.boardName,
             currentBoardTitle: this.state.board.boardName,
         });
+    }
+
+    toggleMenu = () => {
+        this.setState({ showMenu: !this.state.showMenu })
     }
 
     unToggleUpdatingTitle = (event) => {
@@ -144,6 +149,8 @@ class BoardDetails extends Component {
                   updatingBoardTitle={this.state.updatingBoardTitle}
                   boardTitle={this.state.boardTitle}
                   unToggleUpdatingTitle={this.unToggleUpdatingTitle}
+                  showMenu={this.state.showMenu}
+                  toggleMenu={this.toggleMenu}
                 />
             </div>
         );

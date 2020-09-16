@@ -73,27 +73,6 @@ function BoardsView(props) {
         position:'fixed'
     }
 
-    const PopUpBoxHTML2 = (
-        <div className="mt-3">
-            <p>
-                <h3>
-                    Add People?
-                </h3>
-            </p>
-            <center>
-                <div className="mb-2">
-                    <input type="text" autoFocus="on" 
-                        onChange={props.handleChange}  
-                        name="boardName" 
-                        className="form-control" 
-                        placeholder="Board Title"
-                        style={{ width: window.innerWidth > 767 ? '300px' : ''}}
-                    />
-                </div>
-            </center>
-        </div>
-    );
-
     return (
         <div>
             <div className="boards-view">

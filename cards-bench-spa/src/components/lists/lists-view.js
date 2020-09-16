@@ -1,5 +1,5 @@
-import React from 'react'
-import { FormGroup, Form } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { FormGroup, Form, Button } from 'react-bootstrap';
 
 import DropDownMenu from '../dropdown-menu/dropdown-menu-container'
 import PopUpBox from '../pop-up-box/pop-up-box-view'
@@ -8,14 +8,30 @@ import Card from '../cards/cards-container';
 import './lists-style.css'
 
 function ListView(props) {
+    const [listViewPadding, setPadding] = useState(props.cards.length === 0 ? '' : 'p-2');
+
+    const addCardToList = (card) => {
+        setPadding('p-2')
+    }
+
+    const removeCardFromList = (cardId) => {
+        props.cards.pop();
+        setPadding(props.cards.length === 0 ? '' : 'p-2')
+    }
+
     const dropDownMenuItems = [
-        <span onClick={() => props.toggleChangeOrder(props.listId, props.listOrder, props.listTitle)} className="btn btn-info d-block mb-1" >
-            MOVE LIST
+        <span onClick={() => props.toggleChangeOrder(props.listId, props.listOrder, props.listTitle)} className="button button-small button-info d-block mb-1" >
+            Move
         </span>,
-        <span onClick={() => props.deleteList(props.listId, props.listOrder)} className="btn btn-danger d-block">
-            DELETE
+        <span onClick={() => props.deleteList(props.listId, props.listOrder)} className="button button-small button-danger d-block">
+            Delete
         </span>
     ]
+
+    const listsViewStyle = {
+        overflowY: props.cards.length > 4 ? 'scroll' : '',
+        maxHeight: props.maxHeight + 'px',
+    }
 
     let options = [];
 
@@ -37,22 +53,23 @@ function ListView(props) {
     )
 
     return (
-        <li className="list-group-item p-0 ml-2">
-            <div className="list-view p-2">
-                {
-                    props.listToUpdateId === props.listId && !props.changingOrder ? (
-                        <input type="text" name="listTitleToUpdate" autoComplete="off" className="list-title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
-                    ) : (
-                        <div>
-                            <span onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)} className="list-title mb-1">
-                                { props.listTitle } 
-                            </span>
-                            <span className="float-right">
-                                <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
-                            </span>
-                        </div>
-                    )
-                }
+        <li className="list-group-item p-0 ml-3">
+            <div className="list-item">
+            {
+                props.listToUpdateId === props.listId && !props.changingOrder ? (
+                    <input type="text" name="listTitleToUpdate" autoComplete="off" className="list-title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                ) : (
+                    <div className="list-title-div">
+                        <span className="list-title" onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)}>
+                            { props.listTitle }
+                        </span>
+                        <span className="float-right">
+                            <DropDownMenu dropDownMenuItems={dropDownMenuItems} />
+                        </span>
+                    </div>
+                )
+            }
+            <div style={listsViewStyle} className={`list-view ${listViewPadding}`}>
                 {
                     props.listToUpdateId === props.listId && props.changingOrder ? (
                         <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.changeListOrder()} cancelButtonFunction={() => props.toggleChangeOrder('')} />
@@ -60,9 +77,16 @@ function ListView(props) {
                 }
                 <div>
                     <ul className="list-group">
-                        <Card cards={props.cards} listParams={props.listParams} listId={props.listId} />
+                        <Card 
+                            cards={props.cards} 
+                            addCardToList={addCardToList} 
+                            removeCardFromList={removeCardFromList}
+                            listParams={props.listParams}
+                            listId={props.listId} 
+                        />
                     </ul>
                 </div>
+            </div>
             </div>
         </li>
     )
@@ -76,7 +100,7 @@ function ListToAdd(props) {
                         +  Add list 
                     </div>
                 ): (
-                    <form  className="list-to-add">
+                    <form className="list-to-add">
                         <input
                             autoFocus={true}
                             type="text"
@@ -87,9 +111,9 @@ function ListToAdd(props) {
                             name="listTitle"
                             autoComplete="off"
                         />
-                        <div className="mt-1">
-                            <button onClick={props.addList} disabled={props.listTitle === ''} className="btn btn-success"> Add </button>
-                            <button onClick={props.toggleListAddition} className="ml-1 btn btn-danger"> Cancel </button>
+                        <div className="mt-2">
+                            <Button type="submit" onClick={props.addList} disabled={props.listTitle.trim() === ''} className="button button-success button-small button-add-list"> Add </Button>
+                            <button onClick={props.toggleListAddition} className="ml-1 button button-danger button-small button-cancel-add-list"> Cancel </button>
                         </div>
                     </form>
                 )

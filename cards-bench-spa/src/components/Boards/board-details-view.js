@@ -5,6 +5,7 @@ import ErrorPage from '../error-page/error-page-view';
 
 import './board-details-style.css';
 import List from '../lists/lists-container';
+import PopUpBox from '../pop-up-box/pop-up-box-view';
 
 function BoardDetailsView(props) {
     if (props.loadingBoard) {
@@ -32,19 +33,26 @@ function BoardDetailsView(props) {
       <div className="board-details">
         <div className="ml-1 mr-1">
           {!props.updatingBoardTitle ? (
-            <span onClick={props.toggleUpdatingTitle} className="board-title"> {props.board.boardName} </span>
+            <div className="mt-1 mb-1">
+              <span onClick={props.toggleUpdatingTitle} className="board-title"> {props.board.boardName} </span>
+              <span onClick={props.toggleMenu} className="show-menu-button float-right">
+                Show Menu
+              </span>
+            </div>
           ) : (
-            <form onSubmit={props.unToggleUpdatingTitle}>
-              <input
-                onChange={props.handleChange}
-                className="board-title-input mt-1 mb-1"
-                type="text"
-                name="boardTitle"
-                value={props.boardTitle}
-                autoComplete="off"
-                autoFocus="on"
-              />
-            </form>
+            <div className="mt-1">
+              <form onSubmit={props.unToggleUpdatingTitle}>
+                <input
+                  onChange={props.handleChange}
+                  className="board-title-input mt-1 mb-2"
+                  type="text"
+                  name="boardTitle"
+                  value={props.boardTitle}
+                  autoComplete="off"
+                  autoFocus="on"
+                  />
+              </form>
+            </div>
           )}
           <div className="board-wrapper">
             <div className="board-contents">
@@ -52,6 +60,10 @@ function BoardDetailsView(props) {
             </div>
           </div>
         </div>
+
+        {props.showMenu ? (
+          <PopUpBox />
+        ) : ''}
       </div>
     );
 }

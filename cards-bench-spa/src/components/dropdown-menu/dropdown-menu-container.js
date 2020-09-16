@@ -46,6 +46,7 @@ class DropDownMenu extends Component {
             dropDownMenuItems={menuItems}
             toggleDropDownMenu={this.toggleDropDownMenu}
             toggle={this.state.toggle}
+            style={this.props.style}
           />
         );
     }

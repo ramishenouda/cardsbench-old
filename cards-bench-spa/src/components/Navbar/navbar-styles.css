@@ -14,7 +14,7 @@
 }
 
 .navbar .item:hover {
-    color: rgb(175, 102, 102);
+    color: rgba(185, 50, 50, 0.781);
 }
 
 .navbar .user-knownas {

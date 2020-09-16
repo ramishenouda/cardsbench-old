@@ -4,6 +4,12 @@
     background: transparent;
 }
 
+.list-to-add {
+    background-color: rgba(56, 56, 56, 0.616);
+    padding: 8px;
+    border-radius: 3px;
+}
+
 .list-view, .add-list-button {
     background-color: rgba(230, 230, 230, 0.329);
 }
@@ -15,15 +21,16 @@
 .list-view {
     width: 262px;
     max-width: 262px;
+    background: rgb(63, 63, 63);
+    overflow: hidden;
 }
 
-.list-view .list-title-change-input {
+.list-title-change-input {
     background: rgba(255, 255, 255, 0.205);
     border: none;
     outline: none;
-    height: 20px;
-    font-weight: 600;
-    max-width: 230px;
+    height: 26px;
+    max-width: 262px;
 }
 
 .toggle-adding-list-button, .list-to-add {
@@ -41,11 +48,15 @@
     background: rgba(255, 255, 255, 0.397);
 }
 
-.list-view .list-title {
-    max-width: 230px;
-    font-weight: 600;
-    color: rgb(0, 0, 0);
+.list-title-div {
+    font-weight: 500;
     cursor: pointer;
+    background: rgba(24, 24, 24, 0.987);
+    padding: 1px 5px 1px 5px;
+    color: #E4E6EB;
+    border-radius: 3px;
+    border: rgb(135, 135, 135) 1px solid;
+    margin-bottom: 3px;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
