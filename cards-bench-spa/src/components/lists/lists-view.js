@@ -1,24 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FormGroup, Form, Button } from 'react-bootstrap';
 
 import DropDownMenu from '../dropdown-menu/dropdown-menu-container'
-import PopUpBox from '../pop-up-box/pop-up-box-view'
+import PopUpBox from '../pop-up-box/pop-up-box-container'
 
 import Card from '../cards/cards-container';
 import './lists-style.css'
 
 function ListView(props) {
-    const [listViewPadding, setPadding] = useState(props.cards.length === 0 ? '' : 'p-2');
-
-    const addCardToList = (card) => {
-        setPadding('p-2')
-    }
-
-    const removeCardFromList = (cardId) => {
-        props.cards.pop();
-        setPadding(props.cards.length === 0 ? '' : 'p-2')
-    }
-
     const dropDownMenuItems = [
         <span onClick={() => props.toggleChangeOrder(props.listId, props.listOrder, props.listTitle)} className="button button-small button-info d-block mb-1" >
             Move
@@ -27,11 +16,6 @@ function ListView(props) {
             Delete
         </span>
     ]
-
-    const listsViewStyle = {
-        overflowY: props.cards.length > 4 ? 'scroll' : '',
-        maxHeight: props.maxHeight + 'px',
-    }
 
     let options = [];
 
@@ -53,11 +37,13 @@ function ListView(props) {
     )
 
     return (
-        <li className="list-group-item p-0 ml-3">
+        <li className="list-group-item p-0 ml-2">
             <div className="list-item">
             {
                 props.listToUpdateId === props.listId && !props.changingOrder ? (
-                    <input type="text" name="listTitleToUpdate" autoComplete="off" className="list-title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                    <div className="mb-1">
+                        <input type="text" name="listTitleToUpdate" autoComplete="off" className="list-title-change-input" value={props.listTitleToUpdate} onChange={props.handleChange} autoFocus='on'/>
+                    </div>
                 ) : (
                     <div className="list-title-div">
                         <span className="list-title" onClick={() => props.toggleChangeTitle(props.listId, props.listTitle, props.listOrder)}>
@@ -69,18 +55,21 @@ function ListView(props) {
                     </div>
                 )
             }
-            <div style={listsViewStyle} className={`list-view ${listViewPadding}`}>
+            <div className={`list-view`}>
                 {
                     props.listToUpdateId === props.listId && props.changingOrder ? (
-                        <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.changeListOrder()} cancelButtonFunction={() => props.toggleChangeOrder('')} />
+                        <PopUpBox 
+                            popUpBoxContent={popUpBoxContent} 
+                            confirmButtonFunction={() => props.changeListOrder()} 
+                            cancelButtonFunction={() => props.toggleChangeOrder('')} 
+                        />
                     ) : ('')
                 }
                 <div>
                     <ul className="list-group">
                         <Card 
+                            maxHeight={props.maxHeight + 'px'}
                             cards={props.cards} 
-                            addCardToList={addCardToList} 
-                            removeCardFromList={removeCardFromList}
                             listParams={props.listParams}
                             listId={props.listId} 
                         />

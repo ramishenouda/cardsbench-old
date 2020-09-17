@@ -5,7 +5,7 @@ import ErrorPage from '../error-page/error-page-view';
 
 import './board-details-style.css';
 import List from '../lists/lists-container';
-import PopUpBox from '../pop-up-box/pop-up-box-view';
+import PopUpBox from '../pop-up-box/pop-up-box-container';
 
 function BoardDetailsView(props) {
     if (props.loadingBoard) {

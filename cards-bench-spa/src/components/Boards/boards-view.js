@@ -2,10 +2,10 @@ import React from 'react';
 
 import ErrorPage from '../error-page/error-page-view';
 import LoaderView from '../loader/loader-view'
+import PopUpBox from '../pop-up-box/pop-up-box-container';
 
 import Board from './board-item'
 import './boards-style.css'
-import PopUpBox from '../pop-up-box/pop-up-box-view';
 
 function BoardsView(props) {
     if (props.loadingBoards) {
@@ -43,11 +43,9 @@ function BoardsView(props) {
 
     const PopUpBoxHTML = (
         <div className="mt-3">
-            <p>
-                <h3 style={{color: '#1c1e21'}} >
-                    Board Title
-                </h3>
-            </p>
+            <h3 style={{color: '#1c1e21'}} >
+                Board Title
+            </h3>
             <center>
                 <div className="mb-2">
                     <input type="text" autoFocus="on" 
@@ -133,18 +131,19 @@ function BoardsView(props) {
                     )}
                 </div>
             </div>
-            {props.toggleCreatingBoard === true ? (
-                <div>
-                    <PopUpBox
-                        style={popUpBoxStyle} 
-                        popUpBoxContent={PopUpBoxHTML}
-                        cancelButtonFunction={props.toggleCreatingBoardWindow} 
-                        confirmButtonFunction={props.createBoard}
-                        disableConfirmButton={props.boardName.length < 1}
-                    />
-                </div>
-            ) : (''
-            )}
+            {
+                props.toggleCreatingBoard === true ? (
+                    <div>
+                        <PopUpBox
+                            style={popUpBoxStyle} 
+                            popUpBoxContent={PopUpBoxHTML}
+                            cancelButtonFunction={props.toggleCreatingBoardWindow} 
+                            confirmButtonFunction={props.createBoard}
+                            disableConfirmButton={props.boardName.length < 1}
+                        />
+                    </div>
+                ) : ('')
+            }
       </div>
     );
 }

@@ -32,6 +32,6 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb:horizontal, ::-webkit-scrollbar-thumb:vertical{
-    background: rgb(148, 66, 66);
+    background: rgb(141, 141, 141);
     border-radius: 10px;
 }

@@ -4,6 +4,12 @@
     background: transparent;
 }
 
+.list-item {
+    background: #ebecf0;
+    padding: 10px 10px 0px 10px;
+    border-radius: 5px;
+}
+
 .list-to-add {
     background-color: rgba(56, 56, 56, 0.616);
     padding: 8px;
@@ -19,18 +25,19 @@
 }
 
 .list-view {
-    width: 262px;
-    max-width: 262px;
-    background: rgb(63, 63, 63);
+    width: 272px;
+    max-width: 272px;
     overflow: hidden;
+    overflow-y: scroll;
 }
 
 .list-title-change-input {
     background: rgba(255, 255, 255, 0.205);
-    border: none;
     outline: none;
-    height: 26px;
-    max-width: 262px;
+    height: 25px;
+    width: 100%;
+    border: 2px solid rgb(255, 255, 255);
+    margin-left: 1px;
 }
 
 .toggle-adding-list-button, .list-to-add {
@@ -50,12 +57,8 @@
 
 .list-title-div {
     font-weight: 500;
-    cursor: pointer;
-    background: rgba(24, 24, 24, 0.987);
     padding: 1px 5px 1px 5px;
-    color: #E4E6EB;
-    border-radius: 3px;
-    border: rgb(135, 135, 135) 1px solid;
+    color: #172b4d;
     margin-bottom: 3px;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -63,6 +66,10 @@
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
+}
+
+.list-title-div .list-title {
+    cursor: pointer;
 }
 
 .list-dropdown-menu {

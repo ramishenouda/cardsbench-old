@@ -2,12 +2,14 @@ import React from 'react'
 import { Form, FormGroup } from 'react-bootstrap';
 
 import DropDownMenu from '../dropdown-menu/dropdown-menu-container'
-import PopUpBox from '../pop-up-box/pop-up-box-view'
+import PopUpBox from '../pop-up-box/pop-up-box-container'
 
 import './cards-style.css';
 
 function CardView(props) {
-    const display = props.options.length > 2 ? 'd-block' : '';
+    const display = props.options.length < 3 ? '' : 'd-block'
+    const setBottom = (props.card.order > props.options.length - 2) && (props.card.order !== 0 && props.options.length > 1) ? true : false;
+
     const dropDownMenuItems = [
       <span
         onClick={() => props.toggleMoving(props.card.cardId, props.card.order, props.card.title)}
@@ -23,12 +25,7 @@ function CardView(props) {
       </span>,
     ];
 
-    const layoutBoolean = props.card.order > props.options.length - 2;
-
-    const dropdownMenuStyle = {
-      bottom: layoutBoolean ? 0 : '',
-      top: !layoutBoolean ? 0 : ''
-    }
+    const dropdownMenuStyle = { top: !setBottom ? 0 : '', bottom: setBottom ? 0 : '' }
 
     let options = [];
     for (let index = 0; index < props.options.length; index++) {
@@ -50,7 +47,7 @@ function CardView(props) {
     return (
       <div>
         {props.updatingCardId !== props.card.cardId || props.changingOrder || props.addingCard? (
-          <li className="card list-group-item mb-2">
+          <li className={`card list-group-item mb-1`}>
             <span className="float-right">
               <DropDownMenu style={dropdownMenuStyle} dropDownMenuItems={dropDownMenuItems} />
             </span>
@@ -76,7 +73,11 @@ function CardView(props) {
 
         {
           props.updatingCardId === props.card.cardId && props.changingOrder ? (
-              <PopUpBox popUpBoxContent={popUpBoxContent} confirmButtonFunction={() => props.moveCard()} cancelButtonFunction={() => props.toggleMoving('')} />
+              <PopUpBox 
+                popUpBoxContent={popUpBoxContent} 
+                confirmButtonFunction={() => props.moveCard()} 
+                cancelButtonFunction={() => props.toggleMoving('')} 
+              />
           ) : ('')
         }
       </div>
@@ -98,7 +99,7 @@ function AddCardView(props) {
                   </li>
               </div>
             ) : (
-              <div className="add-card-menu mb-2">
+              <div className="add-card-menu">
                 <li>
                     <form onSubmit={props.addCard}>
                         <input
@@ -115,7 +116,7 @@ function AddCardView(props) {
                           disabled={props.cardTitle.trim() === ''} 
                           onClick={props.addCard} 
                           type="submit" 
-                          className="ml-2 add-button"
+                          className="ml-2 add-button btn-success btn"
                         > 
                           +
                         </span>

@@ -72,7 +72,6 @@ class Card extends Component {
 
         CardsService.addCard(this.state.cardTitle, this.state.ControllerParams)
             .then((result) => {
-                this.props.addCardToList(result.data);
                 this.setState(prevState => {
                     prevState.cards.push(result.data)
                     return {cards: prevState.cards}
@@ -95,7 +94,6 @@ class Card extends Component {
 
                     CardsService.deleteCard(cardId, this.state.ControllerParams)
                         .then(() => {
-                            this.props.removeCardFromList(cardId);
                             this.setState(prevState => {
                                 prevState.cards = prevState.cards.filter(x => x.cardId !== cardId)
                                     .map(card => {
@@ -308,7 +306,7 @@ class Card extends Component {
     
         return (
             <>
-                <div className="card-container">
+                <div style={{maxHeight: this.props.maxHeight }} className="cards-container mb-2">
                     {
                         this.state.showSavingLoader ? (
                             <div>
@@ -323,19 +321,21 @@ class Card extends Component {
                     }
                     {
                         cards.length > 0 ? (
-                            <div className="cards-container" >
+                            <>
                                 { cards }
-                            </div>
+                            </>
                         ) : ('')
                     }
                 </div>
-                <AddCardView
-                    handleChange={this.handleChange}
-                    toggleAddingCard={this.toggleAddingCard}
-                    addingCard={this.state.addingCard}
-                    addCard={this.addCard}
-                    cardTitle={this.state.cardTitle}
-                />
+                <div className="mt-2 mb-2">
+                    <AddCardView
+                        handleChange={this.handleChange}
+                        toggleAddingCard={this.toggleAddingCard}
+                        addingCard={this.state.addingCard}
+                        addCard={this.addCard}
+                        cardTitle={this.state.cardTitle}
+                    />
+                </div>
             </>
 
         );

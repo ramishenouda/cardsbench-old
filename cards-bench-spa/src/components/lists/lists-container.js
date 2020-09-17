@@ -44,17 +44,21 @@ class List extends Component {
 
         window.removeEventListener('click', this.CancelAddingList);
         window.removeEventListener('keyup', this.CancelAddingList);
+
+        window.removeEventListener('resize', this.updateMaxHeight);
     }
 
     updateMaxHeight = () => {
         let offSet = 197
-        if(window.screen.availHeight === 812 || window.screen.availHeight === 823 )
+        if (window.screen.availHeight === 812 || window.screen.availHeight === 823)
             offSet = 202
 
+        else if (window.screen.availHeight === 1024)
+            offSet = 235
         const screenOffset = window.screen.availHeight - window.innerHeight;
         const maxHeight = window.screen.availHeight - Math.abs(screenOffset + offSet);
 
-        this.setState({ maxHeight: maxHeight });
+        this.setState({ maxHeight: maxHeight - 25});
     }
 
     handleChange = (event) => {
@@ -79,6 +83,7 @@ class List extends Component {
 
     toggleChangeTitle = (listId, currentListTitle, order) => {
         this.setState({
+            changingOrder: false,
             listToUpdateId: listId,
             currentListTitle: currentListTitle,
             listTitleToUpdate: currentListTitle, 
@@ -140,7 +145,7 @@ class List extends Component {
             order: this.state.newListOrder
         });
 
-        this.toggleChangeOrder();
+        this.toggleChangeOrder('');
     }
 
     addList = (event) => {

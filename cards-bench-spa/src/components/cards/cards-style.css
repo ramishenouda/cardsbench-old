@@ -1,5 +1,12 @@
-.card-container .card {
-    padding: 5px;
+.cards-container {
+    margin-top: 1px;
+    overflow-y: scroll;
+}
+
+.cards-container .card {
+    padding: 8px 8px 2px !important;
+    position: relative;
+    border-radius: 3px !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
     -ms-word-break: break-all;
@@ -8,55 +15,52 @@
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-    background: rgba(0, 0, 0, 0.335) !important;
+    background: #fff !important;
     cursor: pointer;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    color: #172b4d;
+}
+
+.cards-container .card-title {
+    font-weight: 400;
+    font-size: medium;
 }
 
 .add-card-view .add-card-button {
-    position: absolute;
     bottom: -35px;
     background: rgba(255, 255, 255, 0.205);
     font-weight: 500;
     cursor: pointer;
-    padding: 3px 150px 3px 3px;
-    border-radius: 2px;
+    padding: 1px 150px 1px 3px;
+    border-radius: 3px;
+    color: #5e6c84;
+    display: block;
+    flex: 1 auto;
 }
 
 .add-card-view .add-card-button:hover {
-    background: rgba(255, 255, 255, 0.363);
+    background: rgba(209, 209, 209, 0.782);
 }
 
 .add-card-menu {
-    position: absolute;
-    bottom: -58px;
     background: rgba(255, 255, 255, 0.205);
     font-weight: 500;
     cursor: pointer;
-    padding: 8px 15px 8px 15px;
 }
 
 .add-card-menu .card-input-text {
-    width: 180px;
+    width: 200px;
     outline: none;
 }
 
 .add-card-menu .add-button {
     color: rgb(28, 28, 28);
-    background: rgba(255, 255, 255, 0.562);
-    padding: 2px 8px 2px 8px;
+    padding: 1.5px 10px 1.5px 10px;
     border-radius: 2px;
 }
 
-.add-card-menu .add-button:hover {
-    color: rgb(28, 28, 28);
-    background: rgba(255, 255, 255, 0.37);
-    padding: 2px 8px 2px 8px;
-    border-radius: 2px;
-}
-
-.card-container .card-title-change-input {
+.cards-container .card-title-change-input {
     background: rgba(255, 255, 255, 0.205);
-    color: white;
     border: none;
     outline: none;
     resize: none;
