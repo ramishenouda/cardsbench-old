@@ -63,7 +63,6 @@ function BoardsView(props) {
     );
 
     const popUpBoxStyle = {
-        verticalAlign: 'middle',
         background: 'rgba(255, 255, 255, 0.8)',
         width: window.innerWidth > 767 ? '600px' : '',
         height: '200px',

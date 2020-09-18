@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
+import Notify from '../../services/sweetalert-service'
 import LoaderView from './../loader/loader-view'
 
 import * as BoardsService from '../../services/boards-service'
@@ -64,6 +66,23 @@ class BoardDetails extends Component {
         this.setState({ showMenu: !this.state.showMenu })
     }
 
+    deleteBoard = (boardId) => {
+        Notify.warning('Are you sure?', 'You won\'t be able to revert this!')
+            .then(result => {
+                if (result.value) {
+                    this.setState({deletingBoard: true});
+                    BoardsService.deleteBoard(boardId, this.state.userId)
+                        .then(() => {
+                            Notify.success('Board has been deleted!', '', false, '', 'center');
+                            this.setState({ boardDeleted: true })
+                        }).catch((err) => {
+                            Notify.error('Error', '', true);
+                            console.log(err);
+                        });
+                }
+            })
+    }
+
     unToggleUpdatingTitle = (event) => {
         event.preventDefault();
         if (
@@ -124,6 +143,9 @@ class BoardDetails extends Component {
     }
 
     render() {
+        if (this.state.boardDeleted)
+            return <Redirect to='/boards' />
+
         return (
             <div>
                 {
@@ -151,6 +173,8 @@ class BoardDetails extends Component {
                   unToggleUpdatingTitle={this.unToggleUpdatingTitle}
                   showMenu={this.state.showMenu}
                   toggleMenu={this.toggleMenu}
+                  deleteBoard={this.deleteBoard}
+                  boardId={this.state.board.boardId}
                 />
             </div>
         );

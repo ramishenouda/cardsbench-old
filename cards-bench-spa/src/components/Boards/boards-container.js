@@ -73,30 +73,6 @@ class Boards extends Component {
             });
     }
 
-    deleteBoard = (boardId) => {
-        Notify.warning('Are you sure?', 'You won\'t be able to revert this!')
-            .then(result => {
-                if (result.value) {
-                    this.setState({deletingBoard: true});
-                    BoardsService.deleteBoard(boardId, this.state.userId)
-                        .then(() => {
-                            this.setState(prevState => {
-                                prevState.boards = prevState.boards.filter((board) => board.boardId !== boardId);
-                                return {
-                                    board: prevState.boards,
-                                    deletingBoard: false
-                                };
-                            }, () => {
-                                Notify.success('Board has been deleted!', '', false, '', 'center');
-                            })
-                        }).catch((err) => {
-                            Notify.error('Error', '', true);
-                            console.log(err);
-                        });
-                }
-            })
-    }
-
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });

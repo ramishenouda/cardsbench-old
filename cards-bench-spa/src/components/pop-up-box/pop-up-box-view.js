@@ -7,14 +7,15 @@ function PopUpBox(props) {
     const confirmButtonText = props.confirmButtonText;
     const cancelButtonText = props.cancelButtonText;
     const style = props.style;
+    const margin = props.showCancelButton ? 'ml-1' : '';
 
     return (
+
         <div className="pop-up-box text-center container" style={style}>
             <Form>
-                <div className="mb-1">
+                <center>
                     { props.popUpBoxContent }
-                </div>
-                <div>
+                </center>
                     <FormGroup>
                         {
                             props.showCancelButton ? (
@@ -31,7 +32,7 @@ function PopUpBox(props) {
                             props.showConfirmButton ? (
                                 <Button
                                     type="submit"
-                                    className="button button-success button-small ml-1" 
+                                    className={"button button-success button-small " + margin}
                                     onClick={props.onConfirmClick}
                                     disabled={props.disableConfirmButton}
                                 >
@@ -40,7 +41,6 @@ function PopUpBox(props) {
                             ) : ('')
                         }
                     </FormGroup>
-                </div>
             </Form>
         </div>
     )
