@@ -19,6 +19,8 @@ class BoardDetails extends Component {
         showSavingLoader: false,
         savingLoaderText: 'Updating title...',
         showMenu: false,
+        invitingPeople: false,
+        peopleEmails: '',
     }
 
     componentDidMount() {
@@ -33,6 +35,30 @@ class BoardDetails extends Component {
         window.removeEventListener('keyup', this.unToggleUpdatingTitle);
     }
 
+    toggleInvitingPeople = () => {
+        this.setState({ invitingPeople: !this.state.invitingPeople, showMenu: !this.state.showMenu })
+    }
+
+    invitePeople = (event) => {
+        event.preventDefault();
+
+        this.setState({ showSavingLoader: true, savingLoaderText: 'Working on it...' })
+
+        const emailsToInvite = this.state.peopleEmails.split(',');
+        for(let i = 0; i < emailsToInvite.length; i++) {
+            emailsToInvite[i] = emailsToInvite[i].trim()
+        }
+
+        BoardsService.addUsersToBoard(this.state.userId, this.state.board.boardId, emailsToInvite)
+            .then((result) => {
+                Notify.success('Users have been added successfully.');
+            }).catch((err) => {
+                console.log(err);
+                Notify.error('Error try reloading the page.');
+            }).finally(() => {
+                this.setState({ showSavingLoader: false })
+            });
+    }
 
     loadBoard = () => {
         const boardId = window.location.pathname.slice(8, 16);
@@ -111,10 +137,9 @@ class BoardDetails extends Component {
 
             this.setState((prevState) => {
                 prevState.board.boardName = boardInfo.boardName;
-                prevState.showSavingLoader = true;
                 return {
                     board: prevState.board,
-                    showSavingLoader: prevState.showSavingLoader,
+                    showSavingLoader: true,
                     savingLoaderText: 'Updating title...'
                 }
             })
@@ -175,6 +200,10 @@ class BoardDetails extends Component {
                   toggleMenu={this.toggleMenu}
                   deleteBoard={this.deleteBoard}
                   boardId={this.state.board.boardId}
+                  toggleInvitingPeople={this.toggleInvitingPeople}
+                  invitingPeople={this.state.invitingPeople}
+                  invitePeople={this.invitePeople}
+                  peopleEmails={this.state.peopleEmails}
                 />
             </div>
         );

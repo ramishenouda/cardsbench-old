@@ -91,12 +91,12 @@ namespace CardsBench.API.Controllers
             if(board.OwnerId != userId)
                 return Unauthorized();
 
-            foreach (var userEmail in usersToBeAddedToBoard.UsersEmail)
+            foreach (var userEmail in usersToBeAddedToBoard.UsersEmails)
             {
                 var userToAdd = await _userManager.FindByEmailAsync(userEmail);       
          
                 if (userToAdd == null)
-                    return BadRequest(userToAdd.Email + " is not found.");
+                    return BadRequest(userEmail + " is not found.");
 
                 userToAdd.UserBoards = new List<UserBoards>
                 {
@@ -107,7 +107,6 @@ namespace CardsBench.API.Controllers
                     }
                 };
             }
-
 
             if(await _repo.SaveAll())
                 return Ok();

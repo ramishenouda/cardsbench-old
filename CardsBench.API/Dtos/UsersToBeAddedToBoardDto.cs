@@ -4,7 +4,7 @@ namespace CardsBench.API.Dtos
 {
     public class UsersToBeAddedToBoardDto
     {
-        public List<string> UsersEmail { get; set; }
+        public List<string> UsersEmails { get; set; }
         public string BoardId { get; set; }
     }
 }

@@ -13,12 +13,13 @@ class PopUpBox extends Component {
         const popUpBoxContent = this.props.popUpBoxContent 
     
         const confirmButtonText = this.props.confirmButtonText === undefined ? 'Confirm' : this.props.confirmButtonText
-        const showConfirmButton = this.props.showConfirmButton === undefined ? true : false;
+        const showConfirmButton = this.props.showConfirmButton === undefined ? true : this.props.showConfirmButton;
         const onConfirmButtonClick = this.props.confirmButtonFunction
         const disableConfirmButton = this.props.disableConfirmButton
         
         const cancelButtonText = this.props.cancelButtonText === undefined ? 'Cancel' : this.props.cancelButtonText
-        const showCancelButton = this.props.showCancelButton === undefined ? true : false;
+        const showCancelButton = this.props.showCancelButton === undefined ? true : this.props.showCancelButton;
+
         const onCancelButtonClick = this.props.cancelButtonFunction
         const disableCancelButton = this.props.disableCancelButton
 

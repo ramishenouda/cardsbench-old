@@ -47,7 +47,7 @@ function BoardsView(props) {
                 Board Title
             </h3>
             <center>
-                <div className="mb-2">
+                <div className="mb-4">
                     <input type="text" autoFocus="on" 
                         onChange={props.handleChange}  
                         name="boardName" 
@@ -70,9 +70,19 @@ function BoardsView(props) {
         position:'fixed'
     }
 
+    const popUpBoxIsOpen = props.toggleCreatingBoard ? true : false;
+
+    const styleWhenPopUpBox = {
+        opacity: popUpBoxIsOpen ? 0.4 : 1,
+        pointerEvents: popUpBoxIsOpen ? 'none' : '',
+        WebkitUserSelect: popUpBoxIsOpen? 'none' : '',
+        msUserSelect: popUpBoxIsOpen? 'none' : '',
+        userSelect: popUpBoxIsOpen? 'none' : ''
+      }
+
     return (
         <div>
-            <div className="boards-view">
+            <div style={styleWhenPopUpBox} className="boards-view">
                 <div className="text-right mt-3 mb-3 mr-5 ">
                     {!props.creatingBoard && !props.deletingBoard && boardsToShow.length > 0 ? (
                         <button
