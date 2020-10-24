@@ -1,9 +1,10 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
+import { APIURI as URI } from '../environment/env';
 
 async function Login(loginInfo) {
     const options = {
-        url: 'http://localhost:5000/api/auth/login',
+        url: URI + 'auth/login',
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -31,7 +32,7 @@ function Logout() {
 
 async function Register(registerInfo) {
     const options = {
-        url: 'http://localhost:5000/api/auth/register',
+        url: URI + 'auth/register',
         method: 'POST',
         headers: {
             Accept: 'application/json',

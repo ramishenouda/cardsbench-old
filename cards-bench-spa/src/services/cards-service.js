@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { APIURI as URI } from '../environment/env';
 
 export async function getCard(cardId, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards/${cardId}`,
+        url: `${URI}${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards/${cardId}`,
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -15,7 +16,7 @@ export async function getCard(cardId, controllerParams) {
 
 export async function addCard(cardTitle, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
+        url: `${URI}${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -32,7 +33,7 @@ export async function addCard(cardTitle, controllerParams) {
 
 export async function deleteCard(cardId, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards/${cardId}`,
+        url: `${URI}${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards/${cardId}`,
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
@@ -45,7 +46,7 @@ export async function deleteCard(cardId, controllerParams) {
 
 export async function updateCard(cardInfo, controllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
+        url: `${URI}${controllerParams.userId}/${controllerParams.boardId}/${controllerParams.listId}/cards`,
         method: 'PUT',
         headers: {
             Accept: 'application/json',

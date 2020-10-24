@@ -17,6 +17,10 @@ class Navbar extends Component {
     loggingIn: false,
   };
 
+  componentWillUnmount() {
+    this.setState({email: '', password: ''});
+  }
+
   toggleLogin = () => {
     this.setState({ showLoginBar: !this.state.showLoginBar });
   };
@@ -32,6 +36,7 @@ class Navbar extends Component {
     
     Login(loginInfo).finally(() => {
       if (localStorage.getItem('token') !== null) {
+        this.setState({email: '', password: ''});
         this.props.changeAuthenticationState();
         Notify.success('Welcome ' + JSON.parse(localStorage.getItem('user')).knownAs, 'Have a nice day.', false, '');
       } else {
@@ -40,7 +45,6 @@ class Navbar extends Component {
 
       this.setState({loggingIn: false});
     })
-  
   };
 
   logout = (event) => {

@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { APIURI as URI } from '../environment/env';
 
 export async function getList(listId, listControllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists/${listId}`,
+        url: `${URI}${listControllerParams.userId}/${listControllerParams.boardId}/lists/${listId}`,
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -15,7 +16,7 @@ export async function getList(listId, listControllerParams) {
 
 export async function addList(listTitle, listControllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists`,
+        url: `${URI}${listControllerParams.userId}/${listControllerParams.boardId}/lists`,
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -32,7 +33,7 @@ export async function addList(listTitle, listControllerParams) {
 
 export async function deleteList(listId, listControllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists/${listId}`,
+        url: `${URI}${listControllerParams.userId}/${listControllerParams.boardId}/lists/${listId}`,
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
@@ -46,7 +47,7 @@ export async function deleteList(listId, listControllerParams) {
 
 export async function updateList(listInfo, listControllerParams) {
     const options = {
-        url: `http://localhost:5000/api/${listControllerParams.userId}/${listControllerParams.boardId}/lists`,
+        url: `${URI}${listControllerParams.userId}/${listControllerParams.boardId}/lists`,
         method: 'PUT',
         headers: {
             Accept: 'application/json',

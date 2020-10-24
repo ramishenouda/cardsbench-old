@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { APIURI as URI } from '../environment/env';
 
 export async function createBoard(boardInfo, userId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/`,
+        url: `${URI}${userId}/boards/`,
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -19,7 +20,7 @@ export async function createBoard(boardInfo, userId) {
 
 export async function getBoard(userId, boardId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/${boardId}`,
+        url: `${URI}${userId}/boards/${boardId}`,
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -32,7 +33,7 @@ export async function getBoard(userId, boardId) {
 
 export async function addUsersToBoard(userId, boardId, usersEmail) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/addusers`,
+        url: `${URI}${userId}/boards/addusers`,
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -50,7 +51,7 @@ export async function addUsersToBoard(userId, boardId, usersEmail) {
 
 export async function deleteBoard(boardId, userId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/${boardId}`,
+        url: `${URI}${userId}/boards/${boardId}`,
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -62,7 +63,7 @@ export async function deleteBoard(boardId, userId) {
 
 export async function updateBoard(userId, boardInfo) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/`,
+        url: `${URI}${userId}/boards/`,
         method: 'PUT',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -78,7 +79,7 @@ export async function updateBoard(userId, boardInfo) {
 
 export async function getUserBoards(userId) {
     const options = {
-        url: `http://localhost:5000/api/${userId}/boards/userboards`,
+        url: `${URI}${userId}/boards/userboards`,
         method: 'GET',
         headers: {
             Accept: 'application/json',

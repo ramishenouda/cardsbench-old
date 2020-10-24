@@ -102,7 +102,7 @@ class BoardDetails extends Component {
                             Notify.success('Board has been deleted!', '', false, '', 'center');
                             this.setState({ boardDeleted: true })
                         }).catch((err) => {
-                            Notify.error('Error', '', true);
+                            Notify.error('Only user owner can delete the board.', '', 'I Understand.');
                             console.log(err);
                         });
                 }

@@ -71,7 +71,6 @@ namespace CardsBench.API
             services.AddControllers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -85,7 +84,8 @@ namespace CardsBench.API
                 AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
             app.UseAuthentication();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

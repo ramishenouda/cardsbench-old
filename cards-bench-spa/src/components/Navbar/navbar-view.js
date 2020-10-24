@@ -82,10 +82,10 @@ function NavbarView(props) {
   } else {
     form = (
       <form className="form-inline">
-        <span onClick={props.toggleLogin} className="btn btn-outline-dark text-light mr-2 my-2 my-sm-0">
+        <span onClick={props.toggleLogin} className="btn btn-outline-dark text-light mr-2 my-sm-0">
           Login
         </span>
-        <Link to="/register" className="btn btn-outline-light my-2 my-sm-0">
+        <Link to="/register" className="btn btn-outline-light my-sm-0">
           Register
         </Link>
       </form>
@@ -93,12 +93,10 @@ function NavbarView(props) {
   }
 
   return (
-    <div className="navbar-wrapper">
-      <nav className="navbar w-100">
+      <nav className="navbar w-100 pt-0 pb-0">
         <Link to="/" className="navbar-brand"> CardsBench </Link>
         { form }
       </nav>
-    </div>
   );
 }
 

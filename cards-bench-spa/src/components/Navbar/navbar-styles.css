@@ -30,8 +30,7 @@ nav {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-
-    height: 55px;
+    height: 45px;
     width: 100%;
     background: rgb(0,0,0);
     background: -moz-linear-gradient(270deg, rgba(0,0,0,0.6811099439775911) 22%, rgba(0,0,0,0.5970763305322129) 100%);
