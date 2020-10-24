@@ -37,7 +37,7 @@ function ListView(props) {
     )
 
     return (
-        <li className="list-group-item p-0 ml-2">
+        <li onClick={() => props.toggleDrag(props.listId)} className="list-group-item p-0 ml-2">
             <div className="list-item">
             {
                 props.listToUpdateId === props.listId && !props.changingOrder ? (
@@ -83,7 +83,7 @@ function ListView(props) {
 
 function ListToAdd(props) {
     return (
-        <li className="list-group-item p-0 ml-2">
+        <li style={{left: props.numberOfLists * 300 + 5 + 'px'}} className="list-group-item list-add p-0 ml-2">
             { props.addingList === false ? (
                     <div onClick={props.toggleListAddition} className="toggle-adding-list-button p-2">
                         +  Add list 

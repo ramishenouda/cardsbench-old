@@ -2,7 +2,7 @@
     display: inline-block;
     text-decoration: none;
     background: transparent;
-    padding: 10px 40px;
+    padding: 8px 35px;
     font-weight: 500;
     cursor: pointer;
     outline: none;
@@ -28,7 +28,7 @@
 }
 
 .button-small {
-    padding: 5px 20px !important;
+    padding: 4px 17.5px !important;
 }
 
 .button-danger {

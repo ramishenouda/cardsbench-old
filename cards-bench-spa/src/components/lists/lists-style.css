@@ -75,3 +75,7 @@
 .list-dropdown-menu {
     float: right;
 }
+
+.list-add {
+    position: absolute;
+}

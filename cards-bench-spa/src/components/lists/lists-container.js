@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import LoaderView from './../loader/loader-view'
 import Notify from '../../services/sweetalert-service'
-
 import * as ListsService from '../../services/lists-service' 
+import Moveable from '../moveable/moveable-container';
 import ListView, { ListToAdd } from './lists-view';
 
 
@@ -262,28 +262,33 @@ class List extends Component {
             })
     }
 
+    toggleDrag = (listId) => {
+    }
+
     render() {
-        const lists = this.state.lists.map((list) => (
-          <ListView
-            key={list.listId}
-            listParams={this.state.listsControllerParams}
-            listId={list.listId}
-            listTitle={list.title}
-            listOrder={list.order}
-            changingOrder={this.state.changingOrder}
-            cards={list.cards}
-            deleteList={this.deleteList}
-            toggleChangeTitle={this.toggleChangeTitle}
-            listTitleToUpdate={this.state.listTitleToUpdate}
-            listToUpdateId={this.state.listToUpdateId}
-            toggleChangeOrder={this.toggleChangeOrder}
-            changeListOrder={this.changeListOrder}
-            handleChange={this.handleChange}
-            showSavingLoader={this.state.showSavingLoader}
-            numberOfLists={this.state.lists.length}
-            maxHeight={this.state.maxHeight}
-          />
-        ));
+        const lists = this.state.lists.map((list, index) => {
+            const l = <ListView
+              listParams={this.state.listsControllerParams}
+              listId={list.listId}
+              listTitle={list.title}
+              listOrder={list.order}
+              changingOrder={this.state.changingOrder}
+              cards={list.cards}
+              deleteList={this.deleteList}
+              toggleChangeTitle={this.toggleChangeTitle}
+              listTitleToUpdate={this.state.listTitleToUpdate}
+              listToUpdateId={this.state.listToUpdateId}
+              toggleChangeOrder={this.toggleChangeOrder}
+              changeListOrder={this.changeListOrder}
+              handleChange={this.handleChange}
+              showSavingLoader={this.state.showSavingLoader}
+              numberOfLists={this.state.lists.length}
+              maxHeight={this.state.maxHeight}
+              toggleDrag={this.toggleDrag}
+            />
+
+            return <Moveable key={list.listId} index={index} component={l} />
+        });
 
         return (
             <div className="lists-container">
@@ -302,6 +307,7 @@ class List extends Component {
                 <ul className="lists list-group list-group-horizontal">
                     { lists }
                     <ListToAdd
+                        numberOfLists={this.state.lists.length}
                         toggleListAddition={this.toggleListAddition} // toggles the adding list property
                         addingList={this.state.addingList} // used to trigger the adding list menu
                         listTitle={this.state.listTitle}

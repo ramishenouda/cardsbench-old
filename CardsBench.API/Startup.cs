@@ -85,9 +85,9 @@ namespace CardsBench.API
                 AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
             app.UseAuthentication();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

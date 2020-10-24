@@ -45,7 +45,7 @@ function CardView(props) {
     )
 
     return (
-      <div>
+      <div onClick={() => props.toggleDrag(props.card.cardId)}>
         {props.updatingCardId !== props.card.cardId || props.changingOrder || props.addingCard? (
           <li className={`card list-group-item mb-1`}>
             <span className="float-right">
@@ -70,7 +70,6 @@ function CardView(props) {
               </textarea>
           </li>
         )}
-
         {
           props.updatingCardId === props.card.cardId && props.changingOrder ? (
               <PopUpBox 

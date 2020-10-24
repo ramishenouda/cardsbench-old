@@ -275,6 +275,10 @@ class Card extends Component {
         })
     }
 
+    toggleDrag = (cardId) => {
+        console.log(cardId);
+    }
+
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
@@ -301,6 +305,7 @@ class Card extends Component {
                 changingOrder={this.state.changingOrder}
                 options={options}
                 addingCard={this.state.addingCard}
+                toggleDrag={this.toggleDrag}
             />
         ));
     
