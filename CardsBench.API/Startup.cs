@@ -32,6 +32,14 @@ namespace CardsBench.API
             ConfigureServices(services);
         }
 
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DataContext>(options => options.UseSqlite(connectionString));
+
+            ConfigureServices(services);
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityCore<User>(opt =>

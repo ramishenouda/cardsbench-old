@@ -1,0 +1,11 @@
+version: "3"
+
+services: 
+    web:
+        image: aramii/cardsbench
+        build: .
+        ports: 
+            - 8080:80
+        container_name: cardsbench
+        environment:
+            - PORT=80
