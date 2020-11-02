@@ -1,0 +1,26 @@
+.Slider {
+    margin-bottom: 10px;
+}
+
+.Slider .current-slider-photo {
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(228, 228, 228, 0.898);
+}
+
+.Slider .arrow {
+    position: absolute;
+    bottom: 30%;
+    background: #eeeeee;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.5s;
+}
+
+.Slider .arrow:hover{
+    background: rgb(157, 190, 247);
+}
+
