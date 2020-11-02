@@ -1,0 +1,18 @@
+.home .responsive-photo {
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+}
+
+.home .contact-link {
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.home .contact-link:hover {
+    background: rgba(145, 67, 67, 0.815);
+}
+
+.home .how-it-works {
+    background: #313131;
+}

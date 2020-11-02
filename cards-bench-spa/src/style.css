@@ -35,3 +35,7 @@ ul {
     background: rgb(141, 141, 141);
     border-radius: 10px;
 }
+
+hr {
+    border-color: #a0a0a0 !important;
+}
