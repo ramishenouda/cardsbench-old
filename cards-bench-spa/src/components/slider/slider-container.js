@@ -10,13 +10,13 @@ class Slider extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.photos);
         if (this.props.photos) {
             this.setState({ photos: this.props.photos, currentPhoto: this.props.photos[0] });
         }
 
         window.addEventListener('resize', this.changeHeight);
         window.onload = this.changeHeight;
+        this.changeHeight();
     }
 
     changeHeight = () => {
@@ -24,9 +24,12 @@ class Slider extends Component {
         const currentSliderPhoto = document.querySelector('.current-slider-photo');
         const leftArrow = document.querySelector('.left-arrow');
         const rightArrow = document.querySelector('.right-arrow');
+        setTimeout(() => {
+            console.log(photosContainer.clientWidth, currentSliderPhoto.clientWidth);
+            leftArrow.style.left = ((photosContainer.clientWidth - currentSliderPhoto.clientWidth) / 2) + 'px';
+            rightArrow.style.right = ((photosContainer.clientWidth - currentSliderPhoto.clientWidth) / 2) + 'px';
+        }, 200);
 
-        leftArrow.style.left = ((photosContainer.clientWidth - currentSliderPhoto.clientWidth) / 2) + 'px';
-        rightArrow.style.right = ((photosContainer.clientWidth - currentSliderPhoto.clientWidth) / 2) + 'px';
     }
 
     nextPhoto = () => {

@@ -34,7 +34,7 @@ function HomeView(props) {
                     </div>
                     <div className="row mx-auto mt-4 mb-3">
                         <div className={`col-sm ${smallScreen ? 'text-center': 'text-left'}`}>
-                            <span className="button button-success">Register</span>
+                            <span onClick={ props.register } className="button button-success">Register</span>
                         </div>
                     </div>
                 </div>

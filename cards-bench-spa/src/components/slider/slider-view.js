@@ -8,19 +8,20 @@ import './slider-style.css';
 function Slider(props) {
     return (
         <section className="Slider text-center">
-            <span onClick={props.previousPhoto} className="arrow left-arrow">
-                <img src={leftArrow} width='40vw' alt="" />
-            </span>
-            <div onClick={props.nextPhoto} id="photos-container">
+            <div id="photos-container">
+                <span onClick={props.previousPhoto} className="arrow left-arrow">
+                    <img src={leftArrow} width='40vw' alt="" />
+                </span>
                 <img
+                    onClick={props.nextPhoto}
                     src={props.photo}
                     alt=""
                     className="current-slider-photo"
                 />
+                <span onClick={props.nextPhoto} className="arrow right-arrow">
+                    <img src={rightArrow} width='40vw' alt="" />
+                </span>
             </div>
-            <span onClick={props.nextPhoto} className="arrow right-arrow">
-                <img src={rightArrow} width='40vw' alt="" />
-            </span>
         </section>
     );
 }
